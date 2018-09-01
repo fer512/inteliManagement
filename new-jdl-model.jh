@@ -80,7 +80,7 @@ relationship OneToOne {
 }
 
 relationship OneToOne {
-	User{employee} to Employee{user} 
+	 Employee{user} to User{employee}
 }
 
 relationship OneToOne {
