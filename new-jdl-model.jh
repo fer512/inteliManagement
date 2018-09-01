@@ -1,0 +1,125 @@
+entity Company {
+	name String required,
+    email String required,
+    actived String required,
+    img String
+}
+
+entity Address {
+	country String required,
+    province String required,
+    locality String,
+	street String,
+	postalCode String,
+    locationX String,
+    locationY String
+}
+
+entity Approvals {
+	stastDate Instant,
+    endDate Instant,
+    status ApprovalsStatusType
+}
+
+entity Country {
+	name String required
+}
+
+entity Province {
+	name String required
+}
+
+entity Employee {
+	firstName String,
+	lastName String,
+	email String
+}
+
+entity Phone {
+	type PhoneType,
+	numpber String
+}
+
+entity Booking{
+	idTransaction String,
+    idReserveLocatorJuniper String,
+    idReserveLocatorExternal String,
+	detail String
+}
+
+entity Provider{
+	name String,
+    email String
+}
+
+entity Product{
+	name String
+}
+
+entity Notification{
+	name String,
+    stastDate Instant,
+    endDate Instant,
+    view Boolean
+}
+
+enum ApprovalsStatusType {
+    APPOVED, REJECTED, PENDING
+}
+
+enum PhoneType {
+    CELL_PHONE, HOME_PHONE, WORK_PHONE
+}
+
+relationship OneToOne {
+	Company{address} to Address
+}
+
+relationship OneToOne {
+	Employee{address} to Address
+}
+
+relationship OneToOne {
+	User{employee} to Employee{user} 
+}
+
+relationship OneToOne {
+	Provider{address} to Address
+}
+
+relationship OneToMany {
+	Country{provinces} to Province,
+    Employee{phones} to Phone
+}
+
+relationship OneToMany {
+	Company{user} to User{company}
+}
+
+relationship ManyToOne {
+	User{manager} to User
+}
+
+relationship OneToMany {
+	Company{providers} to Provider{company}
+}
+
+relationship OneToMany {
+	Provider{products} to Product{provider}
+}
+
+
+paginate User, Company, Booking, Providers, Approvals with pagination
+
+// Set pagination options
+paginate Country, User, Notification with infinite-scroll
+
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+// Set an angular suffix
+angularSuffix * with im
+
+filter Company, Provider, Product, User, Booking, Country, Notification, Approvals
