@@ -1,0 +1,26 @@
+
+{
+    "inteliManagementApp": {
+        "notification" : {
+            "home": {
+                "title": "Notifications",
+                "createLabel": "Criar novo Notification",
+                "createOrEditLabel": "Criar ou editar Notification"
+            },
+            "created": "Um novo Notification foi criado com o identificador {{ param }}",
+            "updated": "Um Notification foi atualizado com o identificador {{ param }}",
+            "deleted": "Um Notification foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Notification {{ id }}?"
+            },
+            "detail": {
+                "title": "Notification"
+            },
+            "name": "Name",
+            "stastDate": "Stast Date",
+            "endDate": "End Date",
+            "view": "View",
+            "employee": "Employee"
+        }
+    }
+}

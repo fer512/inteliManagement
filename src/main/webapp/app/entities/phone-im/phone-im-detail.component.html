@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="phone">
+            <h2><span jhiTranslate="inteliManagementApp.phone.detail.title">Phone</span> {{phone.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="inteliManagementApp.phone.type">Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'inteliManagementApp.PhoneType.' + phone.type}}">{{phone.type}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.phone.numpber">Numpber</span></dt>
+                <dd>
+                    <span>{{phone.numpber}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.phone.employee">Employee</span></dt>
+                <dd>
+                    <div *ngIf="phone.employeeId">
+                        <a [routerLink]="['/employee-im', phone.employeeId, 'view']">{{phone.employeeId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/phone-im', phone.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

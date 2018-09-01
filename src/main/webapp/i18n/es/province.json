@@ -1,0 +1,23 @@
+
+{
+    "inteliManagementApp": {
+        "province" : {
+            "home": {
+                "title": "Provinces",
+                "createLabel": "Crear nuevo Province",
+                "createOrEditLabel": "Crear o editar Province"
+            },
+            "created": "Un nuevo Province ha sido creado con el identificador {{ param }}",
+            "updated": "Un Province ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Province ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Province {{ id }}?"
+            },
+            "detail": {
+                "title": "Province"
+            },
+            "name": "Name",
+            "country": "Country"
+        }
+    }
+}

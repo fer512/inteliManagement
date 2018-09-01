@@ -1,0 +1,10 @@
+{
+    "inteliManagementApp": {
+        "ApprovalsStatusType" : {
+            "null": "",
+            "APPOVED": "APPOVED",
+            "REJECTED": "REJECTED",
+            "PENDING": "PENDING"
+        }
+    }
+}

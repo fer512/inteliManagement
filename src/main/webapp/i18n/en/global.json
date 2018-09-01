@@ -7,6 +7,17 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
+                "companyIm": "Company",
+                "addressIm": "Address",
+                "approvalsIm": "Approvals",
+                "countryIm": "Country",
+                "provinceIm": "Province",
+                "employeeIm": "Employee",
+                "phoneIm": "Phone",
+                "bookingIm": "Booking",
+                "providerIm": "Provider",
+                "productIm": "Product",
+                "notificationIm": "Notification",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

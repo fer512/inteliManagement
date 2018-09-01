@@ -1,0 +1,24 @@
+
+{
+    "inteliManagementApp": {
+        "approvals" : {
+            "home": {
+                "title": "Approvals",
+                "createLabel": "Create a new Approvals",
+                "createOrEditLabel": "Create or edit a Approvals"
+            },
+            "created": "A new Approvals is created with identifier {{ param }}",
+            "updated": "A Approvals is updated with identifier {{ param }}",
+            "deleted": "A Approvals is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Approvals {{ id }}?"
+            },
+            "detail": {
+                "title": "Approvals"
+            },
+            "stastDate": "Stast Date",
+            "endDate": "End Date",
+            "status": "Status"
+        }
+    }
+}

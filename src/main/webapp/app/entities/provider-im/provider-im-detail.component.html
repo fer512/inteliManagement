@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="provider">
+            <h2><span jhiTranslate="inteliManagementApp.provider.detail.title">Provider</span> {{provider.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="inteliManagementApp.provider.name">Name</span></dt>
+                <dd>
+                    <span>{{provider.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.provider.email">Email</span></dt>
+                <dd>
+                    <span>{{provider.email}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.provider.address">Address</span></dt>
+                <dd>
+                    <div *ngIf="provider.addressId">
+                        <a [routerLink]="['/address-im', provider.addressId, 'view']">{{provider.addressId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.provider.company">Company</span></dt>
+                <dd>
+                    <div *ngIf="provider.companyId">
+                        <a [routerLink]="['/company-im', provider.companyId, 'view']">{{provider.companyId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/provider-im', provider.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
