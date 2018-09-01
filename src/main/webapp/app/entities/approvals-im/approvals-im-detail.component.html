@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="approvals">
+            <h2><span jhiTranslate="inteliManagementApp.approvals.detail.title">Approvals</span> {{approvals.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="inteliManagementApp.approvals.stastDate">Stast Date</span></dt>
+                <dd>
+                    <span>{{approvals.stastDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.approvals.endDate">End Date</span></dt>
+                <dd>
+                    <span>{{approvals.endDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.approvals.status">Status</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'inteliManagementApp.ApprovalsStatusType.' + approvals.status}}">{{approvals.status}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/approvals-im', approvals.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

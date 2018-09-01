@@ -1,0 +1,24 @@
+
+{
+    "inteliManagementApp": {
+        "approvals" : {
+            "home": {
+                "title": "Approvals",
+                "createLabel": "Criar novo Approvals",
+                "createOrEditLabel": "Criar ou editar Approvals"
+            },
+            "created": "Um novo Approvals foi criado com o identificador {{ param }}",
+            "updated": "Um Approvals foi atualizado com o identificador {{ param }}",
+            "deleted": "Um Approvals foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Approvals {{ id }}?"
+            },
+            "detail": {
+                "title": "Approvals"
+            },
+            "stastDate": "Stast Date",
+            "endDate": "End Date",
+            "status": "Status"
+        }
+    }
+}

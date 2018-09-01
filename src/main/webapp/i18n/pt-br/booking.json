@@ -1,0 +1,26 @@
+
+{
+    "inteliManagementApp": {
+        "booking" : {
+            "home": {
+                "title": "Bookings",
+                "createLabel": "Criar novo Booking",
+                "createOrEditLabel": "Criar ou editar Booking"
+            },
+            "created": "Um novo Booking foi criado com o identificador {{ param }}",
+            "updated": "Um Booking foi atualizado com o identificador {{ param }}",
+            "deleted": "Um Booking foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Booking {{ id }}?"
+            },
+            "detail": {
+                "title": "Booking"
+            },
+            "idTransaction": "Id Transaction",
+            "idReserveLocatorJuniper": "Id Reserve Locator Juniper",
+            "idReserveLocatorExternal": "Id Reserve Locator External",
+            "detail": "Detail",
+            "company": "Company"
+        }
+    }
+}

@@ -1,0 +1,26 @@
+
+{
+    "inteliManagementApp": {
+        "provider" : {
+            "home": {
+                "title": "Providers",
+                "createLabel": "Criar novo Provider",
+                "createOrEditLabel": "Criar ou editar Provider"
+            },
+            "created": "Um novo Provider foi criado com o identificador {{ param }}",
+            "updated": "Um Provider foi atualizado com o identificador {{ param }}",
+            "deleted": "Um Provider foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Provider {{ id }}?"
+            },
+            "detail": {
+                "title": "Provider"
+            },
+            "name": "Name",
+            "email": "Email",
+            "address": "Address",
+            "products": "Products",
+            "company": "Company"
+        }
+    }
+}

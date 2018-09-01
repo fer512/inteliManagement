@@ -1,0 +1,29 @@
+{
+    "name": "Approvals",
+    "fields": [
+        {
+            "fieldName": "stastDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "endDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "ApprovalsStatusType",
+            "fieldValues": "APPOVED,REJECTED,PENDING"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20180901192838",
+    "entityTableName": "approvals",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "im"
+}

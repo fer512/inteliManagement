@@ -1,0 +1,10 @@
+{
+    "inteliManagementApp": {
+        "PhoneType" : {
+            "null": "",
+            "CELL_PHONE": "CELL_PHONE",
+            "HOME_PHONE": "HOME_PHONE",
+            "WORK_PHONE": "WORK_PHONE"
+        }
+    }
+}

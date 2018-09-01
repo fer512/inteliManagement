@@ -1,0 +1,32 @@
+{
+    "name": "Phone",
+    "fields": [
+        {
+            "fieldName": "type",
+            "fieldType": "PhoneType",
+            "fieldValues": "CELL_PHONE,HOME_PHONE,WORK_PHONE"
+        },
+        {
+            "fieldName": "numpber",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "employee",
+            "otherEntityName": "employee",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180901192842",
+    "entityTableName": "phone",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "im"
+}

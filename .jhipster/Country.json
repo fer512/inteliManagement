@@ -1,0 +1,30 @@
+{
+    "name": "Country",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "provinces",
+            "otherEntityName": "province",
+            "otherEntityRelationshipName": "country"
+        }
+    ],
+    "changelogDate": "20180901192839",
+    "entityTableName": "country",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "im"
+}

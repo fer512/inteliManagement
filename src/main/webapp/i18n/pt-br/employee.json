@@ -1,0 +1,30 @@
+
+{
+    "inteliManagementApp": {
+        "employee" : {
+            "home": {
+                "title": "Employees",
+                "createLabel": "Criar novo Employee",
+                "createOrEditLabel": "Criar ou editar Employee"
+            },
+            "created": "Um novo Employee foi criado com o identificador {{ param }}",
+            "updated": "Um Employee foi atualizado com o identificador {{ param }}",
+            "deleted": "Um Employee foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Employee {{ id }}?"
+            },
+            "detail": {
+                "title": "Employee"
+            },
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "email": "Email",
+            "address": "Address",
+            "user": "User",
+            "phones": "Phones",
+            "notifications": "Notifications",
+            "manager": "Manager",
+            "company": "Company"
+        }
+    }
+}
