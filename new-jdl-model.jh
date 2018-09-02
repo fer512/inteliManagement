@@ -29,12 +29,6 @@ entity Province {
 	name String required
 }
 
-entity Employee {
-	firstName String,
-	lastName String,
-	email String
-}
-
 entity Phone {
 	type PhoneType,
 	numpber String
@@ -76,12 +70,9 @@ relationship OneToOne {
 }
 
 relationship OneToOne {
-	Employee{address} to Address
+	User{address} to Address
 }
 
-relationship OneToOne {
-	 Employee{user} to User{employee}
-}
 
 relationship OneToOne {
 	Provider{address} to Address
@@ -89,17 +80,17 @@ relationship OneToOne {
 
 relationship OneToMany {
 	Country{provinces} to Province,
-    Employee{phones} to Phone
+    User{phones} to Phone
 }
 
 relationship OneToMany {
-	Company{employee} to Employee{company},
+	Company{user} to User{company},
     Company{bookings} to Booking{company},
-    Employee{notifications} to Notification{employee}
+    User{notifications} to Notification{employee}
 }
 
 relationship ManyToOne {
-	Employee{manager} to Employee
+	User{manager} to User
     
 }
 
@@ -112,10 +103,10 @@ relationship OneToMany {
 }
 
 
-paginate Employee, Company, Booking, Provider, Approvals with pagination
+paginate User, Company, Booking, Provider, Approvals with pagination
 
 // Set pagination options
-paginate Employee, Country, Notification with infinite-scroll
+paginate User, Country, Notification with infinite-scroll
 
 
 dto * with mapstruct
@@ -125,4 +116,4 @@ service all with serviceImpl
 // Set an angular suffix
 angularSuffix * with im
 
-filter Company, Provider, Product, Booking, Country, Notification, Approvals, Employee
+filter Company, Provider, Product, Booking, Country, Notification, Approvals, User
