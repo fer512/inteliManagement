@@ -1,13 +1,22 @@
 package ar.com.intelimanagement.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
-
-import java.io.Serializable;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import ar.com.intelimanagement.domain.enumeration.PhoneType;
 
@@ -34,8 +43,8 @@ public class Phone implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("phones")
-    private Employee employee;
-
+    private User user;
+    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -71,18 +80,6 @@ public class Phone implements Serializable {
         this.numpber = numpber;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public Phone employee(Employee employee) {
-        this.employee = employee;
-        return this;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -113,4 +110,14 @@ public class Phone implements Serializable {
             ", numpber='" + getNumpber() + "'" +
             "}";
     }
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+    
+    
 }

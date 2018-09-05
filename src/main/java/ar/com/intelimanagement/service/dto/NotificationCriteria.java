@@ -36,7 +36,7 @@ public class NotificationCriteria implements Serializable {
 
     private BooleanFilter view;
 
-    private LongFilter employeeId;
+    private LongFilter userId;
 
     public NotificationCriteria() {
     }
@@ -81,13 +81,6 @@ public class NotificationCriteria implements Serializable {
         this.view = view;
     }
 
-    public LongFilter getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(LongFilter employeeId) {
-        this.employeeId = employeeId;
-    }
 
     @Override
     public String toString() {
@@ -97,8 +90,16 @@ public class NotificationCriteria implements Serializable {
                 (stastDate != null ? "stastDate=" + stastDate + ", " : "") +
                 (endDate != null ? "endDate=" + endDate + ", " : "") +
                 (view != null ? "view=" + view + ", " : "") +
-                (employeeId != null ? "employeeId=" + employeeId + ", " : "") +
+                (userId != null ? "userId=" + userId + ", " : "") +
             "}";
     }
+
+	public LongFilter getUserId() {
+		return userId;
+	}
+
+	public void setUserId(LongFilter userId) {
+		this.userId = userId;
+	}
 
 }

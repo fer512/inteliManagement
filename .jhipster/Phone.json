@@ -13,8 +13,8 @@
     ],
     "relationships": [
         {
-            "relationshipName": "employee",
-            "otherEntityName": "employee",
+            "relationshipName": "user",
+            "otherEntityName": "user",
             "relationshipType": "many-to-one",
             "otherEntityField": "id"
         }

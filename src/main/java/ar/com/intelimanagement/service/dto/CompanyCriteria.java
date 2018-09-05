@@ -38,7 +38,7 @@ public class CompanyCriteria implements Serializable {
 
     private LongFilter addressId;
 
-    private LongFilter employeeId;
+    private LongFilter userId;
 
     private LongFilter bookingsId;
 
@@ -95,13 +95,6 @@ public class CompanyCriteria implements Serializable {
         this.addressId = addressId;
     }
 
-    public LongFilter getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(LongFilter employeeId) {
-        this.employeeId = employeeId;
-    }
 
     public LongFilter getBookingsId() {
         return bookingsId;
@@ -128,10 +121,18 @@ public class CompanyCriteria implements Serializable {
                 (actived != null ? "actived=" + actived + ", " : "") +
                 (img != null ? "img=" + img + ", " : "") +
                 (addressId != null ? "addressId=" + addressId + ", " : "") +
-                (employeeId != null ? "employeeId=" + employeeId + ", " : "") +
+                (userId != null ? "userId=" + userId + ", " : "") +
                 (bookingsId != null ? "bookingsId=" + bookingsId + ", " : "") +
                 (providersId != null ? "providersId=" + providersId + ", " : "") +
             "}";
     }
+
+	public LongFilter getUserId() {
+		return userId;
+	}
+
+	public void setUserId(LongFilter userId) {
+		this.userId = userId;
+	}
 
 }

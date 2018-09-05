@@ -38,7 +38,7 @@ public class Notification implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("notifications")
-    private Employee employee;
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -101,17 +101,17 @@ public class Notification implements Serializable {
         this.view = view;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public User getUser() {
+        return user;
     }
 
-    public Notification employee(Employee employee) {
-        this.employee = employee;
+    public Notification user(User user) {
+        this.user = user;
         return this;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setUser(User user) {
+        this.user = user;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

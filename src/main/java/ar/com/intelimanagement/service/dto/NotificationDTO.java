@@ -19,7 +19,7 @@ public class NotificationDTO implements Serializable {
 
     private Boolean view;
 
-    private Long employeeId;
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -61,14 +61,6 @@ public class NotificationDTO implements Serializable {
         this.view = view;
     }
 
-    public Long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -98,7 +90,15 @@ public class NotificationDTO implements Serializable {
             ", stastDate='" + getStastDate() + "'" +
             ", endDate='" + getEndDate() + "'" +
             ", view='" + isView() + "'" +
-            ", employee=" + getEmployeeId() +
+            ", user=" + getUserId() +
             "}";
     }
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 }

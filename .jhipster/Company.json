@@ -38,8 +38,8 @@
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "employee",
-            "otherEntityName": "employee",
+            "relationshipName": "user",
+            "otherEntityName": "user",
             "otherEntityRelationshipName": "company"
         },
         {

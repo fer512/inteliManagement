@@ -39,7 +39,7 @@ public class CacheConfiguration {
             cm.createCache(ar.com.intelimanagement.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Company.class.getName(), jcacheConfiguration);
-            cm.createCache(ar.com.intelimanagement.domain.Company.class.getName() + ".employees", jcacheConfiguration);
+            cm.createCache(ar.com.intelimanagement.domain.Company.class.getName() + ".users", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Company.class.getName() + ".bookings", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Company.class.getName() + ".providers", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Address.class.getName(), jcacheConfiguration);
@@ -47,9 +47,8 @@ public class CacheConfiguration {
             cm.createCache(ar.com.intelimanagement.domain.Country.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Country.class.getName() + ".provinces", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Province.class.getName(), jcacheConfiguration);
-            cm.createCache(ar.com.intelimanagement.domain.Employee.class.getName(), jcacheConfiguration);
-            cm.createCache(ar.com.intelimanagement.domain.Employee.class.getName() + ".phones", jcacheConfiguration);
-            cm.createCache(ar.com.intelimanagement.domain.Employee.class.getName() + ".notifications", jcacheConfiguration);
+            cm.createCache(ar.com.intelimanagement.domain.User.class.getName() + ".phones", jcacheConfiguration);
+            cm.createCache(ar.com.intelimanagement.domain.User.class.getName() + ".notifications", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Phone.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Booking.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Provider.class.getName(), jcacheConfiguration);

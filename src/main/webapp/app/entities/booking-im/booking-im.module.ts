@@ -2,6 +2,8 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { InteliManagementSharedModule } from 'app/shared';
+import { MatInputModule } from '@angular/material/input';
+
 import {
     BookingImComponent,
     BookingImDetailComponent,
@@ -15,7 +17,7 @@ import {
 const ENTITY_STATES = [...bookingRoute, ...bookingPopupRoute];
 
 @NgModule({
-    imports: [InteliManagementSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [InteliManagementSharedModule, MatInputModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         BookingImComponent,
         BookingImDetailComponent,

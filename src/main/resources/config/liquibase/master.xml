@@ -10,7 +10,6 @@
     <include file="config/liquibase/changelog/20180901192838_added_entity_Approvals.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192839_added_entity_Country.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192840_added_entity_Province.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180901192841_added_entity_Employee.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192842_added_entity_Phone.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192843_added_entity_Booking.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192844_added_entity_Provider.xml" relativeToChangelogFile="false"/>
@@ -19,7 +18,7 @@
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20180901192836_added_entity_constraints_Company.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192840_added_entity_constraints_Province.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180901192841_added_entity_constraints_Employee.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180901192841_added_entity_constraints_User.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192842_added_entity_constraints_Phone.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192843_added_entity_constraints_Booking.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192844_added_entity_constraints_Provider.xml" relativeToChangelogFile="false"/>

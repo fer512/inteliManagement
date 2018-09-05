@@ -430,24 +430,6 @@ public class CompanyResourceIntTest {
     }
 
 
-    @Test
-    @Transactional
-    public void getAllCompaniesByEmployeeIsEqualToSomething() throws Exception {
-        // Initialize the database
-        Employee employee = EmployeeResourceIntTest.createEntity(em);
-        em.persist(employee);
-        em.flush();
-        company.addEmployee(employee);
-        companyRepository.saveAndFlush(company);
-        Long employeeId = employee.getId();
-
-        // Get all the companyList where employee equals to employeeId
-        defaultCompanyShouldBeFound("employeeId.equals=" + employeeId);
-
-        // Get all the companyList where employee equals to employeeId + 1
-        defaultCompanyShouldNotBeFound("employeeId.equals=" + (employeeId + 1));
-    }
-
 
     @Test
     @Transactional

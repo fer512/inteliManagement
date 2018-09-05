@@ -353,23 +353,6 @@ public class NotificationResourceIntTest {
         defaultNotificationShouldNotBeFound("view.specified=false");
     }
 
-    @Test
-    @Transactional
-    public void getAllNotificationsByEmployeeIsEqualToSomething() throws Exception {
-        // Initialize the database
-        Employee employee = EmployeeResourceIntTest.createEntity(em);
-        em.persist(employee);
-        em.flush();
-        notification.setEmployee(employee);
-        notificationRepository.saveAndFlush(notification);
-        Long employeeId = employee.getId();
-
-        // Get all the notificationList where employee equals to employeeId
-        defaultNotificationShouldBeFound("employeeId.equals=" + employeeId);
-
-        // Get all the notificationList where employee equals to employeeId + 1
-        defaultNotificationShouldNotBeFound("employeeId.equals=" + (employeeId + 1));
-    }
 
     /**
      * Executes the search, and checks that the default entity is returned

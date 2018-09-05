@@ -46,6 +46,15 @@
             </column>
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
+            
+            <column name="address_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_user_address_id" />
+            </column>            
+
+            <column name="company_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            
         </createTable>
 
         <createTable tableName="jhi_authority">

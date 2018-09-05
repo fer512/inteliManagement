@@ -21,8 +21,8 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "employee",
-            "otherEntityName": "employee",
+            "relationshipName": "user",
+            "otherEntityName": "user",
             "otherEntityField": "id"
         }
     ],

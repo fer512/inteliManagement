@@ -8,13 +8,13 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Phone and its DTO PhoneDTO.
  */
-@Mapper(componentModel = "spring", uses = {EmployeeMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class})
 public interface PhoneMapper extends EntityMapper<PhoneDTO, Phone> {
 
-    @Mapping(source = "employee.id", target = "employeeId")
+    @Mapping(source = "user.id", target = "userId")
     PhoneDTO toDto(Phone phone);
 
-    @Mapping(source = "employeeId", target = "employee")
+    @Mapping(source = "userId", target = "user")
     Phone toEntity(PhoneDTO phoneDTO);
 
     default Phone fromId(Long id) {

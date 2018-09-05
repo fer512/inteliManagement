@@ -91,8 +91,8 @@ public class CompanyQueryService extends QueryService<Company> {
             if (criteria.getAddressId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getAddressId(), Company_.address, Address_.id));
             }
-            if (criteria.getEmployeeId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getEmployeeId(), Company_.employees, Employee_.id));
+            if (criteria.getUserId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getUserId(), Company_.users, User_.id));
             }
             if (criteria.getBookingsId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getBookingsId(), Company_.bookings, Booking_.id));

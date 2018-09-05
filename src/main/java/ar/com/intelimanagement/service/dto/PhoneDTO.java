@@ -2,6 +2,7 @@ package ar.com.intelimanagement.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+
 import ar.com.intelimanagement.domain.enumeration.PhoneType;
 
 /**
@@ -15,7 +16,7 @@ public class PhoneDTO implements Serializable {
 
     private String numpber;
 
-    private Long employeeId;
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -40,16 +41,16 @@ public class PhoneDTO implements Serializable {
     public void setNumpber(String numpber) {
         this.numpber = numpber;
     }
+  
+    public Long getUserId() {
+		return userId;
+	}
 
-    public Long getEmployeeId() {
-        return employeeId;
-    }
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    @Override
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -76,7 +77,7 @@ public class PhoneDTO implements Serializable {
             "id=" + getId() +
             ", type='" + getType() + "'" +
             ", numpber='" + getNumpber() + "'" +
-            ", employee=" + getEmployeeId() +
+            ", user=" + getUserId() +
             "}";
     }
 }

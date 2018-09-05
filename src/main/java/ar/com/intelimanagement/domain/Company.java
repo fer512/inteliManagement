@@ -1,16 +1,23 @@
 package ar.com.intelimanagement.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Company.
@@ -47,7 +54,7 @@ public class Company implements Serializable {
 
     @OneToMany(mappedBy = "company")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Employee> employees = new HashSet<>();
+    private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy = "company")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -131,29 +138,29 @@ public class Company implements Serializable {
         this.address = address;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public Company employees(Set<Employee> employees) {
-        this.employees = employees;
+    public Company users(Set<User> u) {
+        this.users = u;
         return this;
     }
 
-    public Company addEmployee(Employee employee) {
-        this.employees.add(employee);
-        employee.setCompany(this);
+    public Company addUser(User u) {
+        this.users.add(u);
+        u.setCompany(this);
         return this;
     }
 
-    public Company removeEmployee(Employee employee) {
-        this.employees.remove(employee);
-        employee.setCompany(null);
+    public Company removeUser(User u) {
+        this.users.remove(u);
+        u.setCompany(null);
         return this;
     }
 
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
+    public void setUsers(Set<User> u) {
+        this.users = u;
     }
 
     public Set<Booking> getBookings() {

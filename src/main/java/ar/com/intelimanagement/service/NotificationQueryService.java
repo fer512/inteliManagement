@@ -88,8 +88,8 @@ public class NotificationQueryService extends QueryService<Notification> {
             if (criteria.getView() != null) {
                 specification = specification.and(buildSpecification(criteria.getView(), Notification_.view));
             }
-            if (criteria.getEmployeeId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getEmployeeId(), Notification_.employee, Employee_.id));
+            if (criteria.getUserId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getUserId(), Notification_.user, User_.id));
             }
         }
         return specification;
