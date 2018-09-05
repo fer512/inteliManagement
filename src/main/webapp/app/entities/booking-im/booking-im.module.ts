@@ -1,8 +1,17 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { InteliManagementSharedModule } from 'app/shared';
-import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule, MatCheckboxModule, MatInputModule } from '@angular/material';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatCardModule } from '@angular/material/card';
 
 import {
     BookingImComponent,
@@ -17,7 +26,23 @@ import {
 const ENTITY_STATES = [...bookingRoute, ...bookingPopupRoute];
 
 @NgModule({
-    imports: [InteliManagementSharedModule, MatInputModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [
+        InteliManagementSharedModule,
+        RouterModule.forChild(ENTITY_STATES),
+        MatButtonModule,
+        MatCheckboxModule,
+        MatMenuModule,
+        MatInputModule,
+        MatSelectModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatGridListModule,
+        MatSlideToggleModule,
+        MatDividerModule,
+        MatAutocompleteModule,
+        MatChipsModule,
+        MatCardModule
+    ],
     declarations: [
         BookingImComponent,
         BookingImDetailComponent,
