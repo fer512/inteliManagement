@@ -18,6 +18,7 @@ import { InteliManagementAccountModule } from './account/account.module';
 import { InteliManagementEntityModule } from './entities/entity.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+import { MaterialModule } from './shared';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         InteliManagementCoreModule,
         InteliManagementHomeModule,
         InteliManagementAccountModule,
-        InteliManagementEntityModule
+        InteliManagementEntityModule,
+        MaterialModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
