@@ -1,0 +1,41 @@
+
+{
+    "inteliManagementApp": {
+        "variation" : {
+            "home": {
+                "title": "Variations",
+                "createLabel": "Crear nuevo Variation",
+                "createOrEditLabel": "Crear o editar Variation"
+            },
+            "created": "Un nuevo Variation ha sido creado con el identificador {{ param }}",
+            "updated": "Un Variation ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Variation ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Variation {{ id }}?"
+            },
+            "detail": {
+                "title": "Variation"
+            },
+            "extra_charge": "Extra Charge",
+            "new_charge": "New Charge",
+            "new_cost": "New Cost",
+            "new_benefit": "New Benefit",
+            "new_external_locator_id": "New External Locator Id",
+            "comments": "Comments",
+            "creation_date": "Creation Date",
+            "creation_user": "Creation User",
+            "provider": "Provider",
+            "product": "Product",
+            "area": "Area",
+            "campaing": "Campaing",
+            "reason": "Reason",
+            "recoverable": "Recoverable",
+            "refund_in_points": "Refund In Points",
+            "refund_in_cash": "Refund In Cash",
+            "cacel": "Cacel",
+            "relationship_user_variation": "Relationship User Variation",
+            "relationship_provider_variation": "Relationship Provider Variation",
+            "relationship_product_variation": "Relationship Product Variation"
+        }
+    }
+}

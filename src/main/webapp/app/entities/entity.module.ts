@@ -11,6 +11,7 @@ import { InteliManagementBookingImModule } from './booking-im/booking-im.module'
 import { InteliManagementProviderImModule } from './provider-im/provider-im.module';
 import { InteliManagementProductImModule } from './product-im/product-im.module';
 import { InteliManagementNotificationImModule } from './notification-im/notification-im.module';
+import { InteliManagementVariationModule } from './variation/variation.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -27,6 +28,7 @@ import { InteliManagementNotificationImModule } from './notification-im/notifica
         InteliManagementProviderImModule,
         InteliManagementProductImModule,
         InteliManagementNotificationImModule,
+        InteliManagementVariationModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

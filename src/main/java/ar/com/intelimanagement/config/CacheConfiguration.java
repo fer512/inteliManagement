@@ -55,6 +55,9 @@ public class CacheConfiguration {
             cm.createCache(ar.com.intelimanagement.domain.Provider.class.getName() + ".products", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Product.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Notification.class.getName(), jcacheConfiguration);
+            cm.createCache(ar.com.intelimanagement.domain.Variation.class.getName(), jcacheConfiguration);
+            cm.createCache(ar.com.intelimanagement.domain.Variation.class.getName() + ".relationship_provider_variations", jcacheConfiguration);
+            cm.createCache(ar.com.intelimanagement.domain.Variation.class.getName() + ".relationship_product_variations", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

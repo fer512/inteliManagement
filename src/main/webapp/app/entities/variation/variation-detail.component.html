@@ -1,0 +1,95 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="variation">
+            <h2><span jhiTranslate="inteliManagementApp.variation.detail.title">Variation</span> {{variation.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="inteliManagementApp.variation.extra_charge">Extra Charge</span></dt>
+                <dd>
+                    <span>{{variation.extra_charge}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.new_charge">New Charge</span></dt>
+                <dd>
+                    <span>{{variation.new_charge}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.new_cost">New Cost</span></dt>
+                <dd>
+                    <span>{{variation.new_cost}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.new_benefit">New Benefit</span></dt>
+                <dd>
+                    <span>{{variation.new_benefit}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.new_external_locator_id">New External Locator Id</span></dt>
+                <dd>
+                    <span>{{variation.new_external_locator_id}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.comments">Comments</span></dt>
+                <dd>
+                    <span>{{variation.comments}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.creation_date">Creation Date</span></dt>
+                <dd>
+                    <span>{{variation.creation_date}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.creation_user">Creation User</span></dt>
+                <dd>
+                    <span>{{variation.creation_user}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.provider">Provider</span></dt>
+                <dd>
+                    <span>{{variation.provider}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.product">Product</span></dt>
+                <dd>
+                    <span>{{variation.product}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.area">Area</span></dt>
+                <dd>
+                    <span>{{variation.area}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.campaing">Campaing</span></dt>
+                <dd>
+                    <span>{{variation.campaing}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.reason">Reason</span></dt>
+                <dd>
+                    <span>{{variation.reason}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.recoverable">Recoverable</span></dt>
+                <dd>
+                    <span>{{variation.recoverable}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.refund_in_points">Refund In Points</span></dt>
+                <dd>
+                    <span>{{variation.refund_in_points}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.refund_in_cash">Refund In Cash</span></dt>
+                <dd>
+                    <span>{{variation.refund_in_cash}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.cacel">Cacel</span></dt>
+                <dd>
+                    <span>{{variation.cacel}}</span>
+                </dd>
+                <dt><span jhiTranslate="inteliManagementApp.variation.relationship_user_variation">Relationship User Variation</span></dt>
+                <dd>
+                    {{variation.relationship_user_variationLogin}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/variation', variation.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

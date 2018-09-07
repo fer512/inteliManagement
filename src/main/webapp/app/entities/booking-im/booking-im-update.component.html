@@ -1,3 +1,102 @@
+<form>
+    <!-- reservation ids -->
+    <section class="loss-section">
+        <h3>Datos de la reserva</h3>
+        <table mat-table class="ubmat-table">
+          <tr mat-row>
+            <td mat-cell>
+            <mat-form-field  class="ubmat-input -md">
+              <input matInput type="text" placeholder="Id transacción" value="">
+            </mat-form-field> 
+            </td>
+            <td mat-cell>
+              <mat-form-field  class="ubmat-input -md">
+                <input matInput type="text" placeholder="Id reserva localizador Juniper" value="">
+              </mat-form-field>
+            </td>
+            <td mat-cell>
+              <mat-form-field  class="ubmat-input -md">
+                <input matInput type="text" placeholder="Id reserva localizador Externo" value="">
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr mat-row>          
+            <td mat-cell>
+            </td>
+            <td mat-cell><!--empty--></td>
+            <td mat-cell><!--empty--></td>  
+          </tr> 
+        </table>  
+      </section>
+      <!-- reservation data -->
+      <section class="loss-section">
+        <h3>Datos sobre el pago</h3>
+        <!-- Información sobre el Pago -->
+        <table mat-table class="ubmat-table">
+          <tr mat-row>
+            <!-- Tipo de Pago -->
+            <td mat-cell>
+              <mat-form-field class="ubmat-select -md">
+              <mat-select placeholder="Tipo de Pago">
+                <mat-option *ngFor="let opt of paytypes" [value]="opt.value">
+                  {{opt.description}}
+                </mat-option>
+              </mat-select>
+              </mat-form-field>
+            </td>
+            <td mat-cell><!--empty--></td>
+            <td mat-cell><!--empty--></td>  
+          </tr> 
+          <tr mat-row>
+            <!-- TC -->
+            <td mat-cell>
+              <mat-form-field  class="ubmat-input -md">
+                <input matInput type="text" placeholder="Valor Tarjeta de Crédito" value="">
+                <span matPrefix>USD&nbsp;</span>
+              </mat-form-field>
+            </td> 
+            <!-- Pts -->
+            <td mat-cell>
+              <mat-form-field  class="ubmat-input -md">
+                <input matInput type="text" placeholder="USD en Puntos" value="">
+              </mat-form-field>
+            </td>
+            <!-- Total -->
+            <td mat-cell>
+              <mat-form-field  class="ubmat-input -md">
+                <input matInput type="text" placeholder="Total" value="">
+                <span matPrefix>USD&nbsp;</span>
+              </mat-form-field>
+            </td>
+          </tr> 
+          <tr mat-row>
+              <!-- Precio de Venta -->
+              <td mat-cell>
+                <mat-form-field  class="ubmat-input -md">
+                  <input matInput type="text" placeholder="Precio de Venta Juniper" value="">
+                  <span matPrefix>USD&nbsp;</span>
+                </mat-form-field>
+              </td> 
+              <!-- Costo de la Reserva -->
+              <td mat-cell>
+                <mat-form-field  class="ubmat-input -md">
+                  <input matInput type="text" placeholder="Costo Reserva Juniper" value="">
+                  <span matPrefix>USD&nbsp;</span>
+                </mat-form-field>
+              </td>
+              <!-- Beneficio -->
+              <td mat-cell>
+                <mat-form-field  class="ubmat-input -md">
+                  <input matInput type="text" placeholder="Beneficio" value="">
+                </mat-form-field>
+              </td>
+          </tr>   
+        </table>     
+        <button mat-raised-button color="primary">Registrar</button>
+    </section>
+</form>
+<hr>
+
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">

@@ -1,0 +1,128 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "relationship_user_variation",
+            "otherEntityName": "user",
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "variation"
+        },
+        {
+            "relationshipName": "relationship_provider_variation",
+            "otherEntityName": "provider",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "variation"
+        },
+        {
+            "relationshipName": "relationship_product_variation",
+            "otherEntityName": "product",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "variation"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "extra_charge",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "new_charge",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "new_cost",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "new_benefit",
+            "fieldType": "Double",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldName": "new_external_locator_id",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "comments",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "creation_date",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "creation_user",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "provider",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "product",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "area",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "campaing",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "reason",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "recoverable",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "refund_in_points",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "refund_in_cash",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "cacel",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20180907023750",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceClass",
+    "entityTableName": "variation",
+    "jpaMetamodelFiltering": true,
+    "pagination": "pagination"
+}
