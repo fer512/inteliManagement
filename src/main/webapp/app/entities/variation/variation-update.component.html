@@ -1,0 +1,308 @@
+<form>
+    <!-- loss data -->
+    <section class="loss-section">
+      <h3>Variaciones de Costos & Ganancias</h3>
+      <table mat-table class="ubmat-table">
+      <tr mat-row>
+          <!-- Resultados Parciales -->
+          <td mat-cell colspan="3">
+              <mat-chip-list>
+                  <mat-chip color="primary" selected>Total Ingresos: 0.00</mat-chip>
+                  <mat-chip>Total Beneficio: 0.00</mat-chip>
+                  <mat-chip>Total Pago a proveedores: 0.00</mat-chip>
+              </mat-chip-list>
+          </td> 
+      </tr>
+      </table>
+      <table mat-table class="ubmat-table">
+          <tr mat-row>  
+            <!-- Proveedor -->
+            <td mat-cell>
+                <mat-form-field class="ubmat-select -md">
+                <mat-select class="ubmat-select -md" placeholder="Proveedor">
+                  <mat-option *ngFor="let opt of providers" [value]="opt.value">
+                    {{opt.description}}
+                  </mat-option>
+                </mat-select>
+                </mat-form-field>
+              </td> 
+            <!-- Producto -->
+            <td mat-cell>
+              <mat-form-field class="ubmat-select -md">
+                <mat-select class="ubmat-select -md" placeholder="Producto">
+                  <mat-option *ngFor="let opt of products" [value]="opt.value">
+                    {{opt.description}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td mat-cell><!--empty--></td>
+          </tr>            
+          <tr mat-row>
+              <!-- Area de Origen -->
+              <td mat-cell>
+                <mat-form-field class="ubmat-select -md">
+                <mat-select placeholder="Area responsable">
+                  <mat-option *ngFor="let opt of areas" [value]="opt.value">
+                    {{opt.description}}
+                  </mat-option>
+                </mat-select>
+                </mat-form-field>
+              </td> 
+              <!-- Campaña -->
+              <td mat-cell>
+                <mat-form-field class="ubmat-select -md">
+                <mat-select placeholder="Campaña responsable">
+                  <mat-option *ngFor="let opt of campaing" [value]="opt.value">
+                    {{opt.description}}
+                  </mat-option>
+                </mat-select>
+                </mat-form-field>
+              </td>
+              <!-- Motivo de la perdida -->
+              <td mat-cell>
+                <mat-form-field class="ubmat-select -md">
+                <mat-select placeholder="Motivo de la perdida">
+                  <mat-option *ngFor="let opt of losstypes" [value]="opt.value">
+                    {{opt.description}}
+                  </mat-option>
+                </mat-select>
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr mat-row>
+              <!-- Recuperable -->
+              <td mat-cell colspan="3">
+                <mat-slide-toggle> Recuperable</mat-slide-toggle>
+              </td>   
+            </tr>          
+        <tr mat-row>
+          <!-- Dev Puntos -->
+          <td mat-cell>
+            <mat-form-field  class="ubmat-input -md">
+              <input matInput type="number" placeholder="Devolución en Puntos" value="">
+              <span matPrefix>PTS&nbsp;</span>
+            </mat-form-field>
+          </td> 
+          <!-- Dev Efectivo -->
+          <td mat-cell>
+            <mat-form-field  class="ubmat-input -md">
+              <input matInput type="text" placeholder="Devolución en Efectivo" value="">
+            </mat-form-field>
+          </td>
+          <!-- Cobro Extra -->
+          <td mat-cell>
+            <mat-form-field  class="ubmat-input -md">
+              <input matInput type="text" placeholder="Cobro Extra" value="">
+            </mat-form-field>
+          </td>
+        </tr>  
+        <tr mat-row>
+          <!-- Nuevo Costo -->
+          <td mat-cell>
+            <mat-form-field class="ubmat-input -md">
+              <input matInput placeholder="Nuevo Costo" type="number" value="">
+              <span matPrefix>USD&nbsp;</span>
+            </mat-form-field>
+          </td> 
+          <!-- Nuevo Beneficio -->
+          <td mat-cell>
+            <mat-form-field  class="ubmat-input -md">
+              <input matInput type="text" placeholder="Nuevo Beneficio" value="">
+            </mat-form-field>
+          </td>
+          <!-- Nuevo Localizador Ext -->
+          <td mat-cell>
+            <mat-form-field  class="ubmat-input -md">
+              <input matInput type="text" placeholder="Nuevo Id Localizador Externo" value="">
+            </mat-form-field>
+          </td>
+        </tr>                
+      </table>
+    </section>
+      
+    <section class="loss-section">
+      <table mat-table class="ubmat-table">
+        <tr mat-row>
+          <td mat-cell>
+            <mat-form-field class="ubmat-textarea">
+              <textarea matInput placeholder="Comentarios"></textarea>
+            </mat-form-field>
+          </td>
+        </tr> 
+      </table>
+    </section>        
+    <button mat-raised-button color="primary">Guardar</button>      
+</form>
+<hr>
+
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-variation-heading" jhiTranslate="inteliManagementApp.variation.home.createOrEditLabel">Create or edit a Variation</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!variation.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="variation.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.extra_charge" for="field_extra_charge">Extra Charge</label>
+                    <input type="number" class="form-control" name="extra_charge" id="field_extra_charge"
+                        [(ngModel)]="variation.extra_charge" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.new_charge" for="field_new_charge">New Charge</label>
+                    <input type="number" class="form-control" name="new_charge" id="field_new_charge"
+                        [(ngModel)]="variation.new_charge" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.new_cost" for="field_new_cost">New Cost</label>
+                    <input type="number" class="form-control" name="new_cost" id="field_new_cost"
+                        [(ngModel)]="variation.new_cost" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.new_benefit" for="field_new_benefit">New Benefit</label>
+                    <input type="number" class="form-control" name="new_benefit" id="field_new_benefit"
+                        [(ngModel)]="variation.new_benefit" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.new_external_locator_id" for="field_new_external_locator_id">New External Locator Id</label>
+                    <input type="number" class="form-control" name="new_external_locator_id" id="field_new_external_locator_id"
+                        [(ngModel)]="variation.new_external_locator_id" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.comments" for="field_comments">Comments</label>
+                    <input type="text" class="form-control" name="comments" id="field_comments"
+                        [(ngModel)]="variation.comments" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.creation_date" for="field_creation_date">Creation Date</label>
+                    <div class="d-flex">
+                        <input id="field_creation_date" type="datetime-local" class="form-control" name="creation_date" [(ngModel)]="creation_date"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.creation_date?.dirty && editForm.controls.creation_date?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.creation_date?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.creation_date?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.creation_user" for="field_creation_user">Creation User</label>
+                    <input type="text" class="form-control" name="creation_user" id="field_creation_user"
+                        [(ngModel)]="variation.creation_user" required/>
+                    <div [hidden]="!(editForm.controls.creation_user?.dirty && editForm.controls.creation_user?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.creation_user?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.provider" for="field_provider">Provider</label>
+                    <input type="text" class="form-control" name="provider" id="field_provider"
+                        [(ngModel)]="variation.provider" required/>
+                    <div [hidden]="!(editForm.controls.provider?.dirty && editForm.controls.provider?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.provider?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.product" for="field_product">Product</label>
+                    <input type="text" class="form-control" name="product" id="field_product"
+                        [(ngModel)]="variation.product" required/>
+                    <div [hidden]="!(editForm.controls.product?.dirty && editForm.controls.product?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.product?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.area" for="field_area">Area</label>
+                    <input type="text" class="form-control" name="area" id="field_area"
+                        [(ngModel)]="variation.area" required/>
+                    <div [hidden]="!(editForm.controls.area?.dirty && editForm.controls.area?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.area?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.campaing" for="field_campaing">Campaing</label>
+                    <input type="text" class="form-control" name="campaing" id="field_campaing"
+                        [(ngModel)]="variation.campaing" required/>
+                    <div [hidden]="!(editForm.controls.campaing?.dirty && editForm.controls.campaing?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.campaing?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.reason" for="field_reason">Reason</label>
+                    <input type="text" class="form-control" name="reason" id="field_reason"
+                        [(ngModel)]="variation.reason" required/>
+                    <div [hidden]="!(editForm.controls.reason?.dirty && editForm.controls.reason?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.reason?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.recoverable" for="field_recoverable">Recoverable</label>
+                    <input type="checkbox" class="form-control" name="recoverable" id="field_recoverable"
+                        [(ngModel)]="variation.recoverable" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.refund_in_points" for="field_refund_in_points">Refund In Points</label>
+                    <input type="number" class="form-control" name="refund_in_points" id="field_refund_in_points"
+                        [(ngModel)]="variation.refund_in_points" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.refund_in_cash" for="field_refund_in_cash">Refund In Cash</label>
+                    <input type="number" class="form-control" name="refund_in_cash" id="field_refund_in_cash"
+                        [(ngModel)]="variation.refund_in_cash" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.cacel" for="field_cacel">Cacel</label>
+                    <input type="checkbox" class="form-control" name="cacel" id="field_cacel"
+                        [(ngModel)]="variation.cacel" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.relationship_user_variation" for="field_relationship_user_variation">Relationship User Variation</label>
+                    <select class="form-control" id="field_relationship_user_variation" name="relationship_user_variation" [(ngModel)]="variation.relationship_user_variationId"  required>
+                        <option *ngIf="!editForm.value.relationship_user_variation" [ngValue]="null" selected></option>
+                        <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.relationship_user_variation?.dirty && editForm.controls.relationship_user_variation?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.relationship_user_variation?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

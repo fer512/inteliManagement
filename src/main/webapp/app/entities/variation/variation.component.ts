@@ -4,11 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { IBookingIm } from 'app/shared/model/booking-im.model';
+import { IVariation } from 'app/shared/model/variation.model';
 import { Principal } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { BookingImService } from './booking-im.service';
+import { VariationService } from './variation.service';
 
 export interface ListOpt {
     value: string;
@@ -16,12 +16,12 @@ export interface ListOpt {
 }
 
 @Component({
-    selector: 'jhi-booking-im',
-    templateUrl: './booking-im.component.html'
+    selector: 'jhi-variation',
+    templateUrl: './variation.component.html'
 })
-export class BookingImComponent implements OnInit, OnDestroy {
+export class VariationComponent implements OnInit, OnDestroy {
     currentAccount: any;
-    bookings: IBookingIm[];
+    variations: IVariation[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -35,14 +35,23 @@ export class BookingImComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
-    paytypes: ListOpt[] = [
-        { value: 'POINTS', description: 'Puntos' },
-        { value: 'CREDIT_CARD', description: 'Tarjeta de Credito' },
-        { value: 'MIXED', description: 'Mixto' }
+    providers: ListOpt[] = [
+        { value: 'CON', description: 'Consolid' },
+        { value: 'EXP', description: 'Expidia' },
+        { value: 'HBS', description: 'HotelBeds' },
+        { value: 'TOU', description: 'Tourico' }
+    ];
+
+    products: ListOpt[] = [
+        { value: 'HOTEL', description: 'Hotel' },
+        { value: 'FLIGHT', description: 'Vuelo' },
+        { value: 'CAR', description: 'Auto' },
+        { value: 'TRANFER', description: ' Traslado' },
+        { value: 'TOURS', description: 'Actividades' }
     ];
 
     constructor(
-        private bookingService: BookingImService,
+        private variationService: VariationService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
@@ -60,14 +69,14 @@ export class BookingImComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.bookingService
+        this.variationService
             .query({
                 page: this.page - 1,
                 size: this.itemsPerPage,
                 sort: this.sort()
             })
             .subscribe(
-                (res: HttpResponse<IBookingIm[]>) => this.paginateBookings(res.body, res.headers),
+                (res: HttpResponse<IVariation[]>) => this.paginateVariations(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
@@ -80,7 +89,7 @@ export class BookingImComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/booking-im'], {
+        this.router.navigate(['/variation'], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
@@ -93,7 +102,7 @@ export class BookingImComponent implements OnInit, OnDestroy {
     clear() {
         this.page = 0;
         this.router.navigate([
-            '/booking-im',
+            '/variation',
             {
                 page: this.page,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -107,19 +116,19 @@ export class BookingImComponent implements OnInit, OnDestroy {
         this.principal.identity().then(account => {
             this.currentAccount = account;
         });
-        this.registerChangeInBookings();
+        this.registerChangeInVariations();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: IBookingIm) {
+    trackId(index: number, item: IVariation) {
         return item.id;
     }
 
-    registerChangeInBookings() {
-        this.eventSubscriber = this.eventManager.subscribe('bookingListModification', response => this.loadAll());
+    registerChangeInVariations() {
+        this.eventSubscriber = this.eventManager.subscribe('variationListModification', response => this.loadAll());
     }
 
     sort() {
@@ -130,11 +139,11 @@ export class BookingImComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    private paginateBookings(data: IBookingIm[], headers: HttpHeaders) {
+    private paginateVariations(data: IVariation[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
-        this.bookings = data;
+        this.variations = data;
     }
 
     private onError(errorMessage: string) {
