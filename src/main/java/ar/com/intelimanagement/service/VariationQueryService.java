@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.jhipster.service.QueryService;
-
-import ar.com.intelimanagement.domain.Variation;
 import ar.com.intelimanagement.domain.*; // for static metamodels
 import ar.com.intelimanagement.repository.VariationRepository;
 import ar.com.intelimanagement.service.dto.VariationCriteria;
@@ -76,35 +74,33 @@ public class VariationQueryService extends QueryService<Variation> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildSpecification(criteria.getId(), Variation_.id));
             }
-            if (criteria.getExtra_charge() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getExtra_charge(), Variation_.extra_charge));
+            if (criteria.getExtraCharge() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getExtraCharge(), Variation_.extraCharge));
             }
-            if (criteria.getNew_charge() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getNew_charge(), Variation_.new_charge));
+            if (criteria.getNewCharge() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getNewCharge(), Variation_.newCharge));
             }
-            if (criteria.getNew_cost() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getNew_cost(), Variation_.new_cost));
+            if (criteria.getNewCost() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getNewCost(), Variation_.newCost));
             }
-            if (criteria.getNew_benefit() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getNew_benefit(), Variation_.new_benefit));
+            if (criteria.getNewBenefit() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getNewBenefit(), Variation_.newBenefit));
             }
-            if (criteria.getNew_external_locator_id() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getNew_external_locator_id(), Variation_.new_external_locator_id));
+            if (criteria.getNewExternalLocatorId() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getNewExternalLocatorId(), Variation_.newExternalLocatorId));
             }
             if (criteria.getComments() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getComments(), Variation_.comments));
             }
-            if (criteria.getCreation_date() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getCreation_date(), Variation_.creation_date));
+            if (criteria.getCreationDate() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCreationDate(), Variation_.creationDate));
             }
-            if (criteria.getCreation_user() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getCreation_user(), Variation_.creation_user));
+            if (criteria.getCreationUser() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getCreationUser(), Variation_.creationUser, User_.id));
             }
-            if (criteria.getProvider() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getProvider(), Variation_.provider));
-            }
+
             if (criteria.getProduct() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getProduct(), Variation_.product));
+                specification = specification.and(buildReferringEntitySpecification(criteria.getProduct(), Variation_.product, Product_.id));
             }
             if (criteria.getArea() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getArea(), Variation_.area));
@@ -118,24 +114,11 @@ public class VariationQueryService extends QueryService<Variation> {
             if (criteria.getRecoverable() != null) {
                 specification = specification.and(buildSpecification(criteria.getRecoverable(), Variation_.recoverable));
             }
-            if (criteria.getRefund_in_points() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getRefund_in_points(), Variation_.refund_in_points));
-            }
-            if (criteria.getRefund_in_cash() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getRefund_in_cash(), Variation_.refund_in_cash));
-            }
+       
             if (criteria.getCacel() != null) {
                 specification = specification.and(buildSpecification(criteria.getCacel(), Variation_.cacel));
             }
-            if (criteria.getRelationship_user_variationId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getRelationship_user_variationId(), Variation_.relationship_user_variation, User_.id));
-            }
-            if (criteria.getRelationship_provider_variationId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getRelationship_provider_variationId(), Variation_.relationship_provider_variations, Provider_.id));
-            }
-            if (criteria.getRelationship_product_variationId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getRelationship_product_variationId(), Variation_.relationship_product_variations, Product_.id));
-            }
+           
         }
         return specification;
     }

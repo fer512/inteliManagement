@@ -3,7 +3,6 @@ package ar.com.intelimanagement.web.rest;
 import ar.com.intelimanagement.InteliManagementApp;
 
 import ar.com.intelimanagement.domain.Notification;
-import ar.com.intelimanagement.domain.Employee;
 import ar.com.intelimanagement.repository.NotificationRepository;
 import ar.com.intelimanagement.service.NotificationService;
 import ar.com.intelimanagement.service.dto.NotificationDTO;

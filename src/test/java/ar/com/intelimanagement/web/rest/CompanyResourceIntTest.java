@@ -4,7 +4,6 @@ import ar.com.intelimanagement.InteliManagementApp;
 
 import ar.com.intelimanagement.domain.Company;
 import ar.com.intelimanagement.domain.Address;
-import ar.com.intelimanagement.domain.Employee;
 import ar.com.intelimanagement.domain.Booking;
 import ar.com.intelimanagement.domain.Provider;
 import ar.com.intelimanagement.repository.CompanyRepository;

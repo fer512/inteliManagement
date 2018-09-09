@@ -50,15 +50,11 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="creation_user" type="varchar(255)">
+            <column name="creation_user" type="bigint">
                 <constraints nullable="false" />
             </column>
 
-            <column name="provider" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="product" type="varchar(255)">
+            <column name="product_id" type="bigint">
                 <constraints nullable="false" />
             </column>
 
@@ -89,9 +85,7 @@
             <column name="cacel" type="bit">
                 <constraints nullable="true" />
             </column>
-            <column name="relationship_user_variation_id" type="bigint">
-                <constraints unique="true" nullable="false" uniqueConstraintName="ux_variation_relationship_user_variation_id" />
-            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="variation" columnName="creation_date" columnDataType="datetime"/>

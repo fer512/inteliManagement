@@ -1,23 +1,23 @@
 package ar.com.intelimanagement.service.mapper;
 
-import ar.com.intelimanagement.domain.*;
-import ar.com.intelimanagement.service.dto.VariationDTO;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-import org.mapstruct.*;
+import ar.com.intelimanagement.domain.Variation;
+import ar.com.intelimanagement.service.dto.VariationDTO;
 
 /**
  * Mapper for the entity Variation and its DTO VariationDTO.
  */
-@Mapper(componentModel = "spring", uses = {UserMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class,ProductMapper.class})
 public interface VariationMapper extends EntityMapper<VariationDTO, Variation> {
 
-    @Mapping(source = "relationship_user_variation.id", target = "relationship_user_variationId")
-    @Mapping(source = "relationship_user_variation.login", target = "relationship_user_variationLogin")
+    @Mapping(source = "creationUser.id", target = "creationUser")
+    @Mapping(source = "product.id", target = "product")
     VariationDTO toDto(Variation variation);
 
-    @Mapping(source = "relationship_user_variationId", target = "relationship_user_variation")
-    @Mapping(target = "relationship_provider_variations", ignore = true)
-    @Mapping(target = "relationship_product_variations", ignore = true)
+    @Mapping(source = "creationUser", target = "creationUser")
+    @Mapping(source = "product", target = "product")
     Variation toEntity(VariationDTO variationDTO);
 
     default Variation fromId(Long id) {

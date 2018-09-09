@@ -19,8 +19,7 @@
             "name": "Name",
             "stastDate": "Stast Date",
             "endDate": "End Date",
-            "view": "View",
-            "employee": "Employee"
+            "view": "View"
         }
     }
 }

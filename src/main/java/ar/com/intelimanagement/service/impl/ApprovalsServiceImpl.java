@@ -1,9 +1,11 @@
 package ar.com.intelimanagement.service.impl;
 
 import ar.com.intelimanagement.service.ApprovalsService;
+import ar.com.intelimanagement.service.UserService;
 import ar.com.intelimanagement.domain.Approvals;
 import ar.com.intelimanagement.repository.ApprovalsRepository;
 import ar.com.intelimanagement.service.dto.ApprovalsDTO;
+import ar.com.intelimanagement.service.dto.UserDTO;
 import ar.com.intelimanagement.service.mapper.ApprovalsMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +28,14 @@ public class ApprovalsServiceImpl implements ApprovalsService {
 
     private final ApprovalsRepository approvalsRepository;
 
+    private final UserService userService;
+    
     private final ApprovalsMapper approvalsMapper;
 
-    public ApprovalsServiceImpl(ApprovalsRepository approvalsRepository, ApprovalsMapper approvalsMapper) {
+    public ApprovalsServiceImpl(ApprovalsRepository approvalsRepository, ApprovalsMapper approvalsMapper,UserService userService) {
         this.approvalsRepository = approvalsRepository;
         this.approvalsMapper = approvalsMapper;
+        this.userService = userService;
     }
 
     /**
@@ -85,5 +90,11 @@ public class ApprovalsServiceImpl implements ApprovalsService {
     public void delete(Long id) {
         log.debug("Request to delete Approvals : {}", id);
         approvalsRepository.deleteById(id);
+    }
+
+    
+    public void approve() {
+    	UserDTO currentUser = this.userService.getCurrentUser();
+    	
     }
 }

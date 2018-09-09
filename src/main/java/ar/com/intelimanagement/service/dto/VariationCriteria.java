@@ -28,25 +28,23 @@ public class VariationCriteria implements Serializable {
 
     private LongFilter id;
 
-    private DoubleFilter extra_charge;
+    private DoubleFilter extraCharge;
 
-    private DoubleFilter new_charge;
+    private DoubleFilter newCharge;
 
-    private DoubleFilter new_cost;
+    private DoubleFilter newCost;
 
-    private DoubleFilter new_benefit;
+    private DoubleFilter newBenefit;
 
-    private IntegerFilter new_external_locator_id;
+    private IntegerFilter newExternalLocatorId;
 
     private StringFilter comments;
 
-    private ZonedDateTimeFilter creation_date;
+    private ZonedDateTimeFilter creationDate;
 
-    private StringFilter creation_user;
+    private LongFilter creationUser;
 
-    private StringFilter provider;
-
-    private StringFilter product;
+    private LongFilter product;
 
     private StringFilter area;
 
@@ -56,17 +54,11 @@ public class VariationCriteria implements Serializable {
 
     private BooleanFilter recoverable;
 
-    private IntegerFilter refund_in_points;
+    private IntegerFilter refundInPoints;
 
-    private DoubleFilter refund_in_cash;
+    private DoubleFilter refundInCash;
 
     private BooleanFilter cacel;
-
-    private LongFilter relationship_user_variationId;
-
-    private LongFilter relationship_provider_variationId;
-
-    private LongFilter relationship_product_variationId;
 
     public VariationCriteria() {
     }
@@ -79,46 +71,6 @@ public class VariationCriteria implements Serializable {
         this.id = id;
     }
 
-    public DoubleFilter getExtra_charge() {
-        return extra_charge;
-    }
-
-    public void setExtra_charge(DoubleFilter extra_charge) {
-        this.extra_charge = extra_charge;
-    }
-
-    public DoubleFilter getNew_charge() {
-        return new_charge;
-    }
-
-    public void setNew_charge(DoubleFilter new_charge) {
-        this.new_charge = new_charge;
-    }
-
-    public DoubleFilter getNew_cost() {
-        return new_cost;
-    }
-
-    public void setNew_cost(DoubleFilter new_cost) {
-        this.new_cost = new_cost;
-    }
-
-    public DoubleFilter getNew_benefit() {
-        return new_benefit;
-    }
-
-    public void setNew_benefit(DoubleFilter new_benefit) {
-        this.new_benefit = new_benefit;
-    }
-
-    public IntegerFilter getNew_external_locator_id() {
-        return new_external_locator_id;
-    }
-
-    public void setNew_external_locator_id(IntegerFilter new_external_locator_id) {
-        this.new_external_locator_id = new_external_locator_id;
-    }
-
     public StringFilter getComments() {
         return comments;
     }
@@ -127,37 +79,6 @@ public class VariationCriteria implements Serializable {
         this.comments = comments;
     }
 
-    public ZonedDateTimeFilter getCreation_date() {
-        return creation_date;
-    }
-
-    public void setCreation_date(ZonedDateTimeFilter creation_date) {
-        this.creation_date = creation_date;
-    }
-
-    public StringFilter getCreation_user() {
-        return creation_user;
-    }
-
-    public void setCreation_user(StringFilter creation_user) {
-        this.creation_user = creation_user;
-    }
-
-    public StringFilter getProvider() {
-        return provider;
-    }
-
-    public void setProvider(StringFilter provider) {
-        this.provider = provider;
-    }
-
-    public StringFilter getProduct() {
-        return product;
-    }
-
-    public void setProduct(StringFilter product) {
-        this.product = product;
-    }
 
     public StringFilter getArea() {
         return area;
@@ -189,23 +110,7 @@ public class VariationCriteria implements Serializable {
 
     public void setRecoverable(BooleanFilter recoverable) {
         this.recoverable = recoverable;
-    }
-
-    public IntegerFilter getRefund_in_points() {
-        return refund_in_points;
-    }
-
-    public void setRefund_in_points(IntegerFilter refund_in_points) {
-        this.refund_in_points = refund_in_points;
-    }
-
-    public DoubleFilter getRefund_in_cash() {
-        return refund_in_cash;
-    }
-
-    public void setRefund_in_cash(DoubleFilter refund_in_cash) {
-        this.refund_in_cash = refund_in_cash;
-    }
+    } 
 
     public BooleanFilter getCacel() {
         return cacel;
@@ -215,55 +120,95 @@ public class VariationCriteria implements Serializable {
         this.cacel = cacel;
     }
 
-    public LongFilter getRelationship_user_variationId() {
-        return relationship_user_variationId;
-    }
+	public DoubleFilter getExtraCharge() {
+		return extraCharge;
+	}
 
-    public void setRelationship_user_variationId(LongFilter relationship_user_variationId) {
-        this.relationship_user_variationId = relationship_user_variationId;
-    }
+	public void setExtraCharge(DoubleFilter extraCharge) {
+		this.extraCharge = extraCharge;
+	}
 
-    public LongFilter getRelationship_provider_variationId() {
-        return relationship_provider_variationId;
-    }
+	public DoubleFilter getNewCharge() {
+		return newCharge;
+	}
 
-    public void setRelationship_provider_variationId(LongFilter relationship_provider_variationId) {
-        this.relationship_provider_variationId = relationship_provider_variationId;
-    }
+	public void setNewCharge(DoubleFilter newCharge) {
+		this.newCharge = newCharge;
+	}
 
-    public LongFilter getRelationship_product_variationId() {
-        return relationship_product_variationId;
-    }
+	public DoubleFilter getNewCost() {
+		return newCost;
+	}
 
-    public void setRelationship_product_variationId(LongFilter relationship_product_variationId) {
-        this.relationship_product_variationId = relationship_product_variationId;
-    }
+	public void setNewCost(DoubleFilter newCost) {
+		this.newCost = newCost;
+	}
 
-    @Override
-    public String toString() {
-        return "VariationCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (extra_charge != null ? "extra_charge=" + extra_charge + ", " : "") +
-                (new_charge != null ? "new_charge=" + new_charge + ", " : "") +
-                (new_cost != null ? "new_cost=" + new_cost + ", " : "") +
-                (new_benefit != null ? "new_benefit=" + new_benefit + ", " : "") +
-                (new_external_locator_id != null ? "new_external_locator_id=" + new_external_locator_id + ", " : "") +
-                (comments != null ? "comments=" + comments + ", " : "") +
-                (creation_date != null ? "creation_date=" + creation_date + ", " : "") +
-                (creation_user != null ? "creation_user=" + creation_user + ", " : "") +
-                (provider != null ? "provider=" + provider + ", " : "") +
-                (product != null ? "product=" + product + ", " : "") +
-                (area != null ? "area=" + area + ", " : "") +
-                (campaing != null ? "campaing=" + campaing + ", " : "") +
-                (reason != null ? "reason=" + reason + ", " : "") +
-                (recoverable != null ? "recoverable=" + recoverable + ", " : "") +
-                (refund_in_points != null ? "refund_in_points=" + refund_in_points + ", " : "") +
-                (refund_in_cash != null ? "refund_in_cash=" + refund_in_cash + ", " : "") +
-                (cacel != null ? "cacel=" + cacel + ", " : "") +
-                (relationship_user_variationId != null ? "relationship_user_variationId=" + relationship_user_variationId + ", " : "") +
-                (relationship_provider_variationId != null ? "relationship_provider_variationId=" + relationship_provider_variationId + ", " : "") +
-                (relationship_product_variationId != null ? "relationship_product_variationId=" + relationship_product_variationId + ", " : "") +
-            "}";
-    }
+	public DoubleFilter getNewBenefit() {
+		return newBenefit;
+	}
 
+	public void setNewBenefit(DoubleFilter newBenefit) {
+		this.newBenefit = newBenefit;
+	}
+
+	public IntegerFilter getNewExternalLocatorId() {
+		return newExternalLocatorId;
+	}
+
+	public void setNewExternalLocatorId(IntegerFilter newExternalLocatorId) {
+		this.newExternalLocatorId = newExternalLocatorId;
+	}
+
+	public ZonedDateTimeFilter getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(ZonedDateTimeFilter creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public LongFilter getCreationUser() {
+		return creationUser;
+	}
+
+	public void setCreationUser(LongFilter creationUser) {
+		this.creationUser = creationUser;
+	}
+
+	public LongFilter getProduct() {
+		return product;
+	}
+
+	public void setProduct(LongFilter product) {
+		this.product = product;
+	}
+
+	public IntegerFilter getRefundInPoints() {
+		return refundInPoints;
+	}
+
+	public void setRefundInPoints(IntegerFilter refundInPoints) {
+		this.refundInPoints = refundInPoints;
+	}
+
+	public DoubleFilter getRefundInCash() {
+		return refundInCash;
+	}
+
+	public void setRefundInCash(DoubleFilter refundInCash) {
+		this.refundInCash = refundInCash;
+	}
+
+	@Override
+	public String toString() {
+		return "VariationCriteria [id=" + id + ", extraCharge=" + extraCharge + ", newCharge=" + newCharge
+				+ ", newCost=" + newCost + ", newBenefit=" + newBenefit + ", newExternalLocatorId="
+				+ newExternalLocatorId + ", comments=" + comments + ", creationDate=" + creationDate + ", creationUser="
+				+ creationUser + ", product=" + product + ", area=" + area + ", campaing=" + campaing + ", reason="
+				+ reason + ", recoverable=" + recoverable + ", refundInPoints=" + refundInPoints + ", refundInCash="
+				+ refundInCash + ", cacel=" + cacel + "]";
+	}
+
+    
 }

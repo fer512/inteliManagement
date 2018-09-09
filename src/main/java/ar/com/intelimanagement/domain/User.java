@@ -112,6 +112,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Notification> notifications = new HashSet<>();
     
+    @ManyToOne
+    @JoinColumn(name="supervisor_id")
+    private User supervisor;
+    
+    @OneToMany(mappedBy = "supervisor")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<User> team = new HashSet<User>();
+    
     public Long getId() {
         return id;
     }
@@ -247,6 +255,23 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
 	public void setNotifications(Set<Notification> notifications) {
 		this.notifications = notifications;
+	}
+
+	
+	public User getSupervisor() {
+		return supervisor;
+	}
+
+	public void setSupervisor(User supervisor) {
+		this.supervisor = supervisor;
+	}
+
+	public Set<User> getTeam() {
+		return team;
+	}
+
+	public void setTeam(Set<User> team) {
+		this.team = team;
 	}
 
 	@Override

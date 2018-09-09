@@ -55,6 +55,10 @@
                 <constraints nullable="true" />
             </column>
             
+            <column name="supervisor_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            
         </createTable>
 
         <createTable tableName="jhi_authority">

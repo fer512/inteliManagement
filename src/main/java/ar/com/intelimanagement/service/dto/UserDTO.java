@@ -53,6 +53,10 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    private UserDTO supervisor;
+    
+    private Set<UserDTO> team;
+    
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -70,11 +74,27 @@ public class UserDTO {
         this.createdDate = user.getCreatedDate();
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
-        this.authorities = user.getAuthorities().stream()
-            .map(Authority::getName)
-            .collect(Collectors.toSet());
+        this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
     }
 
+    public UserDTO(User user, Boolean team, Boolean supervisor) {
+        this.id = user.getId();
+        this.login = user.getLogin();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.activated = user.getActivated();
+        this.imageUrl = user.getImageUrl();
+        this.langKey = user.getLangKey();
+        this.createdBy = user.getCreatedBy();
+        this.createdDate = user.getCreatedDate();
+        this.lastModifiedBy = user.getLastModifiedBy();
+        this.lastModifiedDate = user.getLastModifiedDate();
+        this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
+    	if(supervisor)this.supervisor = user.getSupervisor() != null ? new UserDTO(user.getSupervisor()) : null;
+        if(team)this.team = user.getTeam().stream().map(UserDTO::new).collect(Collectors.toSet());
+    }
+    
     public Long getId() {
         return id;
     }
@@ -179,7 +199,15 @@ public class UserDTO {
         this.authorities = authorities;
     }
 
-    @Override
+    public Set<UserDTO> getTeam() {
+		return team;
+	}
+
+	public void setTeam(Set<UserDTO> team) {
+		this.team = team;
+	}
+
+	@Override
     public String toString() {
         return "UserDTO{" +
             "login='" + login + '\'' +
@@ -196,4 +224,12 @@ public class UserDTO {
             ", authorities=" + authorities +
             "}";
     }
+
+	public UserDTO getSupervisor() {
+		return supervisor;
+	}
+
+	public void setSupervisor(UserDTO supervisor) {
+		this.supervisor = supervisor;
+	}
 }

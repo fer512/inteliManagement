@@ -11,11 +11,12 @@ import {
     companyRoute,
     companyPopupRoute
 } from './';
+import { MaterialModule } from '../../shared';
 
 const ENTITY_STATES = [...companyRoute, ...companyPopupRoute];
 
 @NgModule({
-    imports: [InteliManagementSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [MaterialModule, InteliManagementSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         CompanyImComponent,
         CompanyImDetailComponent,

@@ -1,4 +1,47 @@
-<div class="row justify-content-center">
+<div class="ubmat-panel">
+    <mat-card>
+        <mat-card-content>
+            <form name="editForm" role="form" (ngSubmit)="save()" #editForm="ngForm">
+                <jhi-alert-error></jhi-alert-error>
+                <section class="loss-section">
+                    <h3>Datos de la empresa</h3>
+                    <table mat-table class="ubmat-table">
+                        <tr mat-row>
+                            <td mat-cell>
+                                <mat-form-field class="ubmat-input -md">
+                                    <input matInput type="text" [(ngModel)]="company.name" placeholder="{{ 'inteliManagementApp.company.name' | translate }}" name="name" id="field_name">
+                                </mat-form-field>
+                                <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">This field is required.</small>
+                                </div>
+                            </td>
+                            <td mat-cell>
+                                <mat-form-field class="ubmat-input -md">
+                                    <input matInput type="text" name="email" id="field_email" [(ngModel)]="company.email" placeholder="{{ 'inteliManagementApp.company.email' | translate }}">
+                                </mat-form-field>
+                                <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.email?.errors?.required" jhiTranslate="entity.validation.required">This field is required.</small>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+
+</div>
+
+<!--div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
             <h2 id="jhi-company-im-heading" jhiTranslate="inteliManagementApp.company.home.createOrEditLabel">Create or edit a Company</h2>
@@ -22,14 +65,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="inteliManagementApp.company.email" for="field_email">Email</label>
-                    <input type="text" class="form-control" name="email" id="field_email"
-                        [(ngModel)]="company.email" required/>
-                    <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.email?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
+                    <input type="text" class="form-control"  required/>
+
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="inteliManagementApp.company.actived" for="field_actived">Actived</label>
@@ -56,14 +93,7 @@
                     </select>
                 </div>
             </div>
-            <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-                </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-                </button>
-            </div>
+
         </form>
     </div>
-</div>
+</div-->
