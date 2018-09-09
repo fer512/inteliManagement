@@ -44,6 +44,7 @@ public class CacheConfiguration {
             cm.createCache(ar.com.intelimanagement.domain.Company.class.getName() + ".providers", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Address.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Approvals.class.getName(), jcacheConfiguration);
+            cm.createCache(ar.com.intelimanagement.domain.Approvals.class.getName() + ".history", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Country.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Country.class.getName() + ".provinces", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Province.class.getName(), jcacheConfiguration);
@@ -57,8 +58,9 @@ public class CacheConfiguration {
             cm.createCache(ar.com.intelimanagement.domain.Product.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Notification.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Variation.class.getName(), jcacheConfiguration);
-            cm.createCache(ar.com.intelimanagement.domain.Variation.class.getName() + ".relationshipProviderVariations", jcacheConfiguration);
-            cm.createCache(ar.com.intelimanagement.domain.Variation.class.getName() + ".relationshipProductVariations", jcacheConfiguration);
+            cm.createCache(ar.com.intelimanagement.domain.ApprovalHistory.class.getName(), jcacheConfiguration);
+            //cm.createCache(ar.com.intelimanagement.domain.Variation.class.getName() + ".relationshipProviderVariations", jcacheConfiguration);
+            //cm.createCache(ar.com.intelimanagement.domain.Variation.class.getName() + ".relationshipProductVariations", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

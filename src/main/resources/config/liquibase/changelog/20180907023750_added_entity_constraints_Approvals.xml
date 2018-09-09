@@ -6,17 +6,8 @@
 	<changeSet id="20180907023750-2" author="jhipster">
 
 		<addForeignKeyConstraint baseColumnNames="creation_user"
-			baseTableName="variation" constraintName="fk_varation_user_id"
+			baseTableName="approvals" constraintName="fk_approvals_user_id"
 			referencedColumnNames="id" referencedTableName="jhi_user" />
 
-                                 
-		<addForeignKeyConstraint baseColumnNames="product_id"
-			baseTableName="variation" constraintName="fk_varation_product_id"
-			referencedColumnNames="id" referencedTableName="product" />
-
-		<addForeignKeyConstraint baseColumnNames="approvals_id"
-			baseTableName="variation" constraintName="fk_varation_approvals_id"
-			referencedColumnNames="id" referencedTableName="approvals" />
-			
 	</changeSet>
 </databaseChangeLog>

@@ -86,6 +86,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="approvals_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="variation" columnName="creation_date" columnDataType="datetime"/>

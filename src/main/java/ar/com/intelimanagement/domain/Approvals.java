@@ -4,12 +4,15 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.List;
 import java.util.Objects;
 
 import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
+import ar.com.intelimanagement.domain.enumeration.ApprovalsType;
 
 /**
  * A Approvals.
@@ -17,7 +20,10 @@ import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
 @Entity
 @Table(name = "approvals")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Approvals implements Serializable {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="type", 
+  discriminatorType = DiscriminatorType.STRING)
+public class Approvals extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -35,6 +41,16 @@ public class Approvals implements Serializable {
     @Column(name = "status")
     private ApprovalsStatusType status;
 
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "creation_user")
+    private User creationUser;
+    
+    @OneToMany
+    @JoinColumn(name = "approval_id")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private List<ApprovalHistory> history;
+    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -82,35 +98,63 @@ public class Approvals implements Serializable {
     public void setStatus(ApprovalsStatusType status) {
         this.status = status;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Approvals approvals = (Approvals) o;
-        if (approvals.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), approvals.getId());
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
+	public List<ApprovalHistory> getHistory() {
+		return history;
+	}
 
-    @Override
-    public String toString() {
-        return "Approvals{" +
-            "id=" + getId() +
-            ", stastDate='" + getStastDate() + "'" +
-            ", endDate='" + getEndDate() + "'" +
-            ", status='" + getStatus() + "'" +
-            "}";
-    }
+	public void setHistory(List<ApprovalHistory> history) {
+		this.history = history;
+	}
+	
+	public User getCreationUser() {
+		return creationUser;
+	}
+
+	public void setCreationUser(User creationUser) {
+		this.creationUser = creationUser;
+	}
+
+	public Boolean approved(User user){
+		return this.getHistory().stream().anyMatch(h-> h.getUser().getId().equals(user.getId()) && ApprovalsStatusType.APPOVED.equals(h.getStatus()));
+		//throw
+	}
+	
+	public Boolean validDate(){
+		Instant now = Instant.now();
+		return now.isAfter(this.getStastDate()) && now.isBefore(this.getEndDate());
+	}
+	
+	public Boolean validStatus(){
+		return ApprovalsStatusType.PENDING.equals(this.getStatus());//throw
+	}
+	
+	public Approvals Approve(User user) {
+		if(this.validStatus() && this.validDate() && !this.approved(user)) {
+			return this.approveOK(user);
+		}
+		return null;
+	}
+
+	private Approvals approveOK(User user) {
+		return this.approveAny(user);
+	}
+
+	private Approvals approveAny(User user) {
+		ApprovalHistory history = new ApprovalHistory();
+		history.setStatus(ApprovalsStatusType.APPOVED);
+		history.setUser(user);
+		this.getHistory().add(history);
+		this.setStatus(ApprovalsStatusType.APPOVED);
+		return this;
+	}
+	
+	@Override
+	public String toString() {
+		return "Approvals [id=" + id + ", stastDate=" + stastDate + ", endDate=" + endDate + ", status=" + status
+				 + ", creationUser=" + creationUser + ", history=" + history + "]";
+	}
+	
+	
 }

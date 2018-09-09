@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -87,7 +88,10 @@ public class Variation implements Serializable {
     @Column(name = "cacel")
     private Boolean cacel;
 
-
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Approvals approvals;
+    
     public Long getId() {
 		return id;
 	}
@@ -225,7 +229,15 @@ public class Variation implements Serializable {
 	}
 
 
-    @Override
+    public Approvals getApprovals() {
+		return approvals;
+	}
+
+	public void setApprovals(Approvals approvals) {
+		this.approvals = approvals;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -250,10 +262,10 @@ public class Variation implements Serializable {
 		return "Variation [id=" + id + ", extraCharge=" + extraCharge + ", newCharge=" + newCharge + ", newCost="
 				+ newCost + ", newBenefit=" + newBenefit + ", newExternalLocatorId=" + newExternalLocatorId
 				+ ", comments=" + comments + ", creationDate=" + creationDate + ", creationUser=" + creationUser
-				+ ", product=" + product + ", area=" + area + ", campaing=" + campaing
-				+ ", reason=" + reason + ", recoverable=" + recoverable + ", refundInPoints=" + refundInPoints
-				+ ", refundInCash=" + refundInCash + ", cacel=" + cacel +"]";
+				+ ", product=" + product + ", area=" + area + ", campaing=" + campaing + ", reason=" + reason
+				+ ", recoverable=" + recoverable + ", refundInPoints=" + refundInPoints + ", refundInCash="
+				+ refundInCash + ", cacel=" + cacel + ", approvals=" + approvals + "]";
 	}
-    
+
     
 }
