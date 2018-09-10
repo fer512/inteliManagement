@@ -1,7 +1,10 @@
 package ar.com.intelimanagement.service.impl;
 
 import ar.com.intelimanagement.service.NotificationService;
+import ar.com.intelimanagement.domain.Approvals;
 import ar.com.intelimanagement.domain.Notification;
+import ar.com.intelimanagement.domain.User;
+import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
 import ar.com.intelimanagement.repository.NotificationRepository;
 import ar.com.intelimanagement.service.dto.NotificationDTO;
 import ar.com.intelimanagement.service.mapper.NotificationMapper;
@@ -13,8 +16,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mysql.fabric.xmlrpc.base.Array;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 /**
  * Service Implementation for managing Notification.
  */
@@ -86,4 +93,32 @@ public class NotificationServiceImpl implements NotificationService {
         log.debug("Request to delete Notification : {}", id);
         notificationRepository.deleteById(id);
     }
+
+	@Override
+	@Transactional
+	public void sendNotification(Approvals approvals) {
+		List<Notification> userNotifications = new ArrayList<Notification>();
+		switch (approvals.getStatus()) {
+		case APPOVED:
+		case REJECTED:
+			userNotifications.add(createNotification(approvals.getCreationUser()));
+			//send notificacion al creador y a los q participaron de la aprobacion
+			break;
+		case PENDING:
+			//send notificacion nivel siguiente
+			List<User> users = approvals.getUserByNextLevel();
+			users.stream().map(u ->createNotification(u)).collect(Collectors.toList());
+			break;
+		default:
+			break;
+		}
+		
+		notificationRepository.saveAll(userNotifications);
+	}
+	
+	private Notification createNotification(User u){
+		Notification n = new Notification();
+		n.setUser(u);
+		return n;
+	}
 }

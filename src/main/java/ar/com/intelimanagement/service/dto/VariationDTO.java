@@ -24,10 +24,8 @@ public class VariationDTO implements Serializable {
 
     private String comments;
 
-    @NotNull
     private ZonedDateTime creationDate;
 
-    @NotNull
     private Long creationUser;
 
     @NotNull

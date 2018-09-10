@@ -1,8 +1,10 @@
 package ar.com.intelimanagement.service.impl;
 
 import ar.com.intelimanagement.service.ApprovalsService;
+import ar.com.intelimanagement.service.NotificationService;
 import ar.com.intelimanagement.service.UserService;
 import ar.com.intelimanagement.domain.Approvals;
+import ar.com.intelimanagement.domain.User;
 import ar.com.intelimanagement.repository.ApprovalsRepository;
 import ar.com.intelimanagement.service.dto.ApprovalsDTO;
 import ar.com.intelimanagement.service.dto.UserDTO;
@@ -32,6 +34,7 @@ public class ApprovalsServiceImpl implements ApprovalsService {
     
     private final ApprovalsMapper approvalsMapper;
 
+    
     public ApprovalsServiceImpl(ApprovalsRepository approvalsRepository, ApprovalsMapper approvalsMapper,UserService userService) {
         this.approvalsRepository = approvalsRepository;
         this.approvalsMapper = approvalsMapper;
@@ -92,9 +95,12 @@ public class ApprovalsServiceImpl implements ApprovalsService {
         approvalsRepository.deleteById(id);
     }
 
-    
-    public void approve() {
-    	UserDTO currentUser = this.userService.getCurrentUser();
-    	
-    }
+	@Override
+	@Transactional
+	public Approvals approve(Long id) {
+		Optional<User> currentUser = this.userService.getUserWithAuthorities();
+		Optional<Approvals> approvals = approvalsRepository.findById(id);
+		return approvals.get().approve(currentUser.get());
+	}
+
 }

@@ -1,5 +1,6 @@
 package ar.com.intelimanagement.service;
 
+import ar.com.intelimanagement.domain.Approvals;
 import ar.com.intelimanagement.service.dto.NotificationDTO;
 
 import org.springframework.data.domain.Page;
@@ -43,4 +44,6 @@ public interface NotificationService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+	void sendNotification(Approvals approvals);
 }
