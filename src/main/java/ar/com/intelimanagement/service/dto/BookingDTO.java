@@ -1,5 +1,6 @@
 package ar.com.intelimanagement.service.dto;
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -17,6 +18,21 @@ public class BookingDTO implements Serializable {
     private String idReserveLocatorExternal;
 
     private String detail;
+
+    @NotNull
+    private String paymentType;
+
+    private Double paymentCreditCard;
+
+    private Integer paymentPointsInUSD;
+
+    @NotNull
+    private Double juniperSalePrice;
+
+    @NotNull
+    private Double juniperReservationCost;
+
+    private Double benefitInReservation;
 
     private Long companyId;
 
@@ -60,6 +76,54 @@ public class BookingDTO implements Serializable {
         this.detail = detail;
     }
 
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    public Double getPaymentCreditCard() {
+        return paymentCreditCard;
+    }
+
+    public void setPaymentCreditCard(Double paymentCreditCard) {
+        this.paymentCreditCard = paymentCreditCard;
+    }
+
+    public Integer getPaymentPointsInUSD() {
+        return paymentPointsInUSD;
+    }
+
+    public void setPaymentPointsInUSD(Integer paymentPointsInUSD) {
+        this.paymentPointsInUSD = paymentPointsInUSD;
+    }
+
+    public Double getJuniperSalePrice() {
+        return juniperSalePrice;
+    }
+
+    public void setJuniperSalePrice(Double juniperSalePrice) {
+        this.juniperSalePrice = juniperSalePrice;
+    }
+
+    public Double getJuniperReservationCost() {
+        return juniperReservationCost;
+    }
+
+    public void setJuniperReservationCost(Double juniperReservationCost) {
+        this.juniperReservationCost = juniperReservationCost;
+    }
+
+    public Double getBenefitInReservation() {
+        return benefitInReservation;
+    }
+
+    public void setBenefitInReservation(Double benefitInReservation) {
+        this.benefitInReservation = benefitInReservation;
+    }
+
     public Long getCompanyId() {
         return companyId;
     }
@@ -97,6 +161,12 @@ public class BookingDTO implements Serializable {
             ", idReserveLocatorJuniper='" + getIdReserveLocatorJuniper() + "'" +
             ", idReserveLocatorExternal='" + getIdReserveLocatorExternal() + "'" +
             ", detail='" + getDetail() + "'" +
+            ", paymentType='" + getPaymentType() + "'" +
+            ", paymentCreditCard=" + getPaymentCreditCard() +
+            ", paymentPointsInUSD=" + getPaymentPointsInUSD() +
+            ", juniperSalePrice=" + getJuniperSalePrice() +
+            ", juniperReservationCost=" + getJuniperReservationCost() +
+            ", benefitInReservation=" + getBenefitInReservation() +
             ", company=" + getCompanyId() +
             "}";
     }

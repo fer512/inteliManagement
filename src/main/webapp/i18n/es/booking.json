@@ -20,6 +20,12 @@
             "idReserveLocatorJuniper": "Id Reserve Locator Juniper",
             "idReserveLocatorExternal": "Id Reserve Locator External",
             "detail": "Detail",
+            "paymentType": "Payment Type",
+            "paymentCreditCard": "Payment Credit Card",
+            "paymentPointsInUSD": "Payment Points In USD",
+            "juniperSalePrice": "Juniper Sale Price",
+            "juniperReservationCost": "Juniper Reservation Cost",
+            "benefitInReservation": "Benefit In Reservation",
             "company": "Company"
         }
     }

@@ -10,6 +10,11 @@ import { IVariation } from 'app/shared/model/variation.model';
 import { VariationService } from './variation.service';
 import { IUser, UserService } from 'app/core';
 
+export interface ListOpt {
+    value: string;
+    description: string;
+}
+
 @Component({
     selector: 'jhi-variation-update',
     templateUrl: './variation-update.component.html'
@@ -20,6 +25,21 @@ export class VariationUpdateComponent implements OnInit {
 
     users: IUser[];
     creation_date: string;
+
+    providers: ListOpt[] = [
+        { value: 'CON', description: 'Consolid' },
+        { value: 'EXP', description: 'Expidia' },
+        { value: 'HBS', description: 'HotelBeds' },
+        { value: 'TOU', description: 'Tourico' }
+    ];
+
+    products: ListOpt[] = [
+        { value: 'HOTEL', description: 'Hotel' },
+        { value: 'FLIGHT', description: 'Vuelo' },
+        { value: 'CAR', description: 'Auto' },
+        { value: 'TRANFER', description: ' Traslado' },
+        { value: 'TOURS', description: 'Actividades' }
+    ];
 
     constructor(
         private jhiAlertService: JhiAlertService,

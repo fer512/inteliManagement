@@ -1,4 +1,7 @@
-<form>
+<div class="ubmat-panel">
+        <mat-card>
+        <mat-card-content>
+<form  name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
     <!-- loss data -->
     <section class="loss-section">
       <h3>Variaciones de Costos & Ganancias</h3>
@@ -73,27 +76,31 @@
             <tr mat-row>
               <!-- Recuperable -->
               <td mat-cell colspan="3">
-                <mat-slide-toggle> Recuperable</mat-slide-toggle>
+                <mat-slide-toggle name="recoverable" id="field_recoverable"
+                [(ngModel)]="variation.recoverable"> Recuperable</mat-slide-toggle>
               </td>   
             </tr>          
         <tr mat-row>
           <!-- Dev Puntos -->
           <td mat-cell>
             <mat-form-field  class="ubmat-input -md">
-              <input matInput type="number" placeholder="Devolución en Puntos" value="">
+              <input matInput type="number" name="refund_in_points" id="field_refund_in_points"
+              [(ngModel)]="variation.refund_in_points" placeholder="Devolución en Puntos" value="">
               <span matPrefix>PTS&nbsp;</span>
             </mat-form-field>
           </td> 
           <!-- Dev Efectivo -->
           <td mat-cell>
             <mat-form-field  class="ubmat-input -md">
-              <input matInput type="text" placeholder="Devolución en Efectivo" value="">
+              <input matInput type="text" name="refund_in_cash" id="field_refund_in_cash"
+              [(ngModel)]="variation.refund_in_cash" placeholder="Devolución en Efectivo" value="">
             </mat-form-field>
           </td>
           <!-- Cobro Extra -->
           <td mat-cell>
             <mat-form-field  class="ubmat-input -md">
-              <input matInput type="text" placeholder="Cobro Extra" value="">
+              <input matInput type="text" name="extra_charge" id="field_extra_charge"
+              [(ngModel)]="variation.extra_charge" placeholder="Cobro Extra" value="">
             </mat-form-field>
           </td>
         </tr>  
@@ -101,20 +108,23 @@
           <!-- Nuevo Costo -->
           <td mat-cell>
             <mat-form-field class="ubmat-input -md">
-              <input matInput placeholder="Nuevo Costo" type="number" value="">
+              <input matInput name="new_cost" id="field_new_cost"
+              [(ngModel)]="variation.new_cost" placeholder="Nuevo Costo" type="number" value="">
               <span matPrefix>USD&nbsp;</span>
             </mat-form-field>
           </td> 
           <!-- Nuevo Beneficio -->
           <td mat-cell>
             <mat-form-field  class="ubmat-input -md">
-              <input matInput type="text" placeholder="Nuevo Beneficio" value="">
+              <input matInput type="text" name="new_benefit" id="field_new_benefit"
+              [(ngModel)]="variation.new_benefit" placeholder="Nuevo Beneficio" value="">
             </mat-form-field>
           </td>
           <!-- Nuevo Localizador Ext -->
           <td mat-cell>
             <mat-form-field  class="ubmat-input -md">
-              <input matInput type="text" placeholder="Nuevo Id Localizador Externo" value="">
+              <input matInput type="text" name="new_external_locator_id" id="field_new_external_locator_id"
+              [(ngModel)]="variation.new_external_locator_id" placeholder="Nuevo Id Localizador Externo" value="">
             </mat-form-field>
           </td>
         </tr>                
@@ -126,7 +136,8 @@
         <tr mat-row>
           <td mat-cell>
             <mat-form-field class="ubmat-textarea">
-              <textarea matInput placeholder="Comentarios"></textarea>
+              <textarea matInput name="comments" id="field_comments"
+              [(ngModel)]="variation.comments" placeholder="Comentarios"></textarea>
             </mat-form-field>
           </td>
         </tr> 
@@ -134,8 +145,11 @@
     </section>        
     <button mat-raised-button color="primary">Guardar</button>      
 </form>
-<hr>
+</mat-card-content>
+</mat-card>
+</div>
 
+<!--
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
@@ -306,3 +320,4 @@
         </form>
     </div>
 </div>
+-->

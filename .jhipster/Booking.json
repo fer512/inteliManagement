@@ -1,5 +1,14 @@
 {
-    "name": "Booking",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "otherEntityField": "id"
+        }
+    ],
     "fields": [
         {
             "fieldName": "idTransaction",
@@ -16,24 +25,47 @@
         {
             "fieldName": "detail",
             "fieldType": "String"
-        }
-    ],
-    "relationships": [
+        },
         {
-            "relationshipType": "many-to-one",
-            "relationshipName": "company",
-            "otherEntityName": "company",
-            "otherEntityField": "id"
+            "fieldName": "paymentType",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "paymentCreditCard",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "paymentPointsInUSD",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "juniperSalePrice",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "juniperReservationCost",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "benefitInReservation",
+            "fieldType": "Double"
         }
     ],
     "changelogDate": "20180901192843",
-    "entityTableName": "booking",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "searchEngine": false,
     "service": "serviceImpl",
+    "entityTableName": "booking",
     "jpaMetamodelFiltering": true,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*",
+    "pagination": "pagination",
     "angularJSSuffix": "im"
 }

@@ -88,6 +88,24 @@ public class BookingQueryService extends QueryService<Booking> {
             if (criteria.getDetail() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDetail(), Booking_.detail));
             }
+            if (criteria.getPaymentType() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getPaymentType(), Booking_.paymentType));
+            }
+            if (criteria.getPaymentCreditCard() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getPaymentCreditCard(), Booking_.paymentCreditCard));
+            }
+            if (criteria.getPaymentPointsInUSD() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getPaymentPointsInUSD(), Booking_.paymentPointsInUSD));
+            }
+            if (criteria.getJuniperSalePrice() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getJuniperSalePrice(), Booking_.juniperSalePrice));
+            }
+            if (criteria.getJuniperReservationCost() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getJuniperReservationCost(), Booking_.juniperReservationCost));
+            }
+            if (criteria.getBenefitInReservation() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getBenefitInReservation(), Booking_.benefitInReservation));
+            }
             if (criteria.getCompanyId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getCompanyId(), Booking_.company, Company_.id));
             }

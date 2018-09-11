@@ -36,6 +36,18 @@ public class BookingCriteria implements Serializable {
 
     private StringFilter detail;
 
+    private StringFilter paymentType;
+
+    private DoubleFilter paymentCreditCard;
+
+    private IntegerFilter paymentPointsInUSD;
+
+    private DoubleFilter juniperSalePrice;
+
+    private DoubleFilter juniperReservationCost;
+
+    private DoubleFilter benefitInReservation;
+
     private LongFilter companyId;
 
     public BookingCriteria() {
@@ -81,6 +93,54 @@ public class BookingCriteria implements Serializable {
         this.detail = detail;
     }
 
+    public StringFilter getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(StringFilter paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    public DoubleFilter getPaymentCreditCard() {
+        return paymentCreditCard;
+    }
+
+    public void setPaymentCreditCard(DoubleFilter paymentCreditCard) {
+        this.paymentCreditCard = paymentCreditCard;
+    }
+
+    public IntegerFilter getPaymentPointsInUSD() {
+        return paymentPointsInUSD;
+    }
+
+    public void setPaymentPointsInUSD(IntegerFilter paymentPointsInUSD) {
+        this.paymentPointsInUSD = paymentPointsInUSD;
+    }
+
+    public DoubleFilter getJuniperSalePrice() {
+        return juniperSalePrice;
+    }
+
+    public void setJuniperSalePrice(DoubleFilter juniperSalePrice) {
+        this.juniperSalePrice = juniperSalePrice;
+    }
+
+    public DoubleFilter getJuniperReservationCost() {
+        return juniperReservationCost;
+    }
+
+    public void setJuniperReservationCost(DoubleFilter juniperReservationCost) {
+        this.juniperReservationCost = juniperReservationCost;
+    }
+
+    public DoubleFilter getBenefitInReservation() {
+        return benefitInReservation;
+    }
+
+    public void setBenefitInReservation(DoubleFilter benefitInReservation) {
+        this.benefitInReservation = benefitInReservation;
+    }
+
     public LongFilter getCompanyId() {
         return companyId;
     }
@@ -97,6 +157,12 @@ public class BookingCriteria implements Serializable {
                 (idReserveLocatorJuniper != null ? "idReserveLocatorJuniper=" + idReserveLocatorJuniper + ", " : "") +
                 (idReserveLocatorExternal != null ? "idReserveLocatorExternal=" + idReserveLocatorExternal + ", " : "") +
                 (detail != null ? "detail=" + detail + ", " : "") +
+                (paymentType != null ? "paymentType=" + paymentType + ", " : "") +
+                (paymentCreditCard != null ? "paymentCreditCard=" + paymentCreditCard + ", " : "") +
+                (paymentPointsInUSD != null ? "paymentPointsInUSD=" + paymentPointsInUSD + ", " : "") +
+                (juniperSalePrice != null ? "juniperSalePrice=" + juniperSalePrice + ", " : "") +
+                (juniperReservationCost != null ? "juniperReservationCost=" + juniperReservationCost + ", " : "") +
+                (benefitInReservation != null ? "benefitInReservation=" + benefitInReservation + ", " : "") +
                 (companyId != null ? "companyId=" + companyId + ", " : "") +
             "}";
     }

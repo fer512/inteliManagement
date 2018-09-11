@@ -10,11 +10,6 @@ import { Principal } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { VariationService } from './variation.service';
 
-export interface ListOpt {
-    value: string;
-    description: string;
-}
-
 @Component({
     selector: 'jhi-variation',
     templateUrl: './variation.component.html'
@@ -34,21 +29,6 @@ export class VariationComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
-
-    providers: ListOpt[] = [
-        { value: 'CON', description: 'Consolid' },
-        { value: 'EXP', description: 'Expidia' },
-        { value: 'HBS', description: 'HotelBeds' },
-        { value: 'TOU', description: 'Tourico' }
-    ];
-
-    products: ListOpt[] = [
-        { value: 'HOTEL', description: 'Hotel' },
-        { value: 'FLIGHT', description: 'Vuelo' },
-        { value: 'CAR', description: 'Auto' },
-        { value: 'TRANFER', description: ' Traslado' },
-        { value: 'TOURS', description: 'Actividades' }
-    ];
 
     constructor(
         private variationService: VariationService,

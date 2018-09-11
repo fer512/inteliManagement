@@ -57,6 +57,24 @@ public class BookingResourceIntTest {
     private static final String DEFAULT_DETAIL = "AAAAAAAAAA";
     private static final String UPDATED_DETAIL = "BBBBBBBBBB";
 
+    private static final String DEFAULT_PAYMENT_TYPE = "AAAAAAAAAA";
+    private static final String UPDATED_PAYMENT_TYPE = "BBBBBBBBBB";
+
+    private static final Double DEFAULT_PAYMENT_CREDIT_CARD = 1D;
+    private static final Double UPDATED_PAYMENT_CREDIT_CARD = 2D;
+
+    private static final Integer DEFAULT_PAYMENT_POINTS_IN_USD = 1;
+    private static final Integer UPDATED_PAYMENT_POINTS_IN_USD = 2;
+
+    private static final Double DEFAULT_JUNIPER_SALE_PRICE = 1D;
+    private static final Double UPDATED_JUNIPER_SALE_PRICE = 2D;
+
+    private static final Double DEFAULT_JUNIPER_RESERVATION_COST = 1D;
+    private static final Double UPDATED_JUNIPER_RESERVATION_COST = 2D;
+
+    private static final Double DEFAULT_BENEFIT_IN_RESERVATION = 1D;
+    private static final Double UPDATED_BENEFIT_IN_RESERVATION = 2D;
+
     @Autowired
     private BookingRepository bookingRepository;
 
@@ -109,7 +127,13 @@ public class BookingResourceIntTest {
             .idTransaction(DEFAULT_ID_TRANSACTION)
             .idReserveLocatorJuniper(DEFAULT_ID_RESERVE_LOCATOR_JUNIPER)
             .idReserveLocatorExternal(DEFAULT_ID_RESERVE_LOCATOR_EXTERNAL)
-            .detail(DEFAULT_DETAIL);
+            .detail(DEFAULT_DETAIL)
+            .paymentType(DEFAULT_PAYMENT_TYPE)
+            .paymentCreditCard(DEFAULT_PAYMENT_CREDIT_CARD)
+            .paymentPointsInUSD(DEFAULT_PAYMENT_POINTS_IN_USD)
+            .juniperSalePrice(DEFAULT_JUNIPER_SALE_PRICE)
+            .juniperReservationCost(DEFAULT_JUNIPER_RESERVATION_COST)
+            .benefitInReservation(DEFAULT_BENEFIT_IN_RESERVATION);
         return booking;
     }
 
@@ -138,6 +162,12 @@ public class BookingResourceIntTest {
         assertThat(testBooking.getIdReserveLocatorJuniper()).isEqualTo(DEFAULT_ID_RESERVE_LOCATOR_JUNIPER);
         assertThat(testBooking.getIdReserveLocatorExternal()).isEqualTo(DEFAULT_ID_RESERVE_LOCATOR_EXTERNAL);
         assertThat(testBooking.getDetail()).isEqualTo(DEFAULT_DETAIL);
+        assertThat(testBooking.getPaymentType()).isEqualTo(DEFAULT_PAYMENT_TYPE);
+        assertThat(testBooking.getPaymentCreditCard()).isEqualTo(DEFAULT_PAYMENT_CREDIT_CARD);
+        assertThat(testBooking.getPaymentPointsInUSD()).isEqualTo(DEFAULT_PAYMENT_POINTS_IN_USD);
+        assertThat(testBooking.getJuniperSalePrice()).isEqualTo(DEFAULT_JUNIPER_SALE_PRICE);
+        assertThat(testBooking.getJuniperReservationCost()).isEqualTo(DEFAULT_JUNIPER_RESERVATION_COST);
+        assertThat(testBooking.getBenefitInReservation()).isEqualTo(DEFAULT_BENEFIT_IN_RESERVATION);
     }
 
     @Test
@@ -162,6 +192,63 @@ public class BookingResourceIntTest {
 
     @Test
     @Transactional
+    public void checkPaymentTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = bookingRepository.findAll().size();
+        // set the field null
+        booking.setPaymentType(null);
+
+        // Create the Booking, which fails.
+        BookingDTO bookingDTO = bookingMapper.toDto(booking);
+
+        restBookingMockMvc.perform(post("/api/bookings")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(bookingDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Booking> bookingList = bookingRepository.findAll();
+        assertThat(bookingList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkJuniperSalePriceIsRequired() throws Exception {
+        int databaseSizeBeforeTest = bookingRepository.findAll().size();
+        // set the field null
+        booking.setJuniperSalePrice(null);
+
+        // Create the Booking, which fails.
+        BookingDTO bookingDTO = bookingMapper.toDto(booking);
+
+        restBookingMockMvc.perform(post("/api/bookings")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(bookingDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Booking> bookingList = bookingRepository.findAll();
+        assertThat(bookingList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkJuniperReservationCostIsRequired() throws Exception {
+        int databaseSizeBeforeTest = bookingRepository.findAll().size();
+        // set the field null
+        booking.setJuniperReservationCost(null);
+
+        // Create the Booking, which fails.
+        BookingDTO bookingDTO = bookingMapper.toDto(booking);
+
+        restBookingMockMvc.perform(post("/api/bookings")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(bookingDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Booking> bookingList = bookingRepository.findAll();
+        assertThat(bookingList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllBookings() throws Exception {
         // Initialize the database
         bookingRepository.saveAndFlush(booking);
@@ -174,7 +261,13 @@ public class BookingResourceIntTest {
             .andExpect(jsonPath("$.[*].idTransaction").value(hasItem(DEFAULT_ID_TRANSACTION.toString())))
             .andExpect(jsonPath("$.[*].idReserveLocatorJuniper").value(hasItem(DEFAULT_ID_RESERVE_LOCATOR_JUNIPER.toString())))
             .andExpect(jsonPath("$.[*].idReserveLocatorExternal").value(hasItem(DEFAULT_ID_RESERVE_LOCATOR_EXTERNAL.toString())))
-            .andExpect(jsonPath("$.[*].detail").value(hasItem(DEFAULT_DETAIL.toString())));
+            .andExpect(jsonPath("$.[*].detail").value(hasItem(DEFAULT_DETAIL.toString())))
+            .andExpect(jsonPath("$.[*].paymentType").value(hasItem(DEFAULT_PAYMENT_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].paymentCreditCard").value(hasItem(DEFAULT_PAYMENT_CREDIT_CARD.doubleValue())))
+            .andExpect(jsonPath("$.[*].paymentPointsInUSD").value(hasItem(DEFAULT_PAYMENT_POINTS_IN_USD)))
+            .andExpect(jsonPath("$.[*].juniperSalePrice").value(hasItem(DEFAULT_JUNIPER_SALE_PRICE.doubleValue())))
+            .andExpect(jsonPath("$.[*].juniperReservationCost").value(hasItem(DEFAULT_JUNIPER_RESERVATION_COST.doubleValue())))
+            .andExpect(jsonPath("$.[*].benefitInReservation").value(hasItem(DEFAULT_BENEFIT_IN_RESERVATION.doubleValue())));
     }
     
 
@@ -192,7 +285,13 @@ public class BookingResourceIntTest {
             .andExpect(jsonPath("$.idTransaction").value(DEFAULT_ID_TRANSACTION.toString()))
             .andExpect(jsonPath("$.idReserveLocatorJuniper").value(DEFAULT_ID_RESERVE_LOCATOR_JUNIPER.toString()))
             .andExpect(jsonPath("$.idReserveLocatorExternal").value(DEFAULT_ID_RESERVE_LOCATOR_EXTERNAL.toString()))
-            .andExpect(jsonPath("$.detail").value(DEFAULT_DETAIL.toString()));
+            .andExpect(jsonPath("$.detail").value(DEFAULT_DETAIL.toString()))
+            .andExpect(jsonPath("$.paymentType").value(DEFAULT_PAYMENT_TYPE.toString()))
+            .andExpect(jsonPath("$.paymentCreditCard").value(DEFAULT_PAYMENT_CREDIT_CARD.doubleValue()))
+            .andExpect(jsonPath("$.paymentPointsInUSD").value(DEFAULT_PAYMENT_POINTS_IN_USD))
+            .andExpect(jsonPath("$.juniperSalePrice").value(DEFAULT_JUNIPER_SALE_PRICE.doubleValue()))
+            .andExpect(jsonPath("$.juniperReservationCost").value(DEFAULT_JUNIPER_RESERVATION_COST.doubleValue()))
+            .andExpect(jsonPath("$.benefitInReservation").value(DEFAULT_BENEFIT_IN_RESERVATION.doubleValue()));
     }
 
     @Test
@@ -353,6 +452,267 @@ public class BookingResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllBookingsByPaymentTypeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where paymentType equals to DEFAULT_PAYMENT_TYPE
+        defaultBookingShouldBeFound("paymentType.equals=" + DEFAULT_PAYMENT_TYPE);
+
+        // Get all the bookingList where paymentType equals to UPDATED_PAYMENT_TYPE
+        defaultBookingShouldNotBeFound("paymentType.equals=" + UPDATED_PAYMENT_TYPE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByPaymentTypeIsInShouldWork() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where paymentType in DEFAULT_PAYMENT_TYPE or UPDATED_PAYMENT_TYPE
+        defaultBookingShouldBeFound("paymentType.in=" + DEFAULT_PAYMENT_TYPE + "," + UPDATED_PAYMENT_TYPE);
+
+        // Get all the bookingList where paymentType equals to UPDATED_PAYMENT_TYPE
+        defaultBookingShouldNotBeFound("paymentType.in=" + UPDATED_PAYMENT_TYPE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByPaymentTypeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where paymentType is not null
+        defaultBookingShouldBeFound("paymentType.specified=true");
+
+        // Get all the bookingList where paymentType is null
+        defaultBookingShouldNotBeFound("paymentType.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByPaymentCreditCardIsEqualToSomething() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where paymentCreditCard equals to DEFAULT_PAYMENT_CREDIT_CARD
+        defaultBookingShouldBeFound("paymentCreditCard.equals=" + DEFAULT_PAYMENT_CREDIT_CARD);
+
+        // Get all the bookingList where paymentCreditCard equals to UPDATED_PAYMENT_CREDIT_CARD
+        defaultBookingShouldNotBeFound("paymentCreditCard.equals=" + UPDATED_PAYMENT_CREDIT_CARD);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByPaymentCreditCardIsInShouldWork() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where paymentCreditCard in DEFAULT_PAYMENT_CREDIT_CARD or UPDATED_PAYMENT_CREDIT_CARD
+        defaultBookingShouldBeFound("paymentCreditCard.in=" + DEFAULT_PAYMENT_CREDIT_CARD + "," + UPDATED_PAYMENT_CREDIT_CARD);
+
+        // Get all the bookingList where paymentCreditCard equals to UPDATED_PAYMENT_CREDIT_CARD
+        defaultBookingShouldNotBeFound("paymentCreditCard.in=" + UPDATED_PAYMENT_CREDIT_CARD);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByPaymentCreditCardIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where paymentCreditCard is not null
+        defaultBookingShouldBeFound("paymentCreditCard.specified=true");
+
+        // Get all the bookingList where paymentCreditCard is null
+        defaultBookingShouldNotBeFound("paymentCreditCard.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByPaymentPointsInUSDIsEqualToSomething() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where paymentPointsInUSD equals to DEFAULT_PAYMENT_POINTS_IN_USD
+        defaultBookingShouldBeFound("paymentPointsInUSD.equals=" + DEFAULT_PAYMENT_POINTS_IN_USD);
+
+        // Get all the bookingList where paymentPointsInUSD equals to UPDATED_PAYMENT_POINTS_IN_USD
+        defaultBookingShouldNotBeFound("paymentPointsInUSD.equals=" + UPDATED_PAYMENT_POINTS_IN_USD);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByPaymentPointsInUSDIsInShouldWork() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where paymentPointsInUSD in DEFAULT_PAYMENT_POINTS_IN_USD or UPDATED_PAYMENT_POINTS_IN_USD
+        defaultBookingShouldBeFound("paymentPointsInUSD.in=" + DEFAULT_PAYMENT_POINTS_IN_USD + "," + UPDATED_PAYMENT_POINTS_IN_USD);
+
+        // Get all the bookingList where paymentPointsInUSD equals to UPDATED_PAYMENT_POINTS_IN_USD
+        defaultBookingShouldNotBeFound("paymentPointsInUSD.in=" + UPDATED_PAYMENT_POINTS_IN_USD);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByPaymentPointsInUSDIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where paymentPointsInUSD is not null
+        defaultBookingShouldBeFound("paymentPointsInUSD.specified=true");
+
+        // Get all the bookingList where paymentPointsInUSD is null
+        defaultBookingShouldNotBeFound("paymentPointsInUSD.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByPaymentPointsInUSDIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where paymentPointsInUSD greater than or equals to DEFAULT_PAYMENT_POINTS_IN_USD
+        defaultBookingShouldBeFound("paymentPointsInUSD.greaterOrEqualThan=" + DEFAULT_PAYMENT_POINTS_IN_USD);
+
+        // Get all the bookingList where paymentPointsInUSD greater than or equals to UPDATED_PAYMENT_POINTS_IN_USD
+        defaultBookingShouldNotBeFound("paymentPointsInUSD.greaterOrEqualThan=" + UPDATED_PAYMENT_POINTS_IN_USD);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByPaymentPointsInUSDIsLessThanSomething() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where paymentPointsInUSD less than or equals to DEFAULT_PAYMENT_POINTS_IN_USD
+        defaultBookingShouldNotBeFound("paymentPointsInUSD.lessThan=" + DEFAULT_PAYMENT_POINTS_IN_USD);
+
+        // Get all the bookingList where paymentPointsInUSD less than or equals to UPDATED_PAYMENT_POINTS_IN_USD
+        defaultBookingShouldBeFound("paymentPointsInUSD.lessThan=" + UPDATED_PAYMENT_POINTS_IN_USD);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllBookingsByJuniperSalePriceIsEqualToSomething() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where juniperSalePrice equals to DEFAULT_JUNIPER_SALE_PRICE
+        defaultBookingShouldBeFound("juniperSalePrice.equals=" + DEFAULT_JUNIPER_SALE_PRICE);
+
+        // Get all the bookingList where juniperSalePrice equals to UPDATED_JUNIPER_SALE_PRICE
+        defaultBookingShouldNotBeFound("juniperSalePrice.equals=" + UPDATED_JUNIPER_SALE_PRICE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByJuniperSalePriceIsInShouldWork() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where juniperSalePrice in DEFAULT_JUNIPER_SALE_PRICE or UPDATED_JUNIPER_SALE_PRICE
+        defaultBookingShouldBeFound("juniperSalePrice.in=" + DEFAULT_JUNIPER_SALE_PRICE + "," + UPDATED_JUNIPER_SALE_PRICE);
+
+        // Get all the bookingList where juniperSalePrice equals to UPDATED_JUNIPER_SALE_PRICE
+        defaultBookingShouldNotBeFound("juniperSalePrice.in=" + UPDATED_JUNIPER_SALE_PRICE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByJuniperSalePriceIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where juniperSalePrice is not null
+        defaultBookingShouldBeFound("juniperSalePrice.specified=true");
+
+        // Get all the bookingList where juniperSalePrice is null
+        defaultBookingShouldNotBeFound("juniperSalePrice.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByJuniperReservationCostIsEqualToSomething() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where juniperReservationCost equals to DEFAULT_JUNIPER_RESERVATION_COST
+        defaultBookingShouldBeFound("juniperReservationCost.equals=" + DEFAULT_JUNIPER_RESERVATION_COST);
+
+        // Get all the bookingList where juniperReservationCost equals to UPDATED_JUNIPER_RESERVATION_COST
+        defaultBookingShouldNotBeFound("juniperReservationCost.equals=" + UPDATED_JUNIPER_RESERVATION_COST);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByJuniperReservationCostIsInShouldWork() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where juniperReservationCost in DEFAULT_JUNIPER_RESERVATION_COST or UPDATED_JUNIPER_RESERVATION_COST
+        defaultBookingShouldBeFound("juniperReservationCost.in=" + DEFAULT_JUNIPER_RESERVATION_COST + "," + UPDATED_JUNIPER_RESERVATION_COST);
+
+        // Get all the bookingList where juniperReservationCost equals to UPDATED_JUNIPER_RESERVATION_COST
+        defaultBookingShouldNotBeFound("juniperReservationCost.in=" + UPDATED_JUNIPER_RESERVATION_COST);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByJuniperReservationCostIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where juniperReservationCost is not null
+        defaultBookingShouldBeFound("juniperReservationCost.specified=true");
+
+        // Get all the bookingList where juniperReservationCost is null
+        defaultBookingShouldNotBeFound("juniperReservationCost.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByBenefitInReservationIsEqualToSomething() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where benefitInReservation equals to DEFAULT_BENEFIT_IN_RESERVATION
+        defaultBookingShouldBeFound("benefitInReservation.equals=" + DEFAULT_BENEFIT_IN_RESERVATION);
+
+        // Get all the bookingList where benefitInReservation equals to UPDATED_BENEFIT_IN_RESERVATION
+        defaultBookingShouldNotBeFound("benefitInReservation.equals=" + UPDATED_BENEFIT_IN_RESERVATION);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByBenefitInReservationIsInShouldWork() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where benefitInReservation in DEFAULT_BENEFIT_IN_RESERVATION or UPDATED_BENEFIT_IN_RESERVATION
+        defaultBookingShouldBeFound("benefitInReservation.in=" + DEFAULT_BENEFIT_IN_RESERVATION + "," + UPDATED_BENEFIT_IN_RESERVATION);
+
+        // Get all the bookingList where benefitInReservation equals to UPDATED_BENEFIT_IN_RESERVATION
+        defaultBookingShouldNotBeFound("benefitInReservation.in=" + UPDATED_BENEFIT_IN_RESERVATION);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBookingsByBenefitInReservationIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        bookingRepository.saveAndFlush(booking);
+
+        // Get all the bookingList where benefitInReservation is not null
+        defaultBookingShouldBeFound("benefitInReservation.specified=true");
+
+        // Get all the bookingList where benefitInReservation is null
+        defaultBookingShouldNotBeFound("benefitInReservation.specified=false");
+    }
+
+    @Test
+    @Transactional
     public void getAllBookingsByCompanyIsEqualToSomething() throws Exception {
         // Initialize the database
         Company company = CompanyResourceIntTest.createEntity(em);
@@ -380,7 +740,13 @@ public class BookingResourceIntTest {
             .andExpect(jsonPath("$.[*].idTransaction").value(hasItem(DEFAULT_ID_TRANSACTION.toString())))
             .andExpect(jsonPath("$.[*].idReserveLocatorJuniper").value(hasItem(DEFAULT_ID_RESERVE_LOCATOR_JUNIPER.toString())))
             .andExpect(jsonPath("$.[*].idReserveLocatorExternal").value(hasItem(DEFAULT_ID_RESERVE_LOCATOR_EXTERNAL.toString())))
-            .andExpect(jsonPath("$.[*].detail").value(hasItem(DEFAULT_DETAIL.toString())));
+            .andExpect(jsonPath("$.[*].detail").value(hasItem(DEFAULT_DETAIL.toString())))
+            .andExpect(jsonPath("$.[*].paymentType").value(hasItem(DEFAULT_PAYMENT_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].paymentCreditCard").value(hasItem(DEFAULT_PAYMENT_CREDIT_CARD.doubleValue())))
+            .andExpect(jsonPath("$.[*].paymentPointsInUSD").value(hasItem(DEFAULT_PAYMENT_POINTS_IN_USD)))
+            .andExpect(jsonPath("$.[*].juniperSalePrice").value(hasItem(DEFAULT_JUNIPER_SALE_PRICE.doubleValue())))
+            .andExpect(jsonPath("$.[*].juniperReservationCost").value(hasItem(DEFAULT_JUNIPER_RESERVATION_COST.doubleValue())))
+            .andExpect(jsonPath("$.[*].benefitInReservation").value(hasItem(DEFAULT_BENEFIT_IN_RESERVATION.doubleValue())));
     }
 
     /**
@@ -418,7 +784,13 @@ public class BookingResourceIntTest {
             .idTransaction(UPDATED_ID_TRANSACTION)
             .idReserveLocatorJuniper(UPDATED_ID_RESERVE_LOCATOR_JUNIPER)
             .idReserveLocatorExternal(UPDATED_ID_RESERVE_LOCATOR_EXTERNAL)
-            .detail(UPDATED_DETAIL);
+            .detail(UPDATED_DETAIL)
+            .paymentType(UPDATED_PAYMENT_TYPE)
+            .paymentCreditCard(UPDATED_PAYMENT_CREDIT_CARD)
+            .paymentPointsInUSD(UPDATED_PAYMENT_POINTS_IN_USD)
+            .juniperSalePrice(UPDATED_JUNIPER_SALE_PRICE)
+            .juniperReservationCost(UPDATED_JUNIPER_RESERVATION_COST)
+            .benefitInReservation(UPDATED_BENEFIT_IN_RESERVATION);
         BookingDTO bookingDTO = bookingMapper.toDto(updatedBooking);
 
         restBookingMockMvc.perform(put("/api/bookings")
@@ -434,6 +806,12 @@ public class BookingResourceIntTest {
         assertThat(testBooking.getIdReserveLocatorJuniper()).isEqualTo(UPDATED_ID_RESERVE_LOCATOR_JUNIPER);
         assertThat(testBooking.getIdReserveLocatorExternal()).isEqualTo(UPDATED_ID_RESERVE_LOCATOR_EXTERNAL);
         assertThat(testBooking.getDetail()).isEqualTo(UPDATED_DETAIL);
+        assertThat(testBooking.getPaymentType()).isEqualTo(UPDATED_PAYMENT_TYPE);
+        assertThat(testBooking.getPaymentCreditCard()).isEqualTo(UPDATED_PAYMENT_CREDIT_CARD);
+        assertThat(testBooking.getPaymentPointsInUSD()).isEqualTo(UPDATED_PAYMENT_POINTS_IN_USD);
+        assertThat(testBooking.getJuniperSalePrice()).isEqualTo(UPDATED_JUNIPER_SALE_PRICE);
+        assertThat(testBooking.getJuniperReservationCost()).isEqualTo(UPDATED_JUNIPER_RESERVATION_COST);
+        assertThat(testBooking.getBenefitInReservation()).isEqualTo(UPDATED_BENEFIT_IN_RESERVATION);
     }
 
     @Test

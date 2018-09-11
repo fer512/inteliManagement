@@ -4,7 +4,7 @@ import { InteliManagementSharedLibsModule, FindLanguageFromKeyPipe, JhiAlertComp
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-    imports: [InteliManagementSharedLibsModule],
+    imports: [BrowserAnimationsModule, InteliManagementSharedLibsModule],
     declarations: [FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent],
     exports: [InteliManagementSharedLibsModule, FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent]
 })

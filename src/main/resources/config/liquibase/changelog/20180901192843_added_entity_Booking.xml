@@ -38,6 +38,30 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="payment_type" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="payment_credit_card" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="payment_points_in_usd" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="juniper_sale_price" type="double">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="juniper_reservation_cost" type="double">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="benefit_in_reservation" type="double">
+                <constraints nullable="true" />
+            </column>
+
             <column name="company_id" type="bigint">
                 <constraints nullable="true" />
             </column>

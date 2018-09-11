@@ -10,11 +10,6 @@ import { Principal } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { BookingImService } from './booking-im.service';
 
-export interface ListOpt {
-    value: string;
-    description: string;
-}
-
 @Component({
     selector: 'jhi-booking-im',
     templateUrl: './booking-im.component.html'
@@ -34,12 +29,6 @@ export class BookingImComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
-
-    paytypes: ListOpt[] = [
-        { value: 'POINTS', description: 'Puntos' },
-        { value: 'CREDIT_CARD', description: 'Tarjeta de Credito' },
-        { value: 'MIXED', description: 'Mixto' }
-    ];
 
     constructor(
         private bookingService: BookingImService,

@@ -1,27 +1,45 @@
-<form>
-    <!-- reservation ids -->
-    <section class="loss-section">
+<div class="ubmat-panel">
+        <mat-card>
+        <mat-card-content>
+      <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+      <!-- reservation ids -->
+      <section class="loss-section">
         <h3>Datos de la reserva</h3>
         <table mat-table class="ubmat-table">
           <tr mat-row>
             <td mat-cell>
             <mat-form-field  class="ubmat-input -md">
-              <input matInput type="text" placeholder="Id transacción" value="">
+              <input matInput type="text" name="idTransaction" id="field_idTransaction"
+              [(ngModel)]="booking.idTransaction" placeholder="Id transacción" value="">
             </mat-form-field> 
             </td>
             <td mat-cell>
               <mat-form-field  class="ubmat-input -md">
-                <input matInput type="text" placeholder="Id reserva localizador Juniper" value="">
+                <input matInput type="text" name="idReserveLocatorJuniper" id="field_idReserveLocatorJuniper"
+                [(ngModel)]="booking.idReserveLocatorJuniper" placeholder="Id reserva localizador Juniper" value="">
               </mat-form-field>
             </td>
             <td mat-cell>
               <mat-form-field  class="ubmat-input -md">
-                <input matInput type="text" placeholder="Id reserva localizador Externo" value="">
+                <input matInput type="text" name="idReserveLocatorExternal" id="field_idReserveLocatorExternal"
+                [(ngModel)]="booking.idReserveLocatorExternal" placeholder="Id reserva localizador Externo" value="">
               </mat-form-field>
             </td>
           </tr>
           <tr mat-row>          
             <td mat-cell>
+            <!--
+              <mat-form-field class="ubmat-input -md">
+                <input matInput placeholder="Email del Cliente" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
+                <mat-hint>Errors appear instantly!</mat-hint>
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                  Ingrese un email valido.
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                  Email es un campo <strong>requerido</strong>
+                </mat-error>
+               </mat-form-field>
+            -->
             </td>
             <td mat-cell><!--empty--></td>
             <td mat-cell><!--empty--></td>  
@@ -37,8 +55,8 @@
             <!-- Tipo de Pago -->
             <td mat-cell>
               <mat-form-field class="ubmat-select -md">
-              <mat-select placeholder="Tipo de Pago">
-                <mat-option *ngFor="let opt of paytypes" [value]="opt.value">
+              <mat-select name="paymentType" id="field_paymentType" [(ngModel)]="booking.paymentType" placeholder="Tipo de Pago" required>
+                <mat-option *ngFor="let opt of paytypes" [(value)]="opt.value">
                   {{opt.description}}
                 </mat-option>
               </mat-select>
@@ -51,14 +69,16 @@
             <!-- TC -->
             <td mat-cell>
               <mat-form-field  class="ubmat-input -md">
-                <input matInput type="text" placeholder="Valor Tarjeta de Crédito" value="">
+                <input matInput type="text" name="paymentCreditCard" id="field_paymentCreditCard"
+                [(ngModel)]="booking.paymentCreditCard" placeholder="Valor Tarjeta de Crédito" value="">
                 <span matPrefix>USD&nbsp;</span>
               </mat-form-field>
             </td> 
             <!-- Pts -->
             <td mat-cell>
               <mat-form-field  class="ubmat-input -md">
-                <input matInput type="text" placeholder="USD en Puntos" value="">
+                <input matInput type="text" name="paymentPointsInUSD" id="field_paymentPointsInUSD"
+                [(ngModel)]="booking.paymentPointsInUSD" placeholder="USD en Puntos" value="">
               </mat-form-field>
             </td>
             <!-- Total -->
@@ -73,30 +93,51 @@
               <!-- Precio de Venta -->
               <td mat-cell>
                 <mat-form-field  class="ubmat-input -md">
-                  <input matInput type="text" placeholder="Precio de Venta Juniper" value="">
+                  <input matInput type="text" name="juniperSalePrice" id="field_juniperSalePrice"
+                  [(ngModel)]="booking.juniperSalePrice" placeholder="Precio de Venta Juniper" value="" required/>
                   <span matPrefix>USD&nbsp;</span>
                 </mat-form-field>
               </td> 
               <!-- Costo de la Reserva -->
               <td mat-cell>
                 <mat-form-field  class="ubmat-input -md">
-                  <input matInput type="text" placeholder="Costo Reserva Juniper" value="">
+                  <input matInput type="text" name="juniperReservationCost" id="field_juniperReservationCost"
+                  [(ngModel)]="booking.juniperReservationCost" placeholder="Costo Reserva Juniper" value="" required/>
                   <span matPrefix>USD&nbsp;</span>
                 </mat-form-field>
               </td>
               <!-- Beneficio -->
               <td mat-cell>
                 <mat-form-field  class="ubmat-input -md">
-                  <input matInput type="text" placeholder="Beneficio" value="">
+                  <input matInput type="text" name="benefitInReservation" id="field_benefitInReservation"
+                  [(ngModel)]="booking.benefitInReservation" placeholder="Beneficio" value="">
                 </mat-form-field>
               </td>
           </tr>   
-        </table>     
-        <button mat-raised-button color="primary">Registrar</button>
-    </section>
-</form>
-<hr>
+        </table> 
+   
+        <button mat-raised-button  type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" color="primary">Registrar</button>
+        <button mat-raised-button  type="submit" id="cancel-save" (click)="previousState()" color="warn">Cancelar</button>
+        
+      </section>
+    </form>
+</mat-card-content>
+</mat-card>
+</div>
+  <!-- Example AutoComplete 
+  <td mat-cell>
+      <mat-form-field class="ubmat-select -md">
+      <input matInput placeholder="Escribe algo..." [matAutocomplete]="auto" [formControl]="optCtrl">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let opt of filteredOpt | async" [value]="opt.description">
+            <span>{{opt.description}}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </td>
+  -->  
 
+<!--
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
@@ -128,6 +169,64 @@
                     <input type="text" class="form-control" name="detail" id="field_detail"
                         [(ngModel)]="booking.detail" />
                 </div>
+               
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.booking.paymentType" for="field_paymentType">Payment Type</label>
+                    <input type="text" class="form-control" name="paymentType" id="field_paymentType"
+                        [(ngModel)]="booking.paymentType" required/>
+                    <div [hidden]="!(editForm.controls.paymentType?.dirty && editForm.controls.paymentType?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.paymentType?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+          
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.booking.paymentCreditCard" for="field_paymentCreditCard">Payment Credit Card</label>
+                    <input type="number" class="form-control" name="paymentCreditCard" id="field_paymentCreditCard"
+                        [(ngModel)]="booking.paymentCreditCard" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.booking.paymentPointsInUSD" for="field_paymentPointsInUSD">Payment Points In USD</label>
+                    <input type="number" class="form-control" name="paymentPointsInUSD" id="field_paymentPointsInUSD"
+                        [(ngModel)]="booking.paymentPointsInUSD" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.booking.juniperSalePrice" for="field_juniperSalePrice">Juniper Sale Price</label>
+                    <input type="number" class="form-control" name="juniperSalePrice" id="field_juniperSalePrice"
+                        [(ngModel)]="booking.juniperSalePrice" required/>
+                    <div [hidden]="!(editForm.controls.juniperSalePrice?.dirty && editForm.controls.juniperSalePrice?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.juniperSalePrice?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.juniperSalePrice?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.booking.juniperReservationCost" for="field_juniperReservationCost">Juniper Reservation Cost</label>
+                    <input type="number" class="form-control" name="juniperReservationCost" id="field_juniperReservationCost"
+                        [(ngModel)]="booking.juniperReservationCost" required/>
+                    <div [hidden]="!(editForm.controls.juniperReservationCost?.dirty && editForm.controls.juniperReservationCost?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.juniperReservationCost?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.juniperReservationCost?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.booking.benefitInReservation" for="field_benefitInReservation">Benefit In Reservation</label>
+                    <input type="number" class="form-control" name="benefitInReservation" id="field_benefitInReservation"
+                        [(ngModel)]="booking.benefitInReservation" />
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="inteliManagementApp.booking.company" for="field_company">Company</label>
@@ -148,3 +247,4 @@
         </form>
     </div>
 </div>
+-->

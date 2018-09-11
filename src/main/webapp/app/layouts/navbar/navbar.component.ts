@@ -9,7 +9,8 @@ import { ProfileService } from '../profiles/profile.service';
 
 @Component({
     selector: 'jhi-navbar',
-    templateUrl: './navbar.component.html',
+    /*  templateUrl: './navbar.component.html',*/
+    templateUrl: './navbar.material.html',
     styleUrls: ['navbar.css']
 })
 export class NavbarComponent implements OnInit {

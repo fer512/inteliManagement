@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -35,8 +36,29 @@ public class Booking implements Serializable {
     @Column(name = "detail")
     private String detail;
 
+    @NotNull
+    @Column(name = "payment_type", nullable = false)
+    private String paymentType;
+
+    @Column(name = "payment_credit_card")
+    private Double paymentCreditCard;
+
+    @Column(name = "payment_points_in_usd")
+    private Integer paymentPointsInUSD;
+
+    @NotNull
+    @Column(name = "juniper_sale_price", nullable = false)
+    private Double juniperSalePrice;
+
+    @NotNull
+    @Column(name = "juniper_reservation_cost", nullable = false)
+    private Double juniperReservationCost;
+
+    @Column(name = "benefit_in_reservation")
+    private Double benefitInReservation;
+
     @ManyToOne
-    @JsonIgnoreProperties("bookings")
+    @JsonIgnoreProperties("")
     private Company company;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -100,6 +122,84 @@ public class Booking implements Serializable {
         this.detail = detail;
     }
 
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public Booking paymentType(String paymentType) {
+        this.paymentType = paymentType;
+        return this;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    public Double getPaymentCreditCard() {
+        return paymentCreditCard;
+    }
+
+    public Booking paymentCreditCard(Double paymentCreditCard) {
+        this.paymentCreditCard = paymentCreditCard;
+        return this;
+    }
+
+    public void setPaymentCreditCard(Double paymentCreditCard) {
+        this.paymentCreditCard = paymentCreditCard;
+    }
+
+    public Integer getPaymentPointsInUSD() {
+        return paymentPointsInUSD;
+    }
+
+    public Booking paymentPointsInUSD(Integer paymentPointsInUSD) {
+        this.paymentPointsInUSD = paymentPointsInUSD;
+        return this;
+    }
+
+    public void setPaymentPointsInUSD(Integer paymentPointsInUSD) {
+        this.paymentPointsInUSD = paymentPointsInUSD;
+    }
+
+    public Double getJuniperSalePrice() {
+        return juniperSalePrice;
+    }
+
+    public Booking juniperSalePrice(Double juniperSalePrice) {
+        this.juniperSalePrice = juniperSalePrice;
+        return this;
+    }
+
+    public void setJuniperSalePrice(Double juniperSalePrice) {
+        this.juniperSalePrice = juniperSalePrice;
+    }
+
+    public Double getJuniperReservationCost() {
+        return juniperReservationCost;
+    }
+
+    public Booking juniperReservationCost(Double juniperReservationCost) {
+        this.juniperReservationCost = juniperReservationCost;
+        return this;
+    }
+
+    public void setJuniperReservationCost(Double juniperReservationCost) {
+        this.juniperReservationCost = juniperReservationCost;
+    }
+
+    public Double getBenefitInReservation() {
+        return benefitInReservation;
+    }
+
+    public Booking benefitInReservation(Double benefitInReservation) {
+        this.benefitInReservation = benefitInReservation;
+        return this;
+    }
+
+    public void setBenefitInReservation(Double benefitInReservation) {
+        this.benefitInReservation = benefitInReservation;
+    }
+
     public Company getCompany() {
         return company;
     }
@@ -142,6 +242,12 @@ public class Booking implements Serializable {
             ", idReserveLocatorJuniper='" + getIdReserveLocatorJuniper() + "'" +
             ", idReserveLocatorExternal='" + getIdReserveLocatorExternal() + "'" +
             ", detail='" + getDetail() + "'" +
+            ", paymentType='" + getPaymentType() + "'" +
+            ", paymentCreditCard=" + getPaymentCreditCard() +
+            ", paymentPointsInUSD=" + getPaymentPointsInUSD() +
+            ", juniperSalePrice=" + getJuniperSalePrice() +
+            ", juniperReservationCost=" + getJuniperReservationCost() +
+            ", benefitInReservation=" + getBenefitInReservation() +
             "}";
     }
 }

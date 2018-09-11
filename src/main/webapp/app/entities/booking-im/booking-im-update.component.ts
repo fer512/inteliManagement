@@ -9,6 +9,11 @@ import { BookingImService } from './booking-im.service';
 import { ICompanyIm } from 'app/shared/model/company-im.model';
 import { CompanyImService } from 'app/entities/company-im';
 
+export interface ListOpt {
+    value: string;
+    description: string;
+}
+
 @Component({
     selector: 'jhi-booking-im-update',
     templateUrl: './booking-im-update.component.html'
@@ -18,6 +23,12 @@ export class BookingImUpdateComponent implements OnInit {
     isSaving: boolean;
 
     companies: ICompanyIm[];
+
+    paytypes: ListOpt[] = [
+        { value: 'POINTS', description: 'Puntos' },
+        { value: 'CREDIT_CARD', description: 'Tarjeta de Credito' },
+        { value: 'MIXED', description: 'Mixto' }
+    ];
 
     constructor(
         private jhiAlertService: JhiAlertService,
