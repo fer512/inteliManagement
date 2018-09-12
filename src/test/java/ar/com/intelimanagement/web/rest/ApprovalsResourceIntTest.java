@@ -1,15 +1,21 @@
 package ar.com.intelimanagement.web.rest;
 
-import ar.com.intelimanagement.InteliManagementApp;
+import static ar.com.intelimanagement.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import ar.com.intelimanagement.domain.Approvals;
-import ar.com.intelimanagement.repository.ApprovalsRepository;
-import ar.com.intelimanagement.service.ApprovalsService;
-import ar.com.intelimanagement.service.dto.ApprovalsDTO;
-import ar.com.intelimanagement.service.mapper.ApprovalsMapper;
-import ar.com.intelimanagement.web.rest.errors.ExceptionTranslator;
-import ar.com.intelimanagement.service.dto.ApprovalsCriteria;
-import ar.com.intelimanagement.service.ApprovalsQueryService;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,19 +31,16 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-
-
-import static ar.com.intelimanagement.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import ar.com.intelimanagement.InteliManagementApp;
+import ar.com.intelimanagement.domain.Approvals;
 import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
+import ar.com.intelimanagement.repository.ApprovalsRepository;
+import ar.com.intelimanagement.service.ApprovalsQueryService;
+import ar.com.intelimanagement.service.ApprovalsService;
+import ar.com.intelimanagement.service.NotificationService;
+import ar.com.intelimanagement.service.dto.ApprovalsDTO;
+import ar.com.intelimanagement.service.mapper.ApprovalsMapper;
+import ar.com.intelimanagement.web.rest.errors.ExceptionTranslator;
 /**
  * Test class for the ApprovalsResource REST controller.
  *
@@ -71,6 +74,9 @@ public class ApprovalsResourceIntTest {
     private ApprovalsQueryService approvalsQueryService;
 
     @Autowired
+    private NotificationService notificationService;
+    
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -89,7 +95,7 @@ public class ApprovalsResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ApprovalsResource approvalsResource = new ApprovalsResource(approvalsService, approvalsQueryService);
+        final ApprovalsResource approvalsResource = new ApprovalsResource(approvalsService, approvalsQueryService,notificationService);
         this.restApprovalsMockMvc = MockMvcBuilders.standaloneSetup(approvalsResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -444,4 +450,12 @@ public class ApprovalsResourceIntTest {
         assertThat(approvalsMapper.fromId(42L).getId()).isEqualTo(42);
         assertThat(approvalsMapper.fromId(null)).isNull();
     }
+
+	public NotificationService getNotificationService() {
+		return notificationService;
+	}
+
+	public void setNotificationService(NotificationService notificationService) {
+		this.notificationService = notificationService;
+	}
 }

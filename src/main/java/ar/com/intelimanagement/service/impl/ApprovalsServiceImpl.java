@@ -51,6 +51,8 @@ public class ApprovalsServiceImpl implements ApprovalsService {
     public ApprovalsDTO save(ApprovalsDTO approvalsDTO) {
         log.debug("Request to save Approvals : {}", approvalsDTO);
         Approvals approvals = approvalsMapper.toEntity(approvalsDTO);
+        Optional<User> userLogin = userService.getUserWithAuthorities();
+        approvals.setCreationUser(userLogin.get());
         approvals = approvalsRepository.save(approvals);
         return approvalsMapper.toDto(approvals);
     }

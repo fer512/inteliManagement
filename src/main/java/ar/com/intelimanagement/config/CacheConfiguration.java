@@ -53,6 +53,7 @@ public class CacheConfiguration {
             cm.createCache(ar.com.intelimanagement.domain.User.class.getName() + ".team", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Phone.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Booking.class.getName(), jcacheConfiguration);
+            cm.createCache(ar.com.intelimanagement.domain.Booking.class.getName()+ ".variations", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Provider.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Provider.class.getName() + ".products", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Product.class.getName(), jcacheConfiguration);

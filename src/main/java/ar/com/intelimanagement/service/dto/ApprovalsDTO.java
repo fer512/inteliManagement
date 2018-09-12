@@ -17,7 +17,7 @@ public class ApprovalsDTO implements Serializable {
     private Instant endDate;
 
     private ApprovalsStatusType status;
-
+    
     public Long getId() {
         return id;
     }
@@ -80,4 +80,5 @@ public class ApprovalsDTO implements Serializable {
             ", status='" + getStatus() + "'" +
             "}";
     }
+
 }

@@ -14,5 +14,10 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
+        <addForeignKeyConstraint baseColumnNames="creation_user"
+                                 baseTableName="notification"
+                                 constraintName="fk_notification_creation_user"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
     </changeSet>
 </databaseChangeLog>

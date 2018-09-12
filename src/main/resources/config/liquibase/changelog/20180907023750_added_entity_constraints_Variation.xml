@@ -18,5 +18,8 @@
 			baseTableName="variation" constraintName="fk_varation_approvals_id"
 			referencedColumnNames="id" referencedTableName="approvals" />
 			
+		<addForeignKeyConstraint baseColumnNames="booking_id"
+			baseTableName="variation" constraintName="fk_varation_booking_id"
+			referencedColumnNames="id" referencedTableName="booking" />		
 	</changeSet>
 </databaseChangeLog>

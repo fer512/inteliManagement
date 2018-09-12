@@ -11,15 +11,19 @@ public class NotificationDTO implements Serializable {
 
     private Long id;
 
-    private String name;
+    private String type;
 
+    private String detail;
+    
     private Instant stastDate;
 
     private Instant endDate;
 
+    private Instant creationDate;
+    
     private Boolean view;
 
-    private Long userId;
+    private String idReference;
 
     public Long getId() {
         return id;
@@ -27,14 +31,6 @@ public class NotificationDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Instant getStastDate() {
@@ -86,19 +82,43 @@ public class NotificationDTO implements Serializable {
     public String toString() {
         return "NotificationDTO{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
+            ", type='" + getType() + "'" +
             ", stastDate='" + getStastDate() + "'" +
             ", endDate='" + getEndDate() + "'" +
             ", view='" + isView() + "'" +
-            ", user=" + getUserId() +
             "}";
     }
 
-	public Long getUserId() {
-		return userId;
+
+	public String getType() {
+		return type;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public Instant getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Instant creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public String getIdReference() {
+		return idReference;
+	}
+
+	public void setIdReference(String idReference) {
+		this.idReference = idReference;
 	}
 }

@@ -28,7 +28,7 @@ public class NotificationCriteria implements Serializable {
 
     private LongFilter id;
 
-    private StringFilter name;
+    private StringFilter type;
 
     private InstantFilter stastDate;
 
@@ -38,6 +38,8 @@ public class NotificationCriteria implements Serializable {
 
     private LongFilter userId;
 
+    private LongFilter creationUserId;
+    
     public NotificationCriteria() {
     }
 
@@ -49,13 +51,6 @@ public class NotificationCriteria implements Serializable {
         this.id = id;
     }
 
-    public StringFilter getName() {
-        return name;
-    }
-
-    public void setName(StringFilter name) {
-        this.name = name;
-    }
 
     public InstantFilter getStastDate() {
         return stastDate;
@@ -86,7 +81,7 @@ public class NotificationCriteria implements Serializable {
     public String toString() {
         return "NotificationCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
-                (name != null ? "name=" + name + ", " : "") +
+                (type != null ? "name=" + type + ", " : "") +
                 (stastDate != null ? "stastDate=" + stastDate + ", " : "") +
                 (endDate != null ? "endDate=" + endDate + ", " : "") +
                 (view != null ? "view=" + view + ", " : "") +
@@ -100,6 +95,22 @@ public class NotificationCriteria implements Serializable {
 
 	public void setUserId(LongFilter userId) {
 		this.userId = userId;
+	}
+
+	public StringFilter getType() {
+		return type;
+	}
+
+	public void setType(StringFilter type) {
+		this.type = type;
+	}
+
+	public LongFilter getCreationUserId() {
+		return creationUserId;
+	}
+
+	public void setCreationUserId(LongFilter creationUserId) {
+		this.creationUserId = creationUserId;
 	}
 
 }

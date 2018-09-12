@@ -76,8 +76,8 @@ public class NotificationQueryService extends QueryService<Notification> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildSpecification(criteria.getId(), Notification_.id));
             }
-            if (criteria.getName() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getName(), Notification_.name));
+            if (criteria.getType() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getType(), Notification_.type));
             }
             if (criteria.getStastDate() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getStastDate(), Notification_.stastDate));

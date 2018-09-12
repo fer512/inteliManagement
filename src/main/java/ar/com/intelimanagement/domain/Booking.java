@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -57,6 +58,11 @@ public class Booking implements Serializable {
     @Column(name = "benefit_in_reservation")
     private Double benefitInReservation;
 
+    @OneToMany
+    @JoinColumn(name = "booking_id")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private List<Variation> variations;
+    
     @ManyToOne
     @JsonIgnoreProperties("")
     private Company company;
@@ -234,7 +240,15 @@ public class Booking implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
+    public List<Variation> getVariations() {
+		return variations;
+	}
+
+	public void setVariations(List<Variation> variations) {
+		this.variations = variations;
+	}
+
+	@Override
     public String toString() {
         return "Booking{" +
             "id=" + getId() +

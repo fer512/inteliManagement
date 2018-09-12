@@ -8,10 +8,11 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Booking and its DTO BookingDTO.
  */
-@Mapper(componentModel = "spring", uses = {CompanyMapper.class})
+@Mapper(componentModel = "spring", uses = {CompanyMapper.class,VariationMapper.class})
 public interface BookingMapper extends EntityMapper<BookingDTO, Booking> {
 
     @Mapping(source = "company.id", target = "companyId")
+    @Mapping(source = "variations", target = "variations")
     BookingDTO toDto(Booking booking);
 
     @Mapping(source = "companyId", target = "company")

@@ -1,10 +1,14 @@
 package ar.com.intelimanagement.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import ar.com.intelimanagement.domain.enumeration.NotificationType;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -24,9 +28,19 @@ public class Notification implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private NotificationType type;
 
+    @Column(name = "detail")
+    private String detail;
+    
+    @Column(name = "id_reference")
+    private Long idReference;
+    
+    @Column(name = "creatio_date")
+    private Instant creationDate;
+    
     @Column(name = "stast_date")
     private Instant stastDate;
 
@@ -40,6 +54,11 @@ public class Notification implements Serializable {
     @JsonIgnoreProperties("notifications")
     private User user;
 
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "creation_user")
+    private User userCreation;
+    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -47,19 +66,6 @@ public class Notification implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Notification name(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Instant getStastDate() {
@@ -113,9 +119,55 @@ public class Notification implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+    
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
+    public NotificationType getType() {
+		return type;
+	}
+
+	public void setType(NotificationType type) {
+		this.type = type;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public Long getIdReference() {
+		return idReference;
+	}
+
+	public void setIdReference(Long idReference) {
+		this.idReference = idReference;
+	}
+
+	public User getUserCreation() {
+		return userCreation;
+	}
+
+	public void setUserCreation(User userCreation) {
+		this.userCreation = userCreation;
+	}
+
+	public Boolean getView() {
+		return view;
+	}
+
+	public Instant getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Instant creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -139,7 +191,7 @@ public class Notification implements Serializable {
     public String toString() {
         return "Notification{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
+            ", type='" + getType() + "'" +
             ", stastDate='" + getStastDate() + "'" +
             ", endDate='" + getEndDate() + "'" +
             ", view='" + isView() + "'" +
