@@ -27,6 +27,12 @@ body {
     flex: 1 1 auto;
 }
 
+/* ubmat-CSS Card */
+.ubmat-card {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
 /**/
 .ubmat-textarea {
     width: 100%;
@@ -131,8 +137,4 @@ input[type='number'].ubmat-input {
 html,
 body {
     height: 100%;
-}
-body {
-    margin: 0;
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
 }

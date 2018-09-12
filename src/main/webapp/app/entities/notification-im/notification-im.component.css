@@ -1,0 +1,29 @@
+.notif-header {
+    margin-left: -8px;
+}
+
+.example-card {
+    margin-bottom: 10px;
+}
+
+.notif-content {
+    margin-bottom: 0;
+}
+
+.notif-icon {
+    margin: 3px 10px 0px -5px;
+    font-size: 30px;
+    float: left;
+}
+
+.notif-icon.-pending {
+    color: blue;
+}
+
+.notif-icon.-refuse {
+    color: red;
+}
+
+.notif-icon.-accept {
+    color: green;
+}

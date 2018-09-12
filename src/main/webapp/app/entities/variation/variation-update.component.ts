@@ -25,6 +25,7 @@ export class VariationUpdateComponent implements OnInit {
 
     users: IUser[];
     creation_date: string;
+    creation_user: string;
 
     providers: ListOpt[] = [
         { value: 'CON', description: 'Consolid' },
@@ -39,6 +40,27 @@ export class VariationUpdateComponent implements OnInit {
         { value: 'CAR', description: 'Auto' },
         { value: 'TRANFER', description: ' Traslado' },
         { value: 'TOURS', description: 'Actividades' }
+    ];
+
+    areas: ListOpt[] = [
+        { value: 'CUSTOMER_SERVICE', description: 'Customer Service' },
+        { value: 'POST_SALE', description: 'Post Venta' },
+        { value: 'SALES', description: 'Ventas' },
+        { value: 'MARKETING', description: 'Marketing' }
+    ];
+
+    campaing: ListOpt[] = [
+        { value: 'C1', description: 'Campaña 1' },
+        { value: 'C2', description: 'Campaña 2' },
+        { value: 'C3', description: 'Campaña 3' },
+        { value: 'C4', description: 'Campaña 4' }
+    ];
+
+    losstypes: ListOpt[] = [
+        { value: 'M1', description: 'Motivo 1' },
+        { value: 'M2', description: 'Motivo 2' },
+        { value: 'M3', description: 'Motivo 3' },
+        { value: 'M4', description: 'Motivo 4' }
     ];
 
     constructor(
