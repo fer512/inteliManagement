@@ -1,47 +1,27 @@
 package ar.com.intelimanagement.web.rest;
 
-import ar.com.intelimanagement.InteliManagementApp;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
-import ar.com.intelimanagement.domain.Variation;
-import ar.com.intelimanagement.domain.User;
-import ar.com.intelimanagement.domain.Provider;
-import ar.com.intelimanagement.domain.Product;
-import ar.com.intelimanagement.repository.VariationRepository;
-import ar.com.intelimanagement.service.VariationService;
-import ar.com.intelimanagement.service.dto.VariationDTO;
-import ar.com.intelimanagement.service.mapper.VariationMapper;
-import ar.com.intelimanagement.web.rest.errors.ExceptionTranslator;
-import ar.com.intelimanagement.service.dto.VariationCriteria;
-import ar.com.intelimanagement.service.VariationQueryService;
+import javax.persistence.EntityManager;
 
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
-import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
-import java.time.ZoneId;
-import java.util.List;
-
-
-import static ar.com.intelimanagement.web.rest.TestUtil.sameInstant;
-import static ar.com.intelimanagement.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import ar.com.intelimanagement.InteliManagementApp;
+import ar.com.intelimanagement.domain.Variation;
+import ar.com.intelimanagement.repository.VariationRepository;
+import ar.com.intelimanagement.service.VariationQueryService;
+import ar.com.intelimanagement.service.VariationService;
+import ar.com.intelimanagement.service.mapper.VariationMapper;
+import ar.com.intelimanagement.web.rest.errors.ExceptionTranslator;
 
 /**
  * Test class for the VariationResource REST controller.

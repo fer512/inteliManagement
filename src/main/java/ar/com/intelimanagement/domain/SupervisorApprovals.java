@@ -1,7 +1,10 @@
 package ar.com.intelimanagement.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -20,6 +23,7 @@ public class SupervisorApprovals extends Approvals implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Column(name="approve_level")
 	private Integer approveLevel = 1;
 	
 	private Approvals approveOK(User user) {
@@ -52,4 +56,23 @@ public class SupervisorApprovals extends Approvals implements Serializable {
 		}
 	}
 
+	public List<User> getUserByNextLevel() {
+		 List<User> list =  new ArrayList<User>();
+		 User supervisor = this.getHistory().get(this.getHistory().size() - 1).getUser().getSupervisor();
+		 if(supervisor == null) {
+			 
+		 }
+		 list.add(supervisor);
+		 return list;
+	}
+
+	public Integer getApproveLevel() {
+		return approveLevel;
+	}
+
+	public void setApproveLevel(Integer approveLevel) {
+		this.approveLevel = approveLevel;
+	}
+	
+	
 }

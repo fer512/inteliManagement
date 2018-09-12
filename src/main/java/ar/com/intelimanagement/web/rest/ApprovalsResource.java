@@ -2,11 +2,13 @@ package ar.com.intelimanagement.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import ar.com.intelimanagement.service.ApprovalsService;
+import ar.com.intelimanagement.service.NotificationService;
 import ar.com.intelimanagement.web.rest.errors.BadRequestAlertException;
 import ar.com.intelimanagement.web.rest.util.HeaderUtil;
 import ar.com.intelimanagement.web.rest.util.PaginationUtil;
 import ar.com.intelimanagement.service.dto.ApprovalsDTO;
 import ar.com.intelimanagement.service.dto.ApprovalsCriteria;
+import ar.com.intelimanagement.domain.Approvals;
 import ar.com.intelimanagement.service.ApprovalsQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -37,11 +40,14 @@ public class ApprovalsResource {
 
     private final ApprovalsService approvalsService;
 
+    private final NotificationService notificationService;
+    
     private final ApprovalsQueryService approvalsQueryService;
 
-    public ApprovalsResource(ApprovalsService approvalsService, ApprovalsQueryService approvalsQueryService) {
+    public ApprovalsResource(ApprovalsService approvalsService, ApprovalsQueryService approvalsQueryService,NotificationService notificationService) {
         this.approvalsService = approvalsService;
         this.approvalsQueryService = approvalsQueryService;
+        this.notificationService = notificationService;
     }
 
     /**
@@ -129,4 +135,30 @@ public class ApprovalsResource {
         approvalsService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+    
+    
+    /*
+     *   1) TENGO Q RETORNAR EL ESTADO GENERAL y el PARTICULAR
+     *   2) si se aprobo la Particular y falta la General => envio notificacion
+     * */
+    @PostMapping("/approve")
+    @Timed
+    public ResponseEntity<Boolean> approve(@RequestBody Long id) throws URISyntaxException {
+        log.debug("REST request to approve : {}", id);
+        if (id != null) {
+            throw new BadRequestAlertException("approve cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        Approvals approvals = approvalsService.approve(id);
+        
+        //puede pasar que llege a un punto sin retorno, x ejemplo cuando no tenga mas supervisores en un nivel x
+        	//- opciones darle la opcion q apruebe de todos modos - para eso crear un metodo aprroavcion.neverCantApprove()
+        		//dejo q la execcion se envie a front
+        this.notificationService.sendNotification(approvals);
+        
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Approve", id.toString())).body(true);
+    }
+
+	public NotificationService getNotificationService() {
+		return notificationService;
+	}
 }
