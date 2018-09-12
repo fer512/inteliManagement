@@ -22,8 +22,8 @@
             <!-- Proveedor -->
             <td mat-cell>
                 <mat-form-field class="ubmat-select -md">
-                <mat-select class="ubmat-select -md" placeholder="Proveedor">
-                  <mat-option *ngFor="let opt of providers" [value]="opt.value">
+                <mat-select class="ubmat-select -md" name="provider" id="field_provider" [(ngModel)]="variation.provider" placeholder="Proveedor" required>
+                  <mat-option *ngFor="let opt of providers" [(value)]="opt.value">
                     {{opt.description}}
                   </mat-option>
                 </mat-select>
@@ -32,8 +32,8 @@
             <!-- Producto -->
             <td mat-cell>
               <mat-form-field class="ubmat-select -md">
-                <mat-select class="ubmat-select -md" placeholder="Producto">
-                  <mat-option *ngFor="let opt of products" [value]="opt.value">
+                <mat-select class="ubmat-select -md" name="product" id="field_product" [(ngModel)]="variation.product" placeholder="Producto" required>
+                  <mat-option *ngFor="let opt of products" [(value)]="opt.value">
                     {{opt.description}}
                   </mat-option>
                 </mat-select>
@@ -45,8 +45,8 @@
               <!-- Area de Origen -->
               <td mat-cell>
                 <mat-form-field class="ubmat-select -md">
-                <mat-select placeholder="Area responsable">
-                  <mat-option *ngFor="let opt of areas" [value]="opt.value">
+                <mat-select name="area" id="field_area" [(ngModel)]="variation.area" placeholder="Area responsable" required>
+                  <mat-option *ngFor="let opt of areas" [(value)]="opt.value">
                     {{opt.description}}
                   </mat-option>
                 </mat-select>
@@ -55,8 +55,8 @@
               <!-- Campaña -->
               <td mat-cell>
                 <mat-form-field class="ubmat-select -md">
-                <mat-select placeholder="Campaña responsable">
-                  <mat-option *ngFor="let opt of campaing" [value]="opt.value">
+                <mat-select name="campaing" id="field_campaing" [(ngModel)]="variation.campaing" placeholder="Campaña responsable" required>
+                  <mat-option *ngFor="let opt of campaing" [(value)]="opt.value">
                     {{opt.description}}
                   </mat-option>
                 </mat-select>
@@ -65,8 +65,8 @@
               <!-- Motivo de la perdida -->
               <td mat-cell>
                 <mat-form-field class="ubmat-select -md">
-                <mat-select placeholder="Motivo de la perdida">
-                  <mat-option *ngFor="let opt of losstypes" [value]="opt.value">
+                <mat-select  name="reason" id="field_reason" [(ngModel)]="variation.reason" placeholder="Motivo de la perdida" required>
+                  <mat-option *ngFor="let opt of losstypes" [(value)]="opt.value">
                     {{opt.description}}
                   </mat-option>
                 </mat-select>
@@ -143,13 +143,18 @@
         </tr> 
       </table>
     </section>        
-    <button mat-raised-button color="primary">Guardar</button>      
+    <button mat-raised-button color="primary" type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving">
+        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+    </button>   
+    
+    <button mat-raised-button color="warn" type="submit" id="cancel-save"  (click)="previousState()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+    </button> 
 </form>
 </mat-card-content>
 </mat-card>
 </div>
 
-<!--
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
@@ -219,6 +224,7 @@
                         </small>
                     </div>
                 </div>
+                
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.provider" for="field_provider">Provider</label>
                     <input type="text" class="form-control" name="provider" id="field_provider"
@@ -230,6 +236,7 @@
                         </small>
                     </div>
                 </div>
+                
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.product" for="field_product">Product</label>
                     <input type="text" class="form-control" name="product" id="field_product"
@@ -241,6 +248,7 @@
                         </small>
                     </div>
                 </div>
+                
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.area" for="field_area">Area</label>
                     <input type="text" class="form-control" name="area" id="field_area"
@@ -294,7 +302,7 @@
                     <input type="checkbox" class="form-control" name="cacel" id="field_cacel"
                         [(ngModel)]="variation.cacel" />
                 </div>
-
+                
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="inteliManagementApp.variation.relationship_user_variation" for="field_relationship_user_variation">Relationship User Variation</label>
                     <select class="form-control" id="field_relationship_user_variation" name="relationship_user_variation" [(ngModel)]="variation.relationship_user_variationId"  required>
@@ -320,4 +328,4 @@
         </form>
     </div>
 </div>
--->
+
