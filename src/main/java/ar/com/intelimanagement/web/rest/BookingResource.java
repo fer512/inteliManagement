@@ -102,7 +102,23 @@ public class BookingResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/bookings");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    
+    /**
+     * POST  /bookings : get all the bookings.
+     *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
+     * @return the ResponseEntity with status 200 (OK) and the list of bookings in body
+     */
+    @PostMapping("/bookings/findByCriteria")
+    @Timed
+    public ResponseEntity<List<BookingDTO>> findByCriteria(@RequestBody BookingCriteria criteria) {
+        log.debug("REST request to get Bookings by criteria: {}", criteria);
+        List<BookingDTO> l = bookingQueryService.findByCriteria(criteria);
+        return new ResponseEntity<>(l, HeaderUtil.createAlert(ENTITY_NAME,criteria.toString()), HttpStatus.OK);
+    }
 
+    
     /**
      * GET  /bookings/:id : get the "id" booking.
      *

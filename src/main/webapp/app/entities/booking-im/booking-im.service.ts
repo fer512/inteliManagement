@@ -32,6 +32,11 @@ export class BookingImService {
         return this.http.get<IBookingIm[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
+    findByCriteria(req?: any): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http.post<IBookingIm[]>(this.resourceUrl + '/findByCriteria', req, { params: options, observe: 'response' });
+    }
+
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }

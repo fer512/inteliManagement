@@ -1,10 +1,10 @@
 <nav class="nav-find">
     <mat-form-field class="ubmat-input -md">
-        <input matInput type="text" placeholder="Identificador Onepocket Juniper" value="">
+        <input matInput type="text" placeholder="Identificador Onepocket Juniper" [(ngModel)]="search">
         <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
     <div class="button-find">
-        <button mat-raised-button color="primary">Buscar</button>
+        <button mat-raised-button color="primary" (click)="onSearch()" >Buscar</button>
     </div>
 </nav>
 <div class="container-fluid">
