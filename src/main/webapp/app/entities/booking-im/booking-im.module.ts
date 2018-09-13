@@ -11,12 +11,14 @@ import {
     bookingRoute,
     bookingPopupRoute
 } from './';
+import { BookingImMasterComponent } from './booking-im-master.component';
 
 const ENTITY_STATES = [...bookingRoute, ...bookingPopupRoute];
 
 @NgModule({
     imports: [MaterialModule, InteliManagementSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
+        BookingImMasterComponent,
         BookingImComponent,
         BookingImDetailComponent,
         BookingImUpdateComponent,

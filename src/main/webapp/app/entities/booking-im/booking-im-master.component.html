@@ -1,0 +1,14 @@
+<nav class="nav-find">
+    <mat-form-field class="ubmat-input -md">
+        <input matInput type="text" placeholder="Identificador Onepocket Juniper" value="">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <div class="button-find">
+        <button mat-raised-button color="primary">Buscar</button>
+    </div>
+</nav>
+<div class="container-fluid">
+        <router-outlet></router-outlet>
+        <router-outlet name="popup"></router-outlet>
+    <jhi-footer></jhi-footer>
+</div>

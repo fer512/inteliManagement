@@ -38,7 +38,7 @@ public class Notification implements Serializable {
     @Column(name = "id_reference")
     private Long idReference;
     
-    @Column(name = "creatio_date")
+    @Column(name = "creation_date")
     private Instant creationDate;
     
     @Column(name = "stast_date")

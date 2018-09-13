@@ -12,6 +12,7 @@ import { BookingImDetailComponent } from './booking-im-detail.component';
 import { BookingImUpdateComponent } from './booking-im-update.component';
 import { BookingImDeletePopupComponent } from './booking-im-delete-dialog.component';
 import { IBookingIm } from 'app/shared/model/booking-im.model';
+import { BookingImMasterComponent } from './booking-im-master.component';
 
 @Injectable({ providedIn: 'root' })
 export class BookingImResolve implements Resolve<IBookingIm> {
@@ -29,52 +30,63 @@ export class BookingImResolve implements Resolve<IBookingIm> {
 export const bookingRoute: Routes = [
     {
         path: 'booking-im',
-        component: BookingImComponent,
-        resolve: {
-            pagingParams: JhiResolvePagingParams
-        },
+        component: BookingImMasterComponent,
         data: {
             authorities: ['ROLE_USER'],
             defaultSort: 'id,asc',
             pageTitle: 'inteliManagementApp.booking.home.title'
         },
-        canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'booking-im/:id/view',
-        component: BookingImDetailComponent,
-        resolve: {
-            booking: BookingImResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'inteliManagementApp.booking.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'booking-im/new',
-        component: BookingImUpdateComponent,
-        resolve: {
-            booking: BookingImResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'inteliManagementApp.booking.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'booking-im/:id/edit',
-        component: BookingImUpdateComponent,
-        resolve: {
-            booking: BookingImResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'inteliManagementApp.booking.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+        canActivate: [UserRouteAccessService],
+        children: [
+            {
+                path: '',
+                component: BookingImComponent,
+                resolve: {
+                    pagingParams: JhiResolvePagingParams
+                },
+                data: {
+                    authorities: ['ROLE_USER'],
+                    defaultSort: 'id,asc',
+                    pageTitle: 'inteliManagementApp.booking.home.title'
+                }
+            },
+            {
+                path: ':id/view',
+                component: BookingImDetailComponent,
+                resolve: {
+                    booking: BookingImResolve
+                },
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'inteliManagementApp.booking.home.title'
+                },
+                canActivate: [UserRouteAccessService]
+            },
+            {
+                path: 'new',
+                component: BookingImUpdateComponent,
+                resolve: {
+                    booking: BookingImResolve
+                },
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'inteliManagementApp.booking.home.title'
+                },
+                canActivate: [UserRouteAccessService]
+            },
+            {
+                path: ':id/edit',
+                component: BookingImUpdateComponent,
+                resolve: {
+                    booking: BookingImResolve
+                },
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'inteliManagementApp.booking.home.title'
+                },
+                canActivate: [UserRouteAccessService]
+            }
+        ]
     }
 ];
 

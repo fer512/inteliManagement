@@ -2,12 +2,14 @@ package ar.com.intelimanagement.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import ar.com.intelimanagement.service.NotificationService;
+import ar.com.intelimanagement.service.UserService;
 import ar.com.intelimanagement.web.rest.errors.BadRequestAlertException;
 import ar.com.intelimanagement.web.rest.util.HeaderUtil;
 import ar.com.intelimanagement.web.rest.util.PaginationUtil;
 import ar.com.intelimanagement.service.dto.NotificationDTO;
 import ar.com.intelimanagement.service.dto.NotificationCriteria;
 import ar.com.intelimanagement.service.NotificationQueryService;
+import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,11 +39,14 @@ public class NotificationResource {
 
     private final NotificationService notificationService;
 
+    private final UserService userService;
+    
     private final NotificationQueryService notificationQueryService;
 
-    public NotificationResource(NotificationService notificationService, NotificationQueryService notificationQueryService) {
+    public NotificationResource(NotificationService notificationService, NotificationQueryService notificationQueryService,UserService userService) {
         this.notificationService = notificationService;
         this.notificationQueryService = notificationQueryService;
+        this.userService  = userService;
     }
 
     /**
@@ -64,6 +69,25 @@ public class NotificationResource {
             .body(result);
     }
 
+
+    /**
+     * POST  /notifications : get all the notifications by User Login.
+     *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
+     * @return the ResponseEntity with status 200 (OK) and the list of notifications in body
+     */
+    @PostMapping("/my-notifications")
+    @Timed
+    public ResponseEntity<List<NotificationDTO>> getAllNotificationsByUserLogin(NotificationCriteria criteria, Pageable pageable) {
+    	LongFilter LongFilter = new LongFilter();
+    	LongFilter.setEquals(this.userService.getCurrentUser().getId());
+    	criteria.setUserId(LongFilter);
+    	log.debug("REST request to get Notifications by criteria: {}", criteria);
+        Page<NotificationDTO> page = notificationQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/notifications");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
     /**
      * PUT  /notifications : Updates an existing notification.
      *
@@ -129,4 +153,8 @@ public class NotificationResource {
         notificationService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+	public UserService getUserService() {
+		return userService;
+	}
 }

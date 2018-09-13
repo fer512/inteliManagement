@@ -3,6 +3,11 @@
           <mat-icon>local_atm</mat-icon>
           <span>Loss</span>
           <span class="ubmat-nav-spacer"></span>
+
+          <button mat-fab>
+              <mat-icon>notifications_none</mat-icon>
+          </button>
+
           <button mat-button [matMenuTriggerFor]="menu">
 
                 <span *ngIf="!getImageUrl()">
@@ -38,17 +43,3 @@
           </mat-menu>   
         </mat-toolbar-row>
       </mat-toolbar>
-      
-      <nav class="nav-find">
-        <mat-form-field class="ubmat-input -md">
-          <input matInput type="text" placeholder="Identificador Onepocket Juniper" value="">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-        <div class="button-find">
-          <button mat-raised-button color="primary">Buscar</button>
-        </div>
-      
-        <button mat-fab>
-          <mat-icon>notifications_none</mat-icon>
-        </button>
-      </nav>
