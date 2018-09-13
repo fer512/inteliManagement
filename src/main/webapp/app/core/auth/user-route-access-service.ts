@@ -4,6 +4,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { Principal } from '../';
 import { LoginModalService } from '../login/login-modal.service';
 import { StateStorageService } from './state-storage.service';
+import { JhiLoginModalComponent } from '../../shared/login/login.component';
 
 @Injectable({ providedIn: 'root' })
 export class UserRouteAccessService implements CanActivate {

@@ -1,27 +1,24 @@
 import { Injectable } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-
+import { MatDialog } from '@angular/material';
 import { JhiLoginModalComponent } from 'app/shared/login/login.component';
 
 @Injectable({ providedIn: 'root' })
 export class LoginModalService {
-    private isOpen = false;
-    constructor(private modalService: NgbModal) {}
+    constructor(public dialog: MatDialog) {}
 
-    open(): NgbModalRef {
-        if (this.isOpen) {
-            return;
-        }
-        this.isOpen = true;
-        const modalRef = this.modalService.open(JhiLoginModalComponent);
-        modalRef.result.then(
-            result => {
-                this.isOpen = false;
-            },
-            reason => {
-                this.isOpen = false;
-            }
-        );
-        return modalRef;
+    open(): void {
+        this.openDialog();
+    }
+
+    openDialog(): void {
+        const dialogRef = this.dialog.open(JhiLoginModalComponent, {
+            width: '500px',
+            data: { name: 'nn', animal: 'aa' }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            // this.animal = result;
+        });
     }
 }

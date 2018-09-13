@@ -1,11 +1,9 @@
-import { Component, AfterViewInit, Renderer, ElementRef } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, AfterViewInit, Renderer, ElementRef, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { JhiEventManager } from 'ng-jhipster';
-
 import { LoginService } from 'app/core/login/login.service';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
-
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 @Component({
     selector: 'jhi-login-modal',
     templateUrl: './login.component.html'
@@ -24,7 +22,8 @@ export class JhiLoginModalComponent implements AfterViewInit {
         private elementRef: ElementRef,
         private renderer: Renderer,
         private router: Router,
-        public activeModal: NgbActiveModal
+        public dialogRef: MatDialogRef<JhiLoginModalComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: any
     ) {
         this.credentials = {};
     }
@@ -40,7 +39,7 @@ export class JhiLoginModalComponent implements AfterViewInit {
             rememberMe: true
         };
         this.authenticationError = false;
-        this.activeModal.dismiss('cancel');
+        this.dialogRef.close();
     }
 
     login() {
@@ -52,7 +51,7 @@ export class JhiLoginModalComponent implements AfterViewInit {
             })
             .then(() => {
                 this.authenticationError = false;
-                this.activeModal.dismiss('login success');
+                this.dialogRef.close();
                 if (this.router.url === '/register' || /^\/activate\//.test(this.router.url) || /^\/reset\//.test(this.router.url)) {
                     this.router.navigate(['']);
                 }
@@ -76,12 +75,12 @@ export class JhiLoginModalComponent implements AfterViewInit {
     }
 
     register() {
-        this.activeModal.dismiss('to state register');
+        this.dialogRef.close();
         this.router.navigate(['/register']);
     }
 
     requestResetPassword() {
-        this.activeModal.dismiss('to state requestReset');
+        this.dialogRef.close();
         this.router.navigate(['/reset', 'request']);
     }
 }

@@ -1,4 +1,25 @@
-<div class="modal-header">
+<h1 mat-dialog-title>Hi</h1>
+<div mat-dialog-content>
+    <form class="example-form" (ngSubmit)="login()">
+
+        <mat-form-field class="example-full-width">
+            <input matInput name="username" id="username" placeholder="{{'global.form.username.placeholder' | translate}}" [(ngModel)]="username">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <input matInput type="password" name="password" id="password" placeholder="{{'login.form.password.placeholder' | translate}}"
+                [(ngModel)]="password">
+        </mat-form-field>
+
+        <button mat-button type="submit">{{ 'login.form.button' | translate}}</button>
+    </form>
+</div>
+<!--div mat-dialog-actions>
+    <button mat-button>No Thanks</button>
+    <button mat-button cdkFocusInitial>Ok</button>
+</div-->
+
+<!--div class="modal-header">
     <h4 class="modal-title" jhiTranslate="login.title">Sign in</h4>
     <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
     </button>
@@ -40,4 +61,4 @@
             </div>
         </div>
     </div>
-</div>
+</div-->
