@@ -7,11 +7,10 @@ export interface INotificationIm {
     endDate?: Moment;
     creationDate?: Moment;
     view?: boolean;
-    user: User;
 }
 
 export class NotificationIm implements INotificationIm {
-    constructor(public id?: number, public name?: string, public stastDate?: Moment, public endDate?: Moment, public view?: boolean) {
+    constructor(public id?: number, public stastDate?: Moment, public endDate?: Moment, public view?: boolean) {
         this.view = this.view || false;
     }
 }

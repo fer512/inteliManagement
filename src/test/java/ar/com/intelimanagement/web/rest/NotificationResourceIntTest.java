@@ -5,6 +5,7 @@ import ar.com.intelimanagement.InteliManagementApp;
 import ar.com.intelimanagement.domain.Notification;
 import ar.com.intelimanagement.repository.NotificationRepository;
 import ar.com.intelimanagement.service.NotificationService;
+import ar.com.intelimanagement.service.UserService;
 import ar.com.intelimanagement.service.dto.NotificationDTO;
 import ar.com.intelimanagement.service.mapper.NotificationMapper;
 import ar.com.intelimanagement.web.rest.errors.ExceptionTranslator;
@@ -70,6 +71,9 @@ public class NotificationResourceIntTest {
     private NotificationService notificationService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private NotificationQueryService notificationQueryService;
 
     @Autowired
@@ -91,7 +95,7 @@ public class NotificationResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final NotificationResource notificationResource = new NotificationResource(notificationService, notificationQueryService);
+        final NotificationResource notificationResource = new NotificationResource(notificationService, notificationQueryService,userService);
         this.restNotificationMockMvc = MockMvcBuilders.standaloneSetup(notificationResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -107,7 +111,6 @@ public class NotificationResourceIntTest {
      */
     public static Notification createEntity(EntityManager em) {
         Notification notification = new Notification()
-            .name(DEFAULT_NAME)
             .stastDate(DEFAULT_STAST_DATE)
             .endDate(DEFAULT_END_DATE)
             .view(DEFAULT_VIEW);
@@ -135,7 +138,6 @@ public class NotificationResourceIntTest {
         List<Notification> notificationList = notificationRepository.findAll();
         assertThat(notificationList).hasSize(databaseSizeBeforeCreate + 1);
         Notification testNotification = notificationList.get(notificationList.size() - 1);
-        assertThat(testNotification.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testNotification.getStastDate()).isEqualTo(DEFAULT_STAST_DATE);
         assertThat(testNotification.getEndDate()).isEqualTo(DEFAULT_END_DATE);
         assertThat(testNotification.isView()).isEqualTo(DEFAULT_VIEW);
@@ -399,7 +401,6 @@ public class NotificationResourceIntTest {
         // Disconnect from session so that the updates on updatedNotification are not directly saved in db
         em.detach(updatedNotification);
         updatedNotification
-            .name(UPDATED_NAME)
             .stastDate(UPDATED_STAST_DATE)
             .endDate(UPDATED_END_DATE)
             .view(UPDATED_VIEW);
@@ -414,7 +415,6 @@ public class NotificationResourceIntTest {
         List<Notification> notificationList = notificationRepository.findAll();
         assertThat(notificationList).hasSize(databaseSizeBeforeUpdate);
         Notification testNotification = notificationList.get(notificationList.size() - 1);
-        assertThat(testNotification.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testNotification.getStastDate()).isEqualTo(UPDATED_STAST_DATE);
         assertThat(testNotification.getEndDate()).isEqualTo(UPDATED_END_DATE);
         assertThat(testNotification.isView()).isEqualTo(UPDATED_VIEW);
