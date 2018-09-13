@@ -1,45 +1,51 @@
 <mat-toolbar color="primary">
         <mat-toolbar-row>
-          <mat-icon>local_atm</mat-icon>
-          <span>Loss</span>
-          <span class="ubmat-nav-spacer"></span>
+                <mat-icon>local_atm</mat-icon>
+                <span>Loss</span>
+                <span class="ubmat-nav-spacer"></span>
 
-          <button mat-fab>
-              <mat-icon>notifications_none</mat-icon>
-          </button>
+                <button mat-fab [matMenuTriggerFor]="notificationsmenu">
+                        <mat-icon>notifications_none</mat-icon>
+                </button>
+                <mat-menu #notificationsmenu="matMenu">
+                        <button mat-menu-item *ngFor="let notif of notifications">
+                          <mat-icon></mat-icon>
+                          <span>Redial</span>
+                        </button>
+                </mat-menu>
 
-          <button mat-button [matMenuTriggerFor]="menu">
+                <button mat-button [matMenuTriggerFor]="menu">
 
-                <span *ngIf="!getImageUrl()">
-                        <fa-icon [icon]="'user'"></fa-icon>
-                        <span jhiTranslate="global.menu.account.main">
-                         <mat-icon>account_circle</mat-icon>  Account
+                        <span *ngIf="!getImageUrl()">
+                                <fa-icon [icon]="'user'"></fa-icon>
+                                <span jhiTranslate="global.menu.account.main">
+                                        <mat-icon>account_circle</mat-icon> Account
+                                </span>
                         </span>
-                      </span>
-                      <span *ngIf="getImageUrl()">
-                          <img [src]="getImageUrl()" class="profile-image img-circle" alt="Avatar">
-                      </span>
+                        <span *ngIf="getImageUrl()">
+                                <img [src]="getImageUrl()" class="profile-image img-circle" alt="Avatar">
+                        </span>
 
 
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="logout()" id="logout">
-                    <fa-icon [icon]="'sign-out-alt'" [fixedWidth]="true"></fa-icon>
-                    <span jhiTranslate="global.menu.account.logout">Sign out</span>
-               </button>
-            <button mat-menu-item (click)="login()" id="login">
-                    <fa-icon [icon]="'sign-in-alt'" [fixedWidth]="true"></fa-icon>
-                    <span jhiTranslate="global.menu.account.login">Sign in</span>
-            </button>
-            <button mat-menu-item routerLink="password" routerLinkActive="active" (click)="collapseNavbar()">
-                    <fa-icon [icon]="'clock'" [fixedWidth]="true"></fa-icon>
-                    <span jhiTranslate="global.menu.account.password">Password</span>
-            </button>
-            <button mat-menu-item routerLink="settings" routerLinkActive="active" (click)="collapseNavbar()">
-                    <fa-icon [icon]="'wrench'" [fixedWidth]="true"></fa-icon>
-                    <span jhiTranslate="global.menu.account.settings">Settings</span>
-            </button>
-            
-          </mat-menu>   
+                </button>
+                <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="logout()" id="logout">
+                                <fa-icon [icon]="'sign-out-alt'" [fixedWidth]="true"></fa-icon>
+                                <span jhiTranslate="global.menu.account.logout">Sign out</span>
+                        </button>
+                        <button mat-menu-item (click)="login()" id="login">
+                                <fa-icon [icon]="'sign-in-alt'" [fixedWidth]="true"></fa-icon>
+                                <span jhiTranslate="global.menu.account.login">Sign in</span>
+                        </button>
+                        <button mat-menu-item routerLink="password" routerLinkActive="active" (click)="collapseNavbar()">
+                                <fa-icon [icon]="'clock'" [fixedWidth]="true"></fa-icon>
+                                <span jhiTranslate="global.menu.account.password">Password</span>
+                        </button>
+                        <button mat-menu-item routerLink="settings" routerLinkActive="active" (click)="collapseNavbar()">
+                                <fa-icon [icon]="'wrench'" [fixedWidth]="true"></fa-icon>
+                                <span jhiTranslate="global.menu.account.settings">Settings</span>
+                        </button>
+
+                </mat-menu>
         </mat-toolbar-row>
-      </mat-toolbar>
+</mat-toolbar>

@@ -28,11 +28,15 @@ import com.codahale.metrics.annotation.Timed;
 import ar.com.intelimanagement.service.impl.FileServiceImpl;
 import ar.com.intelimanagement.web.rest.util.UploadFileResponse;
 
+/**
+ * FileUploadResource controller
+ */
 @RestController
-@RequestMapping("/file")
-public class FileResource {
+@RequestMapping("/api/file-upload")
+public class FileUploadResource {
 
-	private static final Logger logger = LoggerFactory.getLogger(FileResource.class);
+    private final Logger log = LoggerFactory.getLogger(FileUploadResource.class);
+
 
 	@Autowired
 	private FileServiceImpl fileService;
@@ -63,7 +67,7 @@ public class FileResource {
 		try {
 			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
 		} catch (IOException ex) {
-			logger.info("Could not determine file type.");
+			log.info("Could not determine file type.");
 		}
 
 		// Fallback to the default content type if type could not be determined
@@ -75,4 +79,5 @@ public class FileResource {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
 				.body(resource);
 	}
+
 }

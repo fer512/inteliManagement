@@ -15,15 +15,18 @@ public class NotificationDTO implements Serializable {
 
     private String detail;
     
+    private String idReference;
+
+    private Instant creationDate;
+
     private Instant stastDate;
 
     private Instant endDate;
-
-    private Instant creationDate;
     
     private Boolean view;
 
-    private String idReference;
+    private UserDTO userCreation;
+    
 
     public Long getId() {
         return id;
@@ -120,5 +123,13 @@ public class NotificationDTO implements Serializable {
 
 	public void setIdReference(String idReference) {
 		this.idReference = idReference;
+	}
+
+	public UserDTO getUserCreation() {
+		return userCreation;
+	}
+
+	public void setUserCreation(UserDTO userCreation) {
+		this.userCreation = userCreation;
 	}
 }
