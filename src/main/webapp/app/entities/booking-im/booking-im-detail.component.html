@@ -1,58 +1,58 @@
 <div class="ubmat-panel">
-    <mat-card>
-        <mat-card-content>
-            <section class="loss-section">    
-                <h2><b>#{{booking.idReserveLocatorJuniper}}</b></h2>           
-                <table>
-                    <tr><td>Transacción</td><td>{{booking.idTransaction}}</td></tr>
-                    <tr><td>Externar Locator</td><td>{{booking.idReserveLocatorExternal}}</td></tr>
-                </table>
-            
-                <table>
-                    <tr>
-                        <td>
+        <mat-card>
+            <mat-card-content>
+                <section class="loss-section">    
+                    <h2><b>#{{booking.idReserveLocatorJuniper}}</b></h2>           
+                    <table>
+                        <tr><td>Transacción</td><td>{{booking.idTransaction}}</td></tr>
+                        <tr><td>Externar Locator</td><td>{{booking.idReserveLocatorExternal}}</td></tr>
+                    </table>
+                
+                    <table>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr><td colspan="2"><b>Pagos</b></td></tr>
+                                    <tr><td>Tipo de pago</td><td>{{booking.paymentType}}</td></tr>
+                                    <tr><td>Tarjeta de Crédito</td><td>{{booking.paymentCreditCard}}</td></tr>
+                                    <tr><td>Puntos</td><td>{{booking.paymentPointsInUSD}}</td></tr>
+                                </table>                
+                            </td>
+                            <td>
+                                <table>
+                                    <tr><td colspan="2"><b>Costos Juniper</b></td></tr>
+                                    <tr><td>Costo de la reserva </td><td>{{booking.juniperReservationCost}}</td></tr>
+                                    <tr><td>Precio de venta</td><td>{{booking.juniperSalePrice}}</td></tr>
+                                    <tr><td>Beneficio</td><td>{{booking.benefitInReservation}}</td></tr>
+                                </table>               
+                            </td>
+                        </tr>
+                    </table>
+                    <button mat-button color="primary"  [routerLink]="['/variation', 'new' ]">+ Agregar una variación</button>
+                <hr>
+                <mat-card class="ubmat-card" *ngFor="let variation of variations">
+                  <mat-card-header>
+                    <mat-card-title><b>{{variation.code}}</b> ~ {{variation.product}} / {{variation.provider}}</mat-card-title>
+                    <mat-card-subtitle>
+                       <div>Creado por: {{variation.creation_user}} ~ {{variation.creation_date}}</div> 
+                       <div>Autorizado: {{variation.approval_user}} ~ {{variation.approval_date}}</div> 
+                    </mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content>
                             <table>
-                                <tr><td colspan="2"><b>Pagos</b></td></tr>
-                                <tr><td>Tipo de pago</td><td>{{booking.paymentType}}</td></tr>
-                                <tr><td>Tarjeta de Crédito</td><td>{{booking.paymentCreditCard}}</td></tr>
-                                <tr><td>Puntos</td><td>{{booking.paymentPointsInUSD}}</td></tr>
-                            </table>                
-                        </td>
-                        <td>
-                            <table>
-                                <tr><td colspan="2"><b>Costos Juniper</b></td></tr>
-                                <tr><td>Costo de la reserva </td><td>{{booking.juniperReservationCost}}</td></tr>
-                                <tr><td>Precio de venta</td><td>{{booking.juniperSalePrice}}</td></tr>
-                                <tr><td>Beneficio</td><td>{{booking.benefitInReservation}}</td></tr>
-                            </table>               
-                        </td>
-                    </tr>
-                </table>
-                <button mat-button color="primary"  [routerLink]="['/variation', 'new' ]">+ Agregar una variación</button>
-            <hr>
-            <mat-card class="ubmat-card" *ngFor="let variation of variations">
-              <mat-card-header>
-                <mat-card-title><b>{{variation.code}}</b> ~ {{variation.product}} / {{variation.provider}}</mat-card-title>
-                <mat-card-subtitle>
-                   <div>Creado por: {{variation.creation_user}} ~ {{variation.creation_date}}</div> 
-                   <div>Autorizado: {{variation.approval_user}} ~ {{variation.approval_date}}</div> 
-                </mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                        <table>
-                            <tr><td>Cargo</td><td>~ usd</td><td>{{variation.new_charge}}</td></tr>
-                            <tr><td>Costo</td><td>~ usd</td><td>{{variation.new_cost}}</td></tr>
-                            <tr><td>Beneficio</td><td>~ usd</td><td>{{variation.new_benefit}}</td></tr>
-                        </table> 
-                <h4><b>Descripción</b></h4>         
-                <p>{{variation.comments}}</p>
-              </mat-card-content>
+                                <tr><td>Cargo</td><td>~ usd</td><td>{{variation.new_charge}}</td></tr>
+                                <tr><td>Costo</td><td>~ usd</td><td>{{variation.new_cost}}</td></tr>
+                                <tr><td>Beneficio</td><td>~ usd</td><td>{{variation.new_benefit}}</td></tr>
+                            </table> 
+                    <h4><b>Descripción</b></h4>         
+                    <p>{{variation.comments}}</p>
+                  </mat-card-content>
+                </mat-card>
+              </section>
+             
+            </mat-card-content>
             </mat-card>
-          </section>
-          
-        </mat-card-content>
-        </mat-card>
-      </div> 
+          </div> 
 <!--
 <div class="row justify-content-center">
     <div class="col-8">

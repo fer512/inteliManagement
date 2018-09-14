@@ -12,7 +12,8 @@ import { BookingImService } from './booking-im.service';
 
 @Component({
     selector: 'jhi-booking-im',
-    templateUrl: './booking-im.component.html'
+    templateUrl: './booking-im.component.html',
+    styleUrls: ['./booking-im.component.css']
 })
 export class BookingImComponent implements OnInit, OnDestroy {
     currentAccount: any;
@@ -29,6 +30,7 @@ export class BookingImComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    displayedColumns: string[] = ['id', 'idTransaction', 'idReserveLocatorJuniper', 'idReserveLocatorExternal'];
 
     constructor(
         private bookingService: BookingImService,
