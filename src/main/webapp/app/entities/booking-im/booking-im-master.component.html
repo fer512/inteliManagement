@@ -1,3 +1,9 @@
+<nav class="nav-find" mat-tab-nav-bar [backgroundColor]="background">
+    <a mat-tab-link *ngFor="let link of links"
+       (click)="activeLink = link.title"
+       [active]="activeLink == link.title"
+       routerLink="{{link.routerlink}}"> {{link.title}} </a>
+</nav>
 <nav class="nav-find">
     <mat-form-field class="ubmat-input -md">
         <input matInput type="text" placeholder="Identificador Onepocket Juniper" [(ngModel)]="search">

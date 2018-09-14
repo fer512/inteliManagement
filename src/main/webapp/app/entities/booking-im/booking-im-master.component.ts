@@ -13,6 +13,13 @@ import { Router } from '@angular/router';
 export class BookingImMasterComponent implements OnInit {
     currentAccount: any;
     search = null;
+    links = [
+        { title: 'Mis Registros', routerlink: '/booking-im' },
+        { title: 'Mis Pendientes', routerlink: '' },
+        { title: 'Notificaciones', routerlink: '/notification-im' }
+    ];
+    activeLink = this.links[0];
+    background = '';
 
     constructor(private principal: Principal, private bookingService: BookingImService, private router: Router) {}
 
