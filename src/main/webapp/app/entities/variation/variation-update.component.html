@@ -5,10 +5,10 @@
     <!-- loss data -->
     <section class="loss-section">
       <h3>Variaciones de Costos & Ganancias</h3>
-      <table mat-table class="ubmat-table">
-      <tr mat-row>
+      <table class="ubmat-table">
+      <tr>
           <!-- Resultados Parciales -->
-          <td mat-cell colspan="3">
+          <td colspan="3">
               <mat-chip-list>
                   <mat-chip color="primary" selected>Total Ingresos: 0.00</mat-chip>
                   <mat-chip>Total Beneficio: 0.00</mat-chip>
@@ -17,10 +17,10 @@
           </td> 
       </tr>
       </table>
-      <table mat-table class="ubmat-table">
-          <tr mat-row>  
+      <table class="ubmat-table">
+          <tr>  
             <!-- Proveedor -->
-            <td mat-cell>
+            <td>
                 <mat-form-field class="ubmat-select -md">
                 <mat-select class="ubmat-select -md" name="provider" id="field_provider" [(ngModel)]="variation.provider" placeholder="Proveedor" required>
                   <mat-option *ngFor="let opt of providers" [(value)]="opt.value">
@@ -30,7 +30,7 @@
                 </mat-form-field>
               </td> 
             <!-- Producto -->
-            <td mat-cell>
+            <td>
               <mat-form-field class="ubmat-select -md">
                 <mat-select class="ubmat-select -md" name="product" id="field_product" [(ngModel)]="variation.product" placeholder="Producto" required>
                   <mat-option *ngFor="let opt of products" [(value)]="opt.value">
@@ -39,11 +39,11 @@
                 </mat-select>
               </mat-form-field>
             </td>
-            <td mat-cell><!--empty--></td>
+            <td><!--empty--></td>
           </tr>            
-          <tr mat-row>
+          <tr>
               <!-- Area de Origen -->
-              <td mat-cell>
+              <td>
                 <mat-form-field class="ubmat-select -md">
                 <mat-select name="area" id="field_area" [(ngModel)]="variation.area" placeholder="Area responsable" required>
                   <mat-option *ngFor="let opt of areas" [(value)]="opt.value">
@@ -53,7 +53,7 @@
                 </mat-form-field>
               </td> 
               <!-- Campaña -->
-              <td mat-cell>
+              <td>
                 <mat-form-field class="ubmat-select -md">
                 <mat-select name="campaing" id="field_campaing" [(ngModel)]="variation.campaing" placeholder="Campaña responsable" required>
                   <mat-option *ngFor="let opt of campaing" [(value)]="opt.value">
@@ -63,7 +63,7 @@
                 </mat-form-field>
               </td>
               <!-- Motivo de la perdida -->
-              <td mat-cell>
+              <td>
                 <mat-form-field class="ubmat-select -md">
                 <mat-select  name="reason" id="field_reason" [(ngModel)]="variation.reason" placeholder="Motivo de la perdida" required>
                   <mat-option *ngFor="let opt of losstypes" [(value)]="opt.value">
@@ -73,16 +73,16 @@
                 </mat-form-field>
               </td>
             </tr>
-            <tr mat-row>
+            <tr>
               <!-- Recuperable -->
-              <td mat-cell colspan="3">
+              <td colspan="3">
                 <mat-slide-toggle name="recoverable" id="field_recoverable"
                 [(ngModel)]="variation.recoverable"> Recuperable</mat-slide-toggle>
               </td>   
             </tr>          
-        <tr mat-row>
+        <tr>
           <!-- Dev Puntos -->
-          <td mat-cell>
+          <td>
             <mat-form-field  class="ubmat-input -md">
               <input matInput type="number" name="refund_in_points" id="field_refund_in_points"
               [(ngModel)]="variation.refund_in_points" placeholder="Devolución en Puntos" value="">
@@ -90,23 +90,23 @@
             </mat-form-field>
           </td> 
           <!-- Dev Efectivo -->
-          <td mat-cell>
+          <td>
             <mat-form-field  class="ubmat-input -md">
               <input matInput type="text" name="refund_in_cash" id="field_refund_in_cash"
               [(ngModel)]="variation.refund_in_cash" placeholder="Devolución en Efectivo" value="">
             </mat-form-field>
           </td>
           <!-- Cobro Extra -->
-          <td mat-cell>
+          <td>
             <mat-form-field  class="ubmat-input -md">
               <input matInput type="text" name="extra_charge" id="field_extra_charge"
               [(ngModel)]="variation.extra_charge" placeholder="Cobro Extra" value="">
             </mat-form-field>
           </td>
         </tr>  
-        <tr mat-row>
+        <tr>
           <!-- Nuevo Costo -->
-          <td mat-cell>
+          <td>
             <mat-form-field class="ubmat-input -md">
               <input matInput name="new_cost" id="field_new_cost"
               [(ngModel)]="variation.new_cost" placeholder="Nuevo Costo" type="number" value="">
@@ -114,14 +114,14 @@
             </mat-form-field>
           </td> 
           <!-- Nuevo Beneficio -->
-          <td mat-cell>
+          <td>
             <mat-form-field  class="ubmat-input -md">
               <input matInput type="text" name="new_benefit" id="field_new_benefit"
               [(ngModel)]="variation.new_benefit" placeholder="Nuevo Beneficio" value="">
             </mat-form-field>
           </td>
           <!-- Nuevo Localizador Ext -->
-          <td mat-cell>
+          <td>
             <mat-form-field  class="ubmat-input -md">
               <input matInput type="text" name="new_external_locator_id" id="field_new_external_locator_id"
               [(ngModel)]="variation.new_external_locator_id" placeholder="Nuevo Id Localizador Externo" value="">
@@ -132,9 +132,9 @@
     </section>
       
     <section class="loss-section">
-      <table mat-table class="ubmat-table">
-        <tr mat-row>
-          <td mat-cell>
+      <table class="ubmat-table">
+        <tr>
+          <td>
             <mat-form-field class="ubmat-textarea">
               <textarea matInput name="comments" id="field_comments"
               [(ngModel)]="variation.comments" placeholder="Comentarios"></textarea>

@@ -5,29 +5,29 @@
       <!-- reservation ids -->
       <section class="loss-section">
         <h3>Datos de la reserva</h3>
-        <table mat-table class="ubmat-table">
-          <tr mat-row>
-            <td mat-cell>
+        <table class="ubmat-table">
+          <tr>
+            <td>
             <mat-form-field  class="ubmat-input -md">
               <input matInput type="text" name="idTransaction" id="field_idTransaction"
               [(ngModel)]="booking.idTransaction" placeholder="Id transacción" value="">
             </mat-form-field> 
             </td>
-            <td mat-cell>
+            <td>
               <mat-form-field  class="ubmat-input -md">
                 <input matInput type="text" name="idReserveLocatorJuniper" id="field_idReserveLocatorJuniper"
                 [(ngModel)]="booking.idReserveLocatorJuniper" placeholder="Id reserva localizador Juniper" value="">
               </mat-form-field>
             </td>
-            <td mat-cell>
+            <td>
               <mat-form-field  class="ubmat-input -md">
                 <input matInput type="text" name="idReserveLocatorExternal" id="field_idReserveLocatorExternal"
                 [(ngModel)]="booking.idReserveLocatorExternal" placeholder="Id reserva localizador Externo" value="">
               </mat-form-field>
             </td>
           </tr>
-          <tr mat-row>          
-            <td mat-cell>
+          <tr>          
+            <td>
             <!--
               <mat-form-field class="ubmat-input -md">
                 <input matInput placeholder="Email del Cliente" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
@@ -41,8 +41,8 @@
                </mat-form-field>
             -->
             </td>
-            <td mat-cell><!--empty--></td>
-            <td mat-cell><!--empty--></td>  
+            <td><!--empty--></td>
+            <td><!--empty--></td>  
           </tr> 
         </table>  
       </section>
@@ -50,10 +50,10 @@
       <section class="loss-section">
         <h3>Datos sobre el pago</h3>
         <!-- Información sobre el Pago -->
-        <table mat-table class="ubmat-table">
-          <tr mat-row>
+        <table class="ubmat-table">
+          <tr>
             <!-- Tipo de Pago -->
-            <td mat-cell>
+            <td>
               <mat-form-field class="ubmat-select -md">
               <mat-select name="paymentType" id="field_paymentType" [(ngModel)]="booking.paymentType" placeholder="Tipo de Pago" required>
                 <mat-option *ngFor="let opt of paytypes" [(value)]="opt.value">
@@ -62,12 +62,12 @@
               </mat-select>
               </mat-form-field>
             </td>
-            <td mat-cell><!--empty--></td>
-            <td mat-cell><!--empty--></td>  
+            <td><!--empty--></td>
+            <td><!--empty--></td>  
           </tr> 
-          <tr mat-row>
+          <tr>
             <!-- TC -->
-            <td mat-cell>
+            <td>
               <mat-form-field  class="ubmat-input -md">
                 <input matInput type="text" name="paymentCreditCard" id="field_paymentCreditCard"
                 [(ngModel)]="booking.paymentCreditCard" placeholder="Valor Tarjeta de Crédito" value="">
@@ -75,23 +75,23 @@
               </mat-form-field>
             </td> 
             <!-- Pts -->
-            <td mat-cell>
+            <td>
               <mat-form-field  class="ubmat-input -md">
                 <input matInput type="text" name="paymentPointsInUSD" id="field_paymentPointsInUSD"
                 [(ngModel)]="booking.paymentPointsInUSD" placeholder="USD en Puntos" value="">
               </mat-form-field>
             </td>
             <!-- Total -->
-            <td mat-cell>
+            <td>
               <mat-form-field  class="ubmat-input -md">
                 <input matInput type="text" placeholder="Total" value="">
                 <span matPrefix>USD&nbsp;</span>
               </mat-form-field>
             </td>
           </tr> 
-          <tr mat-row>
+          <tr>
               <!-- Precio de Venta -->
-              <td mat-cell>
+              <td>
                 <mat-form-field  class="ubmat-input -md">
                   <input matInput type="text" name="juniperSalePrice" id="field_juniperSalePrice"
                   [(ngModel)]="booking.juniperSalePrice" placeholder="Precio de Venta Juniper" value="" required/>
@@ -99,7 +99,7 @@
                 </mat-form-field>
               </td> 
               <!-- Costo de la Reserva -->
-              <td mat-cell>
+              <td>
                 <mat-form-field  class="ubmat-input -md">
                   <input matInput type="text" name="juniperReservationCost" id="field_juniperReservationCost"
                   [(ngModel)]="booking.juniperReservationCost" placeholder="Costo Reserva Juniper" value="" required/>
@@ -107,7 +107,7 @@
                 </mat-form-field>
               </td>
               <!-- Beneficio -->
-              <td mat-cell>
+              <td>
                 <mat-form-field  class="ubmat-input -md">
                   <input matInput type="text" name="benefitInReservation" id="field_benefitInReservation"
                   [(ngModel)]="booking.benefitInReservation" placeholder="Beneficio" value="">
@@ -125,7 +125,7 @@
 </mat-card>
 </div>
   <!-- Example AutoComplete 
-  <td mat-cell>
+  <td>
       <mat-form-field class="ubmat-select -md">
       <input matInput placeholder="Escribe algo..." [matAutocomplete]="auto" [formControl]="optCtrl">
         <mat-autocomplete #auto="matAutocomplete">
