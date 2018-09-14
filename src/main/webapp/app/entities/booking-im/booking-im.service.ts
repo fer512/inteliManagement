@@ -34,7 +34,7 @@ export class BookingImService {
 
     findByCriteria(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.post<IBookingIm[]>(this.resourceUrl + '/findByCriteria', req, { params: options, observe: 'response' });
+        return this.http.post<IBookingIm[]>(this.resourceUrl + '/findByCriteria', req, { observe: 'response' });
     }
 
     delete(id: number): Observable<HttpResponse<any>> {

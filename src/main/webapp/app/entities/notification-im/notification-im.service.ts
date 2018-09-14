@@ -15,6 +15,7 @@ type EntityArrayResponseType = HttpResponse<INotificationIm[]>;
 @Injectable({ providedIn: 'root' })
 export class NotificationImService {
     private resourceUrl = SERVER_API_URL + 'api/notifications';
+    private resourceMyNotifications = SERVER_API_URL + 'api/my-notifications';
 
     constructor(private http: HttpClient) {}
 
@@ -42,6 +43,13 @@ export class NotificationImService {
         const options = createRequestOption(req);
         return this.http
             .get<INotificationIm[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    myNotifications(req?: any): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http
+            .post<INotificationIm[]>(this.resourceMyNotifications, options, { observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 

@@ -17,7 +17,15 @@ import { InteliManagementHomeModule } from './home/home.module';
 import { InteliManagementAccountModule } from './account/account.module';
 import { InteliManagementEntityModule } from './entities/entity.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
-import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+import {
+    JhiMainComponent,
+    NavbarComponent,
+    SearchComponent,
+    FooterComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    ErrorComponent
+} from './layouts';
 import { MaterialModule } from './shared';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -35,7 +43,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         MaterialModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
-    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+    declarations: [
+        JhiMainComponent,
+        NavbarComponent,
+        SearchComponent,
+        ErrorComponent,
+        PageRibbonComponent,
+        ActiveMenuDirective,
+        FooterComponent
+    ],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,

@@ -4,16 +4,6 @@
                 <span>Loss</span>
                 <span class="ubmat-nav-spacer"></span>
 
-                <button mat-fab [matMenuTriggerFor]="notificationsmenu">
-                        <mat-icon>notifications_none</mat-icon>
-                </button>
-                <mat-menu #notificationsmenu="matMenu">
-                        <button mat-menu-item *ngFor="let notif of notifications">
-                          <mat-icon></mat-icon>
-                          <span>Redial</span>
-                        </button>
-                </mat-menu>
-
                 <button mat-button [matMenuTriggerFor]="menu">
 
                         <span *ngIf="!getImageUrl()">
