@@ -4,7 +4,6 @@ import ar.com.intelimanagement.InteliManagementApp;
 
 import ar.com.intelimanagement.domain.Provider;
 import ar.com.intelimanagement.domain.Address;
-import ar.com.intelimanagement.domain.Product;
 import ar.com.intelimanagement.domain.Company;
 import ar.com.intelimanagement.repository.ProviderRepository;
 import ar.com.intelimanagement.service.ProviderService;
@@ -277,25 +276,6 @@ public class ProviderResourceIntTest {
 
         // Get all the providerList where address equals to addressId + 1
         defaultProviderShouldNotBeFound("addressId.equals=" + (addressId + 1));
-    }
-
-
-    @Test
-    @Transactional
-    public void getAllProvidersByProductsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        Product products = ProductResourceIntTest.createEntity(em);
-        em.persist(products);
-        em.flush();
-        provider.addProducts(products);
-        providerRepository.saveAndFlush(provider);
-        Long productsId = products.getId();
-
-        // Get all the providerList where products equals to productsId
-        defaultProviderShouldBeFound("productsId.equals=" + productsId);
-
-        // Get all the providerList where products equals to productsId + 1
-        defaultProviderShouldNotBeFound("productsId.equals=" + (productsId + 1));
     }
 
 

@@ -34,8 +34,6 @@ public class ProviderCriteria implements Serializable {
 
     private LongFilter addressId;
 
-    private LongFilter productsId;
-
     private LongFilter companyId;
 
     public ProviderCriteria() {
@@ -73,14 +71,6 @@ public class ProviderCriteria implements Serializable {
         this.addressId = addressId;
     }
 
-    public LongFilter getProductsId() {
-        return productsId;
-    }
-
-    public void setProductsId(LongFilter productsId) {
-        this.productsId = productsId;
-    }
-
     public LongFilter getCompanyId() {
         return companyId;
     }
@@ -96,7 +86,6 @@ public class ProviderCriteria implements Serializable {
                 (name != null ? "name=" + name + ", " : "") +
                 (email != null ? "email=" + email + ", " : "") +
                 (addressId != null ? "addressId=" + addressId + ", " : "") +
-                (productsId != null ? "productsId=" + productsId + ", " : "") +
                 (companyId != null ? "companyId=" + companyId + ", " : "") +
             "}";
     }

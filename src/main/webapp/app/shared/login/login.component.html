@@ -1,7 +1,7 @@
-<mat-progress-bar *ngIf="submit"  mode="indeterminate"></mat-progress-bar>
+
 <div mat-dialog-content>
     <form class="example-form" (ngSubmit)="login()">
-
+        <h4 class="modal-title" jhiTranslate="login.title">Sign in</h4>
         <mat-form-field class="example-full-width">
             <input matInput name="username" id="username" placeholder="{{'global.form.username.placeholder' | translate}}" [(ngModel)]="username">
         </mat-form-field>
@@ -10,17 +10,36 @@
             <input matInput type="password" name="password" id="password" placeholder="{{'login.form.password.placeholder' | translate}}"
                 [(ngModel)]="password">
         </mat-form-field>
+        <mat-checkbox  name="rememberMe" id="rememberMe" [(ngModel)]="rememberMe" checked><span jhiTranslate="login.form.rememberme">Remember me</span></mat-checkbox>
+        <div class="button-row">
+            <button mat-raised-button color="primary" type="submit">{{ 'login.form.button' | translate}}</button>
+        </div>       
+        <mat-divider></mat-divider>
+       
 
-        <button mat-button type="submit">{{ 'login.form.button' | translate}}</button>
     </form>
+
+    <div class="alert">
+        <a (click)="requestResetPassword()" jhiTranslate="login.password.forgot">Did you forget your password?</a>
+    </div>
+    <div class="alert">
+        <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
+      
+        <div class="button-row">
+            <button mat-button (click)="register()" color="primary"><span jhiTranslate="global.messages.info.register.link">Register a new account</span></button>
+        </div>
+
+    </div>
+    
 </div>
+<mat-progress-bar *ngIf="submit" mode="indeterminate"></mat-progress-bar>
 <!--div mat-dialog-actions>
     <button mat-button>No Thanks</button>
     <button mat-button cdkFocusInitial>Ok</button>
 </div-->
 
 <!--div class="modal-header">
-    <h4 class="modal-title" jhiTranslate="login.title">Sign in</h4>
+    
     <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
     </button>
 </div>
@@ -51,14 +70,8 @@
                 </div>
                 <button type="submit" class="btn btn-primary" jhiTranslate="login.form.button">Sign in</button>
             </form>
-            <p></p>
-            <div class="alert alert-warning">
-                <a class="alert-link" (click)="requestResetPassword()" jhiTranslate="login.password.forgot">Did you forget your password?</a>
-            </div>
-            <div class="alert alert-warning">
-                <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
-                <a class="alert-link" (click)="register()" jhiTranslate="global.messages.info.register.link">Register a new account</a>
-            </div>
+
         </div>
     </div>
 </div-->
+

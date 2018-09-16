@@ -4,6 +4,7 @@ import ar.com.intelimanagement.InteliManagementApp;
 
 import ar.com.intelimanagement.domain.Booking;
 import ar.com.intelimanagement.domain.Company;
+import ar.com.intelimanagement.domain.ProductByBooking;
 import ar.com.intelimanagement.repository.BookingRepository;
 import ar.com.intelimanagement.service.BookingService;
 import ar.com.intelimanagement.service.dto.BookingDTO;
@@ -727,6 +728,25 @@ public class BookingResourceIntTest {
 
         // Get all the bookingList where company equals to companyId + 1
         defaultBookingShouldNotBeFound("companyId.equals=" + (companyId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllBookingsByProductsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        ProductByBooking products = ProductByBookingResourceIntTest.createEntity(em);
+        em.persist(products);
+        em.flush();
+        booking.addProducts(products);
+        bookingRepository.saveAndFlush(booking);
+        Long productsId = products.getId();
+
+        // Get all the bookingList where products equals to productsId
+        defaultBookingShouldBeFound("productsId.equals=" + productsId);
+
+        // Get all the bookingList where products equals to productsId + 1
+        defaultBookingShouldNotBeFound("productsId.equals=" + (productsId + 1));
     }
 
     /**

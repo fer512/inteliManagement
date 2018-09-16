@@ -1,0 +1,23 @@
+
+{
+    "inteliManagementApp": {
+        "productByBooking" : {
+            "home": {
+                "title": "Product By Bookings",
+                "createLabel": "Crear nuevo Product By Booking",
+                "createOrEditLabel": "Crear o editar Product By Booking"
+            },
+            "created": "Un nuevo Product By Booking ha sido creado con el identificador {{ param }}",
+            "updated": "Un Product By Booking ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Product By Booking ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Product By Booking {{ id }}?"
+            },
+            "detail": {
+                "title": "Product By Booking"
+            },
+            "product": "Product",
+            "booking": "Booking"
+        }
+    }
+}

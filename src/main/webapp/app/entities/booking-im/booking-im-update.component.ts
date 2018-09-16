@@ -8,6 +8,7 @@ import { IBookingIm } from 'app/shared/model/booking-im.model';
 import { BookingImService } from './booking-im.service';
 import { ICompanyIm } from 'app/shared/model/company-im.model';
 import { CompanyImService } from 'app/entities/company-im';
+import { MatSnackBar } from '@angular/material';
 
 export interface ListOpt {
     value: string;
@@ -58,8 +59,11 @@ export class BookingImUpdateComponent implements OnInit {
         this.isSaving = true;
         if (this.booking.id !== undefined) {
             this.subscribeToSaveResponse(this.bookingService.update(this.booking));
+            console.log(this.bookingService.update(this.booking));
+            //this.openSnackBar("Un Booking ha sido actualizado con el identificador","");
         } else {
             this.subscribeToSaveResponse(this.bookingService.create(this.booking));
+            //this.openSnackBar("Un nuevo Booking ha sido creado con el identificador","");
         }
     }
 

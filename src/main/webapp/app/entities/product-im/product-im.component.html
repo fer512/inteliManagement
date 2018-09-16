@@ -16,7 +16,8 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="inteliManagementApp.product.name">Name</span></th>
-            <th><span jhiTranslate="inteliManagementApp.product.provider">Provider</span></th>
+            <th><span jhiTranslate="inteliManagementApp.product.code">Code</span></th>
+            <th><span jhiTranslate="inteliManagementApp.product.product_by_provider">Product By Provider</span></th>
             <th></th>
             </tr>
             </thead>
@@ -24,10 +25,11 @@
             <tr *ngFor="let product of products ;trackBy: trackId">
                 <td><a [routerLink]="['/product-im', product.id, 'view' ]">{{product.id}}</a></td>
                 <td>{{product.name}}</td>
+                <td>{{product.code}}</td>
                 <td>
-                    <div *ngIf="product.providerId">
-                        <a [routerLink]="['../provider-im', product.providerId , 'view' ]" >{{product.providerId}}</a>
-                    </div>
+                    <span *ngFor="let product_by_provider of product.product_by_providers; let last = last">
+                            <a class="form-control-static" [routerLink]="['../provider-im', product_by_provider?.id, 'view' ]">{{product_by_provider.code}}</a>{{last ? '' : ', '}}
+                        </span>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

@@ -7,6 +7,12 @@
             "relationshipName": "company",
             "otherEntityName": "company",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "products",
+            "otherEntityName": "productByBooking",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "booking"
         }
     ],
     "fields": [

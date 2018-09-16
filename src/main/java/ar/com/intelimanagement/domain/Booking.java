@@ -1,5 +1,6 @@
 package ar.com.intelimanagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -8,7 +9,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -58,14 +60,13 @@ public class Booking implements Serializable {
     @Column(name = "benefit_in_reservation")
     private Double benefitInReservation;
 
-    @OneToMany
-    @JoinColumn(name = "booking_id")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private List<Variation> variations;
-    
     @ManyToOne
-    @JsonIgnoreProperties("")
+    @JsonIgnoreProperties("bookings")
     private Company company;
+
+    @OneToMany(mappedBy = "booking")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<ProductByBooking> products = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -218,6 +219,31 @@ public class Booking implements Serializable {
     public void setCompany(Company company) {
         this.company = company;
     }
+
+    public Set<ProductByBooking> getProducts() {
+        return products;
+    }
+
+    public Booking products(Set<ProductByBooking> productByBookings) {
+        this.products = productByBookings;
+        return this;
+    }
+
+    public Booking addProducts(ProductByBooking productByBooking) {
+        this.products.add(productByBooking);
+        productByBooking.setBooking(this);
+        return this;
+    }
+
+    public Booking removeProducts(ProductByBooking productByBooking) {
+        this.products.remove(productByBooking);
+        productByBooking.setBooking(null);
+        return this;
+    }
+
+    public void setProducts(Set<ProductByBooking> productByBookings) {
+        this.products = productByBookings;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -240,15 +266,7 @@ public class Booking implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    public List<Variation> getVariations() {
-		return variations;
-	}
-
-	public void setVariations(List<Variation> variations) {
-		this.variations = variations;
-	}
-
-	@Override
+    @Override
     public String toString() {
         return "Booking{" +
             "id=" + getId() +

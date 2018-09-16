@@ -1,0 +1,23 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.button-row {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.mat-divider {
+    margin: 15px;
+}
+
+.alert {
+    text-align: center;
+    color: #444;
+}

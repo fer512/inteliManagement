@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-product-by-booking-heading" jhiTranslate="inteliManagementApp.productByBooking.home.createOrEditLabel">Create or edit a Product By Booking</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!productByBooking.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="productByBooking.id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.productByBooking.product" for="field_product">Product</label>
+                    <select class="form-control" id="field_product" name="product" [(ngModel)]="productByBooking.productId"  required>
+                        <option *ngIf="!editForm.value.product" [ngValue]="null" selected></option>
+                        <option [ngValue]="productOption.id" *ngFor="let productOption of products; trackBy: trackProductById">{{productOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.product?.dirty && editForm.controls.product?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.product?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="inteliManagementApp.productByBooking.booking" for="field_booking">Booking</label>
+                    <select class="form-control" id="field_booking" name="booking" [(ngModel)]="productByBooking.bookingId"  required>
+                        <option *ngIf="!editForm.value.booking" [ngValue]="null" selected></option>
+                        <option [ngValue]="bookingOption.id" *ngFor="let bookingOption of bookings; trackBy: trackBookingById">{{bookingOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.booking?.dirty && editForm.controls.booking?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.booking?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,25 +1,13 @@
 package ar.com.intelimanagement.domain;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
+
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A Provider.
@@ -44,10 +32,6 @@ public class Provider implements Serializable {
     @OneToOne
     @JoinColumn(unique = true)
     private Address address;
-
-    @OneToMany(mappedBy = "provider")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Product> products = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("providers")
@@ -99,31 +83,6 @@ public class Provider implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public Provider products(Set<Product> products) {
-        this.products = products;
-        return this;
-    }
-
-    public Provider addProducts(Product product) {
-        this.products.add(product);
-        product.setProvider(this);
-        return this;
-    }
-
-    public Provider removeProducts(Product product) {
-        this.products.remove(product);
-        product.setProvider(null);
-        return this;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
     }
 
     public Company getCompany() {

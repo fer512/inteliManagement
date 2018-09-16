@@ -17,7 +17,9 @@
                 "title": "Product"
             },
             "name": "Name",
-            "provider": "Provider"
+            "code": "Code",
+            "product_by_provider": "Product By Provider",
+            "bookings": "Bookings"
         }
     }
 }

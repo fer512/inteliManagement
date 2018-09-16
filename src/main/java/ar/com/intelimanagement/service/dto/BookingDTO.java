@@ -1,11 +1,7 @@
 package ar.com.intelimanagement.service.dto;
 
 import javax.validation.constraints.*;
-
-import ar.com.intelimanagement.domain.Variation;
-
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -40,8 +36,6 @@ public class BookingDTO implements Serializable {
 
     private Long companyId;
 
-    private List<VariationDTO> variations;
-    
     public Long getId() {
         return id;
     }
@@ -138,15 +132,7 @@ public class BookingDTO implements Serializable {
         this.companyId = companyId;
     }
 
-    public List<VariationDTO> getVariations() {
-		return variations;
-	}
-
-	public void setVariations(List<VariationDTO> variations) {
-		this.variations = variations;
-	}
-
-	@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -184,5 +170,4 @@ public class BookingDTO implements Serializable {
             ", company=" + getCompanyId() +
             "}";
     }
-
 }
