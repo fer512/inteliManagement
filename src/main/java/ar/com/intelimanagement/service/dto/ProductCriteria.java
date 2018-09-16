@@ -30,7 +30,11 @@ public class ProductCriteria implements Serializable {
 
     private StringFilter name;
 
-    private LongFilter providerId;
+    private StringFilter code;
+
+    private LongFilter product_by_providerId;
+
+    private LongFilter bookingsId;
 
     public ProductCriteria() {
     }
@@ -51,12 +55,28 @@ public class ProductCriteria implements Serializable {
         this.name = name;
     }
 
-    public LongFilter getProviderId() {
-        return providerId;
+    public StringFilter getCode() {
+        return code;
     }
 
-    public void setProviderId(LongFilter providerId) {
-        this.providerId = providerId;
+    public void setCode(StringFilter code) {
+        this.code = code;
+    }
+
+    public LongFilter getProduct_by_providerId() {
+        return product_by_providerId;
+    }
+
+    public void setProduct_by_providerId(LongFilter product_by_providerId) {
+        this.product_by_providerId = product_by_providerId;
+    }
+
+    public LongFilter getBookingsId() {
+        return bookingsId;
+    }
+
+    public void setBookingsId(LongFilter bookingsId) {
+        this.bookingsId = bookingsId;
     }
 
     @Override
@@ -64,7 +84,9 @@ public class ProductCriteria implements Serializable {
         return "ProductCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
-                (providerId != null ? "providerId=" + providerId + ", " : "") +
+                (code != null ? "code=" + code + ", " : "") +
+                (product_by_providerId != null ? "product_by_providerId=" + product_by_providerId + ", " : "") +
+                (bookingsId != null ? "bookingsId=" + bookingsId + ", " : "") +
             "}";
     }
 

@@ -4,6 +4,7 @@ import ar.com.intelimanagement.InteliManagementApp;
 
 import ar.com.intelimanagement.domain.Product;
 import ar.com.intelimanagement.domain.Provider;
+import ar.com.intelimanagement.domain.ProductByBooking;
 import ar.com.intelimanagement.repository.ProductRepository;
 import ar.com.intelimanagement.service.ProductService;
 import ar.com.intelimanagement.service.dto.ProductDTO;
@@ -15,9 +16,12 @@ import ar.com.intelimanagement.service.ProductQueryService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -27,12 +31,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 
 import static ar.com.intelimanagement.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -48,13 +54,19 @@ public class ProductResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_CODE = "AAAAAAAAAA";
+    private static final String UPDATED_CODE = "BBBBBBBBBB";
+
     @Autowired
     private ProductRepository productRepository;
-
+    @Mock
+    private ProductRepository productRepositoryMock;
 
     @Autowired
     private ProductMapper productMapper;
     
+    @Mock
+    private ProductService productServiceMock;
 
     @Autowired
     private ProductService productService;
@@ -97,7 +109,13 @@ public class ProductResourceIntTest {
      */
     public static Product createEntity(EntityManager em) {
         Product product = new Product()
-            .name(DEFAULT_NAME);
+            .name(DEFAULT_NAME)
+            .code(DEFAULT_CODE);
+        // Add required entity
+        Provider provider = ProviderResourceIntTest.createEntity(em);
+        em.persist(provider);
+        em.flush();
+        product.getProduct_by_providers().add(provider);
         return product;
     }
 
@@ -123,6 +141,7 @@ public class ProductResourceIntTest {
         assertThat(productList).hasSize(databaseSizeBeforeCreate + 1);
         Product testProduct = productList.get(productList.size() - 1);
         assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testProduct.getCode()).isEqualTo(DEFAULT_CODE);
     }
 
     @Test
@@ -147,6 +166,25 @@ public class ProductResourceIntTest {
 
     @Test
     @Transactional
+    public void checkCodeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = productRepository.findAll().size();
+        // set the field null
+        product.setCode(null);
+
+        // Create the Product, which fails.
+        ProductDTO productDTO = productMapper.toDto(product);
+
+        restProductMockMvc.perform(post("/api/products")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Product> productList = productRepository.findAll();
+        assertThat(productList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllProducts() throws Exception {
         // Initialize the database
         productRepository.saveAndFlush(product);
@@ -156,9 +194,40 @@ public class ProductResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(product.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())));
     }
     
+    public void getAllProductsWithEagerRelationshipsIsEnabled() throws Exception {
+        ProductResource productResource = new ProductResource(productServiceMock, productQueryService);
+        when(productServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restProductMockMvc.perform(get("/api/products?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(productServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    public void getAllProductsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        ProductResource productResource = new ProductResource(productServiceMock, productQueryService);
+            when(productServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restProductMockMvc.perform(get("/api/products?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(productServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
 
     @Test
     @Transactional
@@ -171,7 +240,8 @@ public class ProductResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(product.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.code").value(DEFAULT_CODE.toString()));
     }
 
     @Test
@@ -215,20 +285,78 @@ public class ProductResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllProductsByProviderIsEqualToSomething() throws Exception {
+    public void getAllProductsByCodeIsEqualToSomething() throws Exception {
         // Initialize the database
-        Provider provider = ProviderResourceIntTest.createEntity(em);
-        em.persist(provider);
-        em.flush();
-        product.setProvider(provider);
         productRepository.saveAndFlush(product);
-        Long providerId = provider.getId();
 
-        // Get all the productList where provider equals to providerId
-        defaultProductShouldBeFound("providerId.equals=" + providerId);
+        // Get all the productList where code equals to DEFAULT_CODE
+        defaultProductShouldBeFound("code.equals=" + DEFAULT_CODE);
 
-        // Get all the productList where provider equals to providerId + 1
-        defaultProductShouldNotBeFound("providerId.equals=" + (providerId + 1));
+        // Get all the productList where code equals to UPDATED_CODE
+        defaultProductShouldNotBeFound("code.equals=" + UPDATED_CODE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllProductsByCodeIsInShouldWork() throws Exception {
+        // Initialize the database
+        productRepository.saveAndFlush(product);
+
+        // Get all the productList where code in DEFAULT_CODE or UPDATED_CODE
+        defaultProductShouldBeFound("code.in=" + DEFAULT_CODE + "," + UPDATED_CODE);
+
+        // Get all the productList where code equals to UPDATED_CODE
+        defaultProductShouldNotBeFound("code.in=" + UPDATED_CODE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllProductsByCodeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        productRepository.saveAndFlush(product);
+
+        // Get all the productList where code is not null
+        defaultProductShouldBeFound("code.specified=true");
+
+        // Get all the productList where code is null
+        defaultProductShouldNotBeFound("code.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllProductsByProduct_by_providerIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Provider product_by_provider = ProviderResourceIntTest.createEntity(em);
+        em.persist(product_by_provider);
+        em.flush();
+        product.addProduct_by_provider(product_by_provider);
+        productRepository.saveAndFlush(product);
+        Long product_by_providerId = product_by_provider.getId();
+
+        // Get all the productList where product_by_provider equals to product_by_providerId
+        defaultProductShouldBeFound("product_by_providerId.equals=" + product_by_providerId);
+
+        // Get all the productList where product_by_provider equals to product_by_providerId + 1
+        defaultProductShouldNotBeFound("product_by_providerId.equals=" + (product_by_providerId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllProductsByBookingsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        ProductByBooking bookings = ProductByBookingResourceIntTest.createEntity(em);
+        em.persist(bookings);
+        em.flush();
+        product.addBookings(bookings);
+        productRepository.saveAndFlush(product);
+        Long bookingsId = bookings.getId();
+
+        // Get all the productList where bookings equals to bookingsId
+        defaultProductShouldBeFound("bookingsId.equals=" + bookingsId);
+
+        // Get all the productList where bookings equals to bookingsId + 1
+        defaultProductShouldNotBeFound("bookingsId.equals=" + (bookingsId + 1));
     }
 
     /**
@@ -239,7 +367,8 @@ public class ProductResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(product.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())));
     }
 
     /**
@@ -274,7 +403,8 @@ public class ProductResourceIntTest {
         // Disconnect from session so that the updates on updatedProduct are not directly saved in db
         em.detach(updatedProduct);
         updatedProduct
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .code(UPDATED_CODE);
         ProductDTO productDTO = productMapper.toDto(updatedProduct);
 
         restProductMockMvc.perform(put("/api/products")
@@ -287,6 +417,7 @@ public class ProductResourceIntTest {
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
         Product testProduct = productList.get(productList.size() - 1);
         assertThat(testProduct.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testProduct.getCode()).isEqualTo(UPDATED_CODE);
     }
 
     @Test

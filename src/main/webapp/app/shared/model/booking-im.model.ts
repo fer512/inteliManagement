@@ -1,3 +1,5 @@
+import { IProductByBooking } from 'app/shared/model//product-by-booking.model';
+
 export interface IBookingIm {
     id?: number;
     idTransaction?: string;
@@ -11,6 +13,7 @@ export interface IBookingIm {
     juniperReservationCost?: number;
     benefitInReservation?: number;
     companyId?: number;
+    products?: IProductByBooking[];
 }
 
 export class BookingIm implements IBookingIm {
@@ -26,6 +29,7 @@ export class BookingIm implements IBookingIm {
         public juniperSalePrice?: number,
         public juniperReservationCost?: number,
         public benefitInReservation?: number,
-        public companyId?: number
+        public companyId?: number,
+        public products?: IProductByBooking[]
     ) {}
 }

@@ -19,6 +19,7 @@
                 "productIm": "Product",
                 "notificationIm": "Notification",
                 "variation": "Variation",
+                "productByBooking": "Product By Booking",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

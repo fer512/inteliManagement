@@ -8,11 +8,16 @@
     -->
     <changeSet id="20180901192845-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="provider_id"
-                                 baseTableName="product"
-                                 constraintName="fk_product_provider_id"
+        <addForeignKeyConstraint baseColumnNames="products_id"
+                                 baseTableName="product_product_by_provider"
+                                 constraintName="fk_product_product_by_provider_products_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="product"/>
+        <addForeignKeyConstraint baseColumnNames="product_by_providers_id"
+                                 baseTableName="product_product_by_provider"
+                                 constraintName="fk_product_product_by_provider_product_by_providers_id"
                                  referencedColumnNames="id"
                                  referencedTableName="provider"/>
-
+        
     </changeSet>
 </databaseChangeLog>

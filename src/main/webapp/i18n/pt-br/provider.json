@@ -19,7 +19,6 @@
             "name": "Name",
             "email": "Email",
             "address": "Address",
-            "products": "Products",
             "company": "Company"
         }
     }

@@ -79,8 +79,14 @@ public class ProductQueryService extends QueryService<Product> {
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), Product_.name));
             }
-            if (criteria.getProviderId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getProviderId(), Product_.provider, Provider_.id));
+            if (criteria.getCode() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getCode(), Product_.code));
+            }
+            if (criteria.getProduct_by_providerId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getProduct_by_providerId(), Product_.product_by_providers, Provider_.id));
+            }
+            if (criteria.getBookingsId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getBookingsId(), Product_.bookings, ProductByBooking_.id));
             }
         }
         return specification;

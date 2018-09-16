@@ -1,6 +1,9 @@
 package ar.com.intelimanagement.service.dto;
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -12,7 +15,10 @@ public class ProductDTO implements Serializable {
 
     private String name;
 
-    private Long providerId;
+    @NotNull
+    private String code;
+
+    private Set<ProviderDTO> product_by_providers = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -30,12 +36,20 @@ public class ProductDTO implements Serializable {
         this.name = name;
     }
 
-    public Long getProviderId() {
-        return providerId;
+    public String getCode() {
+        return code;
     }
 
-    public void setProviderId(Long providerId) {
-        this.providerId = providerId;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Set<ProviderDTO> getProduct_by_providers() {
+        return product_by_providers;
+    }
+
+    public void setProduct_by_providers(Set<ProviderDTO> providers) {
+        this.product_by_providers = providers;
     }
 
     @Override
@@ -64,7 +78,7 @@ public class ProductDTO implements Serializable {
         return "ProductDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", provider=" + getProviderId() +
+            ", code='" + getCode() + "'" +
             "}";
     }
 }

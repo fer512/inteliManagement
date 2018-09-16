@@ -85,9 +85,6 @@ public class ProviderQueryService extends QueryService<Provider> {
             if (criteria.getAddressId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getAddressId(), Provider_.address, Address_.id));
             }
-            if (criteria.getProductsId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getProductsId(), Provider_.products, Product_.id));
-            }
             if (criteria.getCompanyId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getCompanyId(), Provider_.company, Company_.id));
             }

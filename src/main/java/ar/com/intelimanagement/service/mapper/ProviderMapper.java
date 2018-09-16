@@ -16,7 +16,6 @@ public interface ProviderMapper extends EntityMapper<ProviderDTO, Provider> {
     ProviderDTO toDto(Provider provider);
 
     @Mapping(source = "addressId", target = "address")
-    @Mapping(target = "products", ignore = true)
     @Mapping(source = "companyId", target = "company")
     Provider toEntity(ProviderDTO providerDTO);
 

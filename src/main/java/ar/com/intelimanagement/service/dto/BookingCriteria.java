@@ -50,6 +50,8 @@ public class BookingCriteria implements Serializable {
 
     private LongFilter companyId;
 
+    private LongFilter productsId;
+
     public BookingCriteria() {
     }
 
@@ -149,6 +151,14 @@ public class BookingCriteria implements Serializable {
         this.companyId = companyId;
     }
 
+    public LongFilter getProductsId() {
+        return productsId;
+    }
+
+    public void setProductsId(LongFilter productsId) {
+        this.productsId = productsId;
+    }
+
     @Override
     public String toString() {
         return "BookingCriteria{" +
@@ -164,6 +174,7 @@ public class BookingCriteria implements Serializable {
                 (juniperReservationCost != null ? "juniperReservationCost=" + juniperReservationCost + ", " : "") +
                 (benefitInReservation != null ? "benefitInReservation=" + benefitInReservation + ", " : "") +
                 (companyId != null ? "companyId=" + companyId + ", " : "") +
+                (productsId != null ? "productsId=" + productsId + ", " : "") +
             "}";
     }
 

@@ -2,6 +2,9 @@ package ar.com.intelimanagement.service;
 
 import ar.com.intelimanagement.service.dto.ProductDTO;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +28,13 @@ public interface ProductService {
      */
     List<ProductDTO> findAll();
 
-
+    /**
+     * Get all the Product with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    Page<ProductDTO> findAllWithEagerRelationships(Pageable pageable);
+    
     /**
      * Get the "id" product.
      *
