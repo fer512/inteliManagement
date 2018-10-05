@@ -1,11 +1,22 @@
 <div class="ubmat-panel">
-        <mat-card>
-        <mat-card-content>
+  <mat-card>
+    <mat-card-content>
       <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
       <!-- reservation ids -->
       <section class="loss-section">
         <h3>Datos de la reserva</h3>
         <table class="ubmat-table">
+          <tr>          
+            <td colspan="3">
+              <mat-card class="ubmat-fl ubmat-card -sm " *ngFor="let opt of DialogListLocatorJuniper">
+                <mat-card-content>
+                  <h3> {{opt.idReserveLocatorJuniperProduct}}</h3> 
+                  <h4>Juniper N°: {{opt.idReserveLocatorJuniper}} </h4>
+                  <h4>External N°: {{opt.idReserveLocatorExternal}} </h4>
+               </mat-card-content>
+              </mat-card>
+            </td>  
+          </tr> 
           <tr>
             <td>
             <mat-form-field  class="ubmat-input -md">
@@ -14,16 +25,10 @@
             </mat-form-field> 
             </td>
             <td>
-              <mat-form-field  class="ubmat-input -md">
-                <input matInput type="text" name="idReserveLocatorJuniper" id="field_idReserveLocatorJuniper"
-                [(ngModel)]="booking.idReserveLocatorJuniper" placeholder="Id reserva localizador Juniper" value="">
-              </mat-form-field>
+              <button mat-stroked-button color="primary" (click)="openDialog()">Relacionar Id reserva localizador Juniper</button>
             </td>
             <td>
-              <mat-form-field  class="ubmat-input -md">
-                <input matInput type="text" name="idReserveLocatorExternal" id="field_idReserveLocatorExternal"
-                [(ngModel)]="booking.idReserveLocatorExternal" placeholder="Id reserva localizador Externo" value="">
-              </mat-form-field>
+
             </td>
           </tr>
           <tr>          

@@ -12,6 +12,7 @@ import {
     bookingPopupRoute
 } from './';
 import { BookingImMasterComponent } from './booking-im-master.component';
+import { BookingImAddJlDialogComponent } from './';
 
 const ENTITY_STATES = [...bookingRoute, ...bookingPopupRoute];
 
@@ -23,9 +24,16 @@ const ENTITY_STATES = [...bookingRoute, ...bookingPopupRoute];
         BookingImDetailComponent,
         BookingImUpdateComponent,
         BookingImDeleteDialogComponent,
-        BookingImDeletePopupComponent
+        BookingImDeletePopupComponent,
+        BookingImAddJlDialogComponent
     ],
-    entryComponents: [BookingImComponent, BookingImUpdateComponent, BookingImDeleteDialogComponent, BookingImDeletePopupComponent],
+    entryComponents: [
+        BookingImComponent,
+        BookingImUpdateComponent,
+        BookingImDeleteDialogComponent,
+        BookingImDeletePopupComponent,
+        BookingImAddJlDialogComponent
+    ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class InteliManagementBookingImModule {}

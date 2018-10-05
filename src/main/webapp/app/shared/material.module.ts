@@ -10,7 +10,6 @@ import {
     MatCheckboxModule,
     MatChipsModule,
     MatDatepickerModule,
-    MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
     MatGridListModule,
@@ -38,6 +37,7 @@ import {
 } from '@angular/material';
 
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     exports: [
