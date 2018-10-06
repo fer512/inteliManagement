@@ -1,6 +1,7 @@
 package ar.com.intelimanagement.service;
 
 import ar.com.intelimanagement.domain.Approvals;
+import ar.com.intelimanagement.domain.SupervisorApprovals;
 import ar.com.intelimanagement.service.dto.ApprovalsDTO;
 
 import org.springframework.data.domain.Page;
@@ -46,4 +47,6 @@ public interface ApprovalsService {
     void delete(Long id);
 
 	Approvals approve(Long id);
+
+	Approvals save(Approvals approvals);
 }

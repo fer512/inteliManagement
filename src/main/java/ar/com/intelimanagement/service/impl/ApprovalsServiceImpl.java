@@ -57,6 +57,13 @@ public class ApprovalsServiceImpl implements ApprovalsService {
         return approvalsMapper.toDto(approvals);
     }
 
+    @Override
+    public Approvals save(Approvals approvals) {
+        log.debug("Request to save Approvals : {}", approvals);
+        Approvals newA = approvalsRepository.save(approvals);
+        return newA;
+    }
+    
     /**
      * Get all the approvals.
      *

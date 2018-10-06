@@ -29,6 +29,16 @@ public class SupervisorApprovals extends Approvals implements Serializable {
 	private Approvals approveOK(User user) {
 		User userCurrentLevel = this.getUserCurrentLevel();
 		User supervisor = userCurrentLevel.getSupervisor();
+		
+		if(supervisor == null) {
+			ApprovalHistory history = new ApprovalHistory();
+			history.setStatus(ApprovalsStatusType.APPOVED);
+			history.setUser(user);
+			this.getHistory().add(history);
+			this.setStatus(ApprovalsStatusType.APPOVED);
+			return this;
+		}
+		
 		if(user.getId().equals(supervisor.getId())){
 			ApprovalHistory history = new ApprovalHistory();
 			history.setStatus(ApprovalsStatusType.APPOVED);
@@ -37,6 +47,7 @@ public class SupervisorApprovals extends Approvals implements Serializable {
 			if(this.approveLevel.equals(this.getHistory().size())) {
 				this.setStatus(ApprovalsStatusType.APPOVED);
 			}
+			return this;
 		}
 
 		//throw
@@ -44,13 +55,13 @@ public class SupervisorApprovals extends Approvals implements Serializable {
 	}
 	
 	private Integer getCurrentLevel() {
-		return this.getHistory().size();
+		return this.getHistory().size() - 1;
 	}
 	
 	private User getUserCurrentLevel() {
 		Integer currentLevel = this.getCurrentLevel();
 		if(currentLevel.equals(0)) {
-			return null;//this.getCreatedBy();
+			return this.getCreationUser();
 		}else {
 			return this.getHistory().get(currentLevel).getUser();
 		}
@@ -60,12 +71,17 @@ public class SupervisorApprovals extends Approvals implements Serializable {
 		 List<User> list =  new ArrayList<User>();
 		 User supervisor = this.getHistory().get(this.getHistory().size() - 1).getUser().getSupervisor();
 		 if(supervisor == null) {
-			 
+			 return null;
 		 }
 		 list.add(supervisor);
 		 return list;
 	}
 
+	@Override
+	public boolean pointOfNoReturn() {
+		return (ApprovalsStatusType.CREATE.equals(this.getStatus()) || ApprovalsStatusType.PENDING.equals(this.getStatus())) && this.getUserByNextLevel() == null;
+	}
+	
 	public Integer getApproveLevel() {
 		return approveLevel;
 	}

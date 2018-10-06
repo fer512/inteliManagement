@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -59,8 +60,7 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
     @JoinColumn(name = "creation_user")
     private User creationUser;
     
-    @OneToMany
-    @JoinColumn(name = "approval_id")
+    @OneToMany(mappedBy="approvals",cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<ApprovalHistory> history;
     
@@ -136,11 +136,11 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 	
 	public Boolean validDate(){
 		Instant now = Instant.now();
-		return now.isAfter(this.getStastDate()) && now.isBefore(this.getEndDate());
+		return (this.getStastDate() == null || now.isAfter(this.getStastDate())) && (this.getEndDate() == null || now.isBefore(this.getEndDate()));
 	}
 	
 	public Boolean validStatus(){
-		return ApprovalsStatusType.PENDING.equals(this.getStatus());//throw
+		return ApprovalsStatusType.CREATE.equals(this.getStatus()) || ApprovalsStatusType.PENDING.equals(this.getStatus());//throw
 	}
 	
 	public Approvals approve(User user) {
@@ -158,6 +158,7 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 		ApprovalHistory history = new ApprovalHistory();
 		history.setStatus(ApprovalsStatusType.APPOVED);
 		history.setUser(user);
+		history.setApprovals(this);
 		this.getHistory().add(history);
 		this.setStatus(ApprovalsStatusType.APPOVED);
 		return this;
@@ -171,6 +172,10 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 
 	public List<User> getUserByNextLevel() {
 		return new ArrayList<User>();
+	}
+
+	public boolean pointOfNoReturn() {
+		return false;
 	}
 	
 	

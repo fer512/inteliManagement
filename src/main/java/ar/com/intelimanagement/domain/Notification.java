@@ -2,6 +2,7 @@ package ar.com.intelimanagement.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
 import ar.com.intelimanagement.domain.enumeration.NotificationType;
 
 import org.hibernate.annotations.Cache;
@@ -197,4 +198,17 @@ public class Notification implements Serializable {
             ", view='" + isView() + "'" +
             "}";
     }
+
+	public NotificationType getTypeByAppovalsStatus(ApprovalsStatusType status) {
+		switch (status) {
+		case CREATE:
+			return NotificationType.VARIATION_PENDING;
+		case PENDING:
+			return NotificationType.VARIATION_PENDING;
+		case APPOVED:
+			return NotificationType.VARIATION_APPROVED;
+		default:
+			return null;
+		}
+	}
 }

@@ -1,27 +1,29 @@
 package ar.com.intelimanagement.service.impl;
 
-import ar.com.intelimanagement.service.NotificationService;
-import ar.com.intelimanagement.domain.Approvals;
-import ar.com.intelimanagement.domain.Notification;
-import ar.com.intelimanagement.domain.User;
-import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
-import ar.com.intelimanagement.repository.NotificationRepository;
-import ar.com.intelimanagement.service.dto.NotificationDTO;
-import ar.com.intelimanagement.service.mapper.NotificationMapper;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mysql.fabric.xmlrpc.base.Array;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import ar.com.intelimanagement.domain.Approvals;
+import ar.com.intelimanagement.domain.Notification;
+import ar.com.intelimanagement.domain.User;
+import ar.com.intelimanagement.domain.Variation;
+import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
+import ar.com.intelimanagement.domain.enumeration.NotificationType;
+import ar.com.intelimanagement.repository.NotificationRepository;
+import ar.com.intelimanagement.service.NotificationService;
+import ar.com.intelimanagement.service.VariationService;
+import ar.com.intelimanagement.service.dto.NotificationDTO;
+import ar.com.intelimanagement.service.mapper.NotificationMapper;
 /**
  * Service Implementation for managing Notification.
  */
@@ -35,9 +37,12 @@ public class NotificationServiceImpl implements NotificationService {
 
     private final NotificationMapper notificationMapper;
 
-    public NotificationServiceImpl(NotificationRepository notificationRepository, NotificationMapper notificationMapper) {
+    private final VariationService variationService;
+    
+    public NotificationServiceImpl(NotificationRepository notificationRepository, NotificationMapper notificationMapper,VariationService variationService) {
         this.notificationRepository = notificationRepository;
         this.notificationMapper = notificationMapper;
+        this.variationService = variationService;
     }
 
     /**
@@ -96,18 +101,21 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Override
 	@Transactional
-	public void sendNotification(Approvals approvals) {
-		List<Notification> userNotifications = new ArrayList<Notification>();
-		switch (approvals.getStatus()) {
+	public void sendNotification(Variation variation) {
+		List<Notification> userNotifications = new ArrayList<>();
+		switch (variation.getApprovals().getStatus()) {
+		case CREATE:
+			userNotifications =  this.createNotificarionWhenCreate(variation);
+			break;
 		case APPOVED:
 		case REJECTED:
-			userNotifications.add(createNotification(approvals.getCreationUser()));
+			userNotifications.add(createNotification(variation.getApprovals().getCreationUser()));
 			//send notificacion al creador y a los q participaron de la aprobacion
 			break;
 		case PENDING:
 			//send notificacion nivel siguiente
-			List<User> users = approvals.getUserByNextLevel();
-			users.stream().map(u ->createNotification(u)).collect(Collectors.toList());
+			List<User> users2 = variation.getApprovals().getUserByNextLevel();
+			users2.stream().map(u ->createNotification(u)).collect(Collectors.toList());
 			break;
 		default:
 			break;
@@ -116,9 +124,40 @@ public class NotificationServiceImpl implements NotificationService {
 		notificationRepository.saveAll(userNotifications);
 	}
 	
+	private List<Notification> createNotificarionWhenCreate(Variation variation) {
+		List<Notification> listNotification = new ArrayList<>();
+		List<User> users1 = variation.getApprovals().getUserByNextLevel();
+		if(users1 != null && users1.size() > 0) {
+			listNotification = users1.stream().map(u ->createNotification(u,variation)).collect(Collectors.toList());
+		}else{
+			listNotification.add(this.createNotification(variation.getCreationUser(),variation));
+		}
+		return listNotification;
+	}
+
+	private Notification createNotification(User u, Variation variation) {
+		Notification n = new Notification();
+		n.setUser(u);
+		n.setCreationDate(Instant.now());
+		n.setDetail(this.variationService.getDTO(variation).toString());
+		n.setEndDate(null);
+		n.setIdReference(variation.getId());
+		n.setStastDate(Instant.now());
+		n.setType(n.getTypeByAppovalsStatus(variation.getApprovals().getStatus()));
+		n.setUser(u);
+		n.setUserCreation(variation.getCreationUser());
+		n.setView(false);
+		return n;
+	}
+
+	
 	private Notification createNotification(User u){
 		Notification n = new Notification();
 		n.setUser(u);
 		return n;
+	}
+
+	public VariationService getVariationService() {
+		return variationService;
 	}
 }

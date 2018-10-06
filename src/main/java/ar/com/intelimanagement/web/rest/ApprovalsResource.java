@@ -143,27 +143,6 @@ public class ApprovalsResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
     
-    
-    /*
-     *   1) TENGO Q RETORNAR EL ESTADO GENERAL y el PARTICULAR
-     *   2) si se aprobo la Particular y falta la General => envio notificacion
-     * */
-    @PostMapping("/approve")
-    @Timed
-    public ResponseEntity<Boolean> approve(@RequestBody Long id) throws URISyntaxException {
-        log.debug("REST request to approve : {}", id);
-        if (id != null) {
-            throw new BadRequestAlertException("approve cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        Approvals approvals = approvalsService.approve(id);
-        
-        //puede pasar que llege a un punto sin retorno, x ejemplo cuando no tenga mas supervisores en un nivel x
-        	//- opciones darle la opcion q apruebe de todos modos - para eso crear un metodo aprroavcion.neverCantApprove()
-        		//dejo q la execcion se envie a front
-        this.notificationService.sendNotification(approvals);
-        
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Approve", id.toString())).body(true);
-    }
 
 	public NotificationService getNotificationService() {
 		return notificationService;

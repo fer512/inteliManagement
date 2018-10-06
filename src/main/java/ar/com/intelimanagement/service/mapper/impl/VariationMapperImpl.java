@@ -12,6 +12,7 @@ import ar.com.intelimanagement.domain.User;
 import ar.com.intelimanagement.domain.Variation;
 import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
 import ar.com.intelimanagement.service.dto.VariationDTO;
+import ar.com.intelimanagement.service.mapper.ApprovalsMapper;
 import ar.com.intelimanagement.service.mapper.ProductMapper;
 import ar.com.intelimanagement.service.mapper.UserMapper;
 import ar.com.intelimanagement.service.mapper.VariationMapper;
@@ -23,7 +24,9 @@ public class VariationMapperImpl implements VariationMapper {
     private UserMapper userMapper;
     @Autowired
     private ProductMapper productMapper;
-
+    @Autowired
+    private ApprovalsMapper approvalsMapper;
+    
     @Override
     public List<Variation> toEntity(List<VariationDTO> dtoList) {
         if ( dtoList == null ) {
@@ -97,6 +100,7 @@ public class VariationMapperImpl implements VariationMapper {
 
         variation.setProduct( productMapper.fromId( variationDTO.getProduct() ) );
         variation.setCreationUser( userMapper.userFromId( variationDTO.getCreationUser() ) );
+        variation.setApprovals(approvalsMapper.fromId(variationDTO.getApprovalsId()));
         variation.setId( variationDTO.getId() );
         variation.setExtraCharge( variationDTO.getExtraCharge() );
         variation.setNewCharge( variationDTO.getNewCharge() );
@@ -112,11 +116,6 @@ public class VariationMapperImpl implements VariationMapper {
         variation.setRefundInPoints( variationDTO.getRefundInPoints() );
         variation.setRefundInCash( variationDTO.getRefundInCash() );
         variation.setCacel( variationDTO.getCacel() );
-        SupervisorApprovals approvals = new SupervisorApprovals();
-        approvals.setCreationUser(userMapper.userFromId( variationDTO.getCreationUser()));
-        approvals.setStatus(ApprovalsStatusType.PENDING);
-        approvals.setApproveLevel(1);
-        variation.setApprovals(approvals);
         return variation;
     }
 

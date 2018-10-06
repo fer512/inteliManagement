@@ -47,6 +47,10 @@ public class ApprovalHistory {
     @NotNull
     private ApprovalsStatusType status;
     
+    @ManyToOne
+    @JoinColumn(name = "approval_id")
+    @NotNull
+    private Approvals approvals;
     
 	public Long getId() {
 		return id;
@@ -87,7 +91,15 @@ public class ApprovalHistory {
 	public void setStatus(ApprovalsStatusType status) {
 		this.status = status;
 	}
+	
+	public Approvals getApprovals() {
+		return approvals;
+	}
 
+	public void setApprovals(Approvals approvals) {
+		this.approvals = approvals;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -118,6 +130,5 @@ public class ApprovalHistory {
 		return "ApprovalHistory [id=" + id + ", user=" + user + ", role=" + role + ", area=" + area + ", status="
 				+ status + "]";
 	}
-
 
 }

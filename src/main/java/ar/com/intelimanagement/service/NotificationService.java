@@ -1,6 +1,7 @@
 package ar.com.intelimanagement.service;
 
 import ar.com.intelimanagement.domain.Approvals;
+import ar.com.intelimanagement.domain.Variation;
 import ar.com.intelimanagement.service.dto.NotificationDTO;
 
 import org.springframework.data.domain.Page;
@@ -45,5 +46,5 @@ public interface NotificationService {
      */
     void delete(Long id);
 
-	void sendNotification(Approvals approvals);
+	void sendNotification(Variation variation);
 }

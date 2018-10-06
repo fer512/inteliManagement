@@ -10,6 +10,7 @@
     <include file="config/liquibase/changelog/20180901192838_added_entity_Approvals.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192839_added_entity_Country.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192840_added_entity_Province.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180901192842_added_entity_ApprovalsHistory.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192842_added_entity_Phone.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192843_added_entity_Booking.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192844_added_entity_Provider.xml" relativeToChangelogFile="false"/>
@@ -26,7 +27,9 @@
     <include file="config/liquibase/changelog/20180901192844_added_entity_constraints_Provider.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192845_added_entity_constraints_Product.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180901192846_added_entity_constraints_Notification.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180907023750_added_entity_constraints_Approvals.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180907023750_added_entity_constraints_Variation.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180916000605_added_entity_constraints_ProductByBooking.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180907033790_added_entity_constraints_Approval_History.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
