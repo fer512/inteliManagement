@@ -34,5 +34,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancelar</button>
-  <button mat-button [mat-dialog-close]="[{'idReserveLocatorExternal': data.idReserveLocatorExternal, 'idReserveLocatorJuniper': data.idReserveLocatorJuniper, 'idReserveLocatorJuniperProduct': data.idReserveLocatorJuniperProduct }]" cdkFocusInitial>Registrar</button>
+  <button mat-button (click)="onConfirm()" cdkFocusInitial>Registrar</button>
 </div>

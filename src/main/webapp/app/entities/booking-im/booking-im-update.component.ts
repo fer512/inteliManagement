@@ -8,6 +8,7 @@ import { BookingImService } from './booking-im.service';
 import { ICompanyIm } from 'app/shared/model/company-im.model';
 import { CompanyImService } from 'app/entities/company-im';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogResponseBooking } from 'app/entities/booking-im/model/dialog-response-booking.model';
 
 export interface ListOpt {
     value: string;
@@ -29,8 +30,7 @@ export class BookingImUpdateComponent implements OnInit {
     private _booking: IBookingIm;
     isSaving: boolean;
     companies: ICompanyIm[];
-
-    DialogListLocatorJuniper: [];
+    DialogListLocatorJuniper: Array<DialogResponseBooking> = [];
 
     paytypes: ListOpt[] = [
         { value: 'POINTS', description: 'Puntos' },
@@ -91,9 +91,8 @@ export class BookingImUpdateComponent implements OnInit {
             }
         });
 
-        dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-            this.DialogListLocatorJuniper = result;
+        dialogRef.afterClosed().subscribe((result: DialogResponseBooking) => {
+            this.DialogListLocatorJuniper.push(result);
         });
     }
 
@@ -137,5 +136,13 @@ export class BookingImAddJlDialogComponent {
 
     onNoClick(): void {
         this.dialogRef.close();
+    }
+
+    onConfirm() {
+        let dto: DialogResponseBooking = new DialogResponseBooking();
+        dto.idReserveLocatorExternal = this.data.idReserveLocatorExternal;
+        dto.idReserveLocatorJuniper = this.data.idReserveLocatorJuniper;
+        dto.idReserveLocatorJuniperProduct = this.data.idReserveLocatorJuniperProduct;
+        this.dialogRef.close(dto);
     }
 }
