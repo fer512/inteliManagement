@@ -4,5 +4,3 @@ export * from './booking-im-delete-dialog.component';
 export * from './booking-im-detail.component';
 export * from './booking-im.component';
 export * from './booking-im.route';
-
-export * from './model/dialog-response-booking.model';
