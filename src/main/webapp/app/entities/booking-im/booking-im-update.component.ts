@@ -9,9 +9,11 @@ import { ICompanyIm } from 'app/shared/model/company-im.model';
 import { CompanyImService } from 'app/entities/company-im';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { IProductByBooking, ProductByBooking } from 'app/shared/model/product-by-booking.model';
+import { ProductImService } from 'app/entities/product-im';
+import { IProductIm } from 'app/shared/model/product-im.model';
 
 export interface ListOpt {
-    value: string;
+    value: any;
     description: string;
 }
 
@@ -50,6 +52,7 @@ export class BookingImUpdateComponent implements OnInit {
         private bookingService: BookingImService,
         private companyService: CompanyImService,
         private activatedRoute: ActivatedRoute,
+        private productService: ProductImService,
         public dialog: MatDialog
     ) {}
 
@@ -61,6 +64,17 @@ export class BookingImUpdateComponent implements OnInit {
         this.companyService.query().subscribe(
             (res: HttpResponse<ICompanyIm[]>) => {
                 this.companies = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+
+        this.productService.query().subscribe(
+            (res: HttpResponse<IProductIm[]>) => {
+                let productsAux: ListOpt[] = [];
+                res.body.forEach(e => {
+                    productsAux.push({ value: e.id, description: e.name });
+                });
+                this.products = productsAux;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -91,8 +105,10 @@ export class BookingImUpdateComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe((result: ProductByBooking) => {
-            if (!this.booking.products) this.booking.products = [];
-            this.booking.products.push(result);
+            if (result != null) {
+                if (!this.booking.products) this.booking.products = [];
+                this.booking.products.push(result);
+            }
         });
     }
 
@@ -142,7 +158,7 @@ export class BookingImAddJlDialogComponent {
         let dto: ProductByBooking = new ProductByBooking();
         dto.idReserveLocatorExternal = this.data.idReserveLocatorExternal;
         dto.idReserveLocatorJuniper = this.data.idReserveLocatorJuniper;
-        dto.idReserveLocatorJuniperProduct = this.data.idReserveLocatorJuniperProduct;
+        dto.productId = Number(this.data.idReserveLocatorJuniperProduct);
         this.dialogRef.close(dto);
     }
 }

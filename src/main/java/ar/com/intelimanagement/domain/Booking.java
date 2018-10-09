@@ -64,7 +64,7 @@ public class Booking implements Serializable {
     @JsonIgnoreProperties("bookings")
     private Company company;
 
-    @OneToMany(mappedBy = "booking")
+    @OneToMany(mappedBy = "booking",cascade=CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ProductByBooking> products = new HashSet<>();
 

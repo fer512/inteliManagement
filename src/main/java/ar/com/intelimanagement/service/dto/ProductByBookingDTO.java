@@ -15,6 +15,12 @@ public class ProductByBookingDTO implements Serializable {
 
     private Long bookingId;
 
+    private String idReserveLocatorJuniperProduct;
+    
+    private String idReserveLocatorJuniper;
+    
+    private String idReserveLocatorExternal;
+    
     public Long getId() {
         return id;
     }
@@ -38,8 +44,32 @@ public class ProductByBookingDTO implements Serializable {
     public void setBookingId(Long bookingId) {
         this.bookingId = bookingId;
     }
+    
+    public String getIdReserveLocatorJuniperProduct() {
+		return idReserveLocatorJuniperProduct;
+	}
 
-    @Override
+	public void setIdReserveLocatorJuniperProduct(String idReserveLocatorJuniperProduct) {
+		this.idReserveLocatorJuniperProduct = idReserveLocatorJuniperProduct;
+	}
+
+	public String getIdReserveLocatorJuniper() {
+		return idReserveLocatorJuniper;
+	}
+
+	public void setIdReserveLocatorJuniper(String idReserveLocatorJuniper) {
+		this.idReserveLocatorJuniper = idReserveLocatorJuniper;
+	}
+
+	public String getIdReserveLocatorExternal() {
+		return idReserveLocatorExternal;
+	}
+
+	public void setIdReserveLocatorExternal(String idReserveLocatorExternal) {
+		this.idReserveLocatorExternal = idReserveLocatorExternal;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -60,12 +90,11 @@ public class ProductByBookingDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "ProductByBookingDTO{" +
-            "id=" + getId() +
-            ", product=" + getProductId() +
-            ", booking=" + getBookingId() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "ProductByBookingDTO [id=" + id + ", productId=" + productId + ", bookingId=" + bookingId
+				+ ", idReserveLocatorJuniperProduct=" + idReserveLocatorJuniperProduct + ", idReserveLocatorJuniper="
+				+ idReserveLocatorJuniper + ", idReserveLocatorExternal=" + idReserveLocatorExternal + "]";
+	}
+
 }

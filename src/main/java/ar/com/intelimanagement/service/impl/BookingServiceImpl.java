@@ -2,7 +2,9 @@ package ar.com.intelimanagement.service.impl;
 
 import ar.com.intelimanagement.service.BookingService;
 import ar.com.intelimanagement.domain.Booking;
+import ar.com.intelimanagement.domain.ProductByBooking;
 import ar.com.intelimanagement.repository.BookingRepository;
+import ar.com.intelimanagement.repository.ProductByBookingRepository;
 import ar.com.intelimanagement.service.dto.BookingDTO;
 import ar.com.intelimanagement.service.mapper.BookingMapper;
 import org.slf4j.Logger;
@@ -13,8 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 /**
  * Service Implementation for managing Booking.
  */
@@ -26,11 +29,14 @@ public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
 
+    private final ProductByBookingRepository productByBookingRepository;
+    
     private final BookingMapper bookingMapper;
 
-    public BookingServiceImpl(BookingRepository bookingRepository, BookingMapper bookingMapper) {
+    public BookingServiceImpl(BookingRepository bookingRepository,  ProductByBookingRepository productByBookingRepository, BookingMapper bookingMapper) {
         this.bookingRepository = bookingRepository;
         this.bookingMapper = bookingMapper;
+        this.productByBookingRepository = productByBookingRepository;
     }
 
     /**
@@ -43,7 +49,14 @@ public class BookingServiceImpl implements BookingService {
     public BookingDTO save(BookingDTO bookingDTO) {
         log.debug("Request to save Booking : {}", bookingDTO);
         Booking booking = bookingMapper.toEntity(bookingDTO);
+        Set<ProductByBooking> products = booking.getProducts();
+        booking.setProducts(null);
         booking = bookingRepository.save(booking);
+        for (ProductByBooking productByBooking : products) {
+        	productByBooking.setBooking(booking);
+		}
+        productByBookingRepository.saveAll(products);
+        booking.setProducts(products);
         return bookingMapper.toDto(booking);
     }
 
@@ -86,4 +99,8 @@ public class BookingServiceImpl implements BookingService {
         log.debug("Request to delete Booking : {}", id);
         bookingRepository.deleteById(id);
     }
+
+	public ProductByBookingRepository getProductByBookingRepository() {
+		return productByBookingRepository;
+	}
 }
