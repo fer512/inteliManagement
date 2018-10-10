@@ -130,7 +130,7 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 	}
 
 	public Boolean approved(User user){
-		return this.getHistory().stream().anyMatch(h-> h.getUser().getId().equals(user.getId()) && ApprovalsStatusType.APPOVED.equals(h.getStatus()));
+		return this.getHistory().stream().anyMatch(h-> h.getUser().getId().equals(user.getId()) && ApprovalsStatusType.APPOVED.equals(h.getStatus()) || h.getApprovals().getCreationUser().getId().equals(user.getId()));
 		//throw
 	}
 	

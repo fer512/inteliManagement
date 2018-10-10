@@ -24,6 +24,7 @@ import ar.com.intelimanagement.service.NotificationService;
 import ar.com.intelimanagement.service.VariationService;
 import ar.com.intelimanagement.service.dto.NotificationDTO;
 import ar.com.intelimanagement.service.mapper.NotificationMapper;
+import ar.com.intelimanagement.service.util.MapperUtil;
 /**
  * Service Implementation for managing Notification.
  */
@@ -109,13 +110,13 @@ public class NotificationServiceImpl implements NotificationService {
 			break;
 		case APPOVED:
 		case REJECTED:
-			userNotifications.add(createNotification(variation.getApprovals().getCreationUser()));
+			userNotifications.add(createNotification(variation.getApprovals().getCreationUser(),variation));
 			//send notificacion al creador y a los q participaron de la aprobacion
 			break;
 		case PENDING:
 			//send notificacion nivel siguiente
 			List<User> users2 = variation.getApprovals().getUserByNextLevel();
-			users2.stream().map(u ->createNotification(u)).collect(Collectors.toList());
+			users2.stream().map(u ->createNotification(u,variation)).collect(Collectors.toList());
 			break;
 		default:
 			break;
@@ -139,7 +140,7 @@ public class NotificationServiceImpl implements NotificationService {
 		Notification n = new Notification();
 		n.setUser(u);
 		n.setCreationDate(Instant.now());
-		n.setDetail(this.variationService.getDTO(variation).toString());
+		n.setDetail(MapperUtil.ObjectToBlob(this.variationService.getDTO(variation)));
 		n.setEndDate(null);
 		n.setIdReference(variation.getId());
 		n.setStastDate(Instant.now());
@@ -150,12 +151,7 @@ public class NotificationServiceImpl implements NotificationService {
 		return n;
 	}
 
-	
-	private Notification createNotification(User u){
-		Notification n = new Notification();
-		n.setUser(u);
-		return n;
-	}
+
 
 	public VariationService getVariationService() {
 		return variationService;

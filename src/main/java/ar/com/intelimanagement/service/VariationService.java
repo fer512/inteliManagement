@@ -65,6 +65,11 @@ public class VariationService {
         return variation;
     }
     
+    public Variation save(Variation variation) {
+        variation = variationRepository.save(variation);
+        return variation;
+    }
+    
     /**
      * Get all the variations.
      *

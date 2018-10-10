@@ -154,13 +154,13 @@ public class VariationResource {
     @Timed
     public ResponseEntity<Boolean> approve(@RequestBody Long id) throws URISyntaxException {
         log.debug("REST request to approve : {}", id);
-        if (id != null) {
-            throw new BadRequestAlertException("approve cannot already have an ID", ENTITY_NAME, "idexists");
+        if (id == null) {
+            throw new BadRequestAlertException("approve - id is null", ENTITY_NAME, "id is null");
         }
         Variation variation = variationService.findById(id);
         Approvals approvals = approvalsService.approve(variation.getApprovals().getId());
         variation.setApprovals(approvals);
-        
+        variation = variationService.save(variation);
         //puede pasar que llege a un punto sin retorno, x ejemplo cuando no tenga mas supervisores en un nivel x
         	//- opciones darle la opcion q apruebe de todos modos - para eso crear un metodo aprroavcion.neverCantApprove()
         		//dejo q la execcion se envie a front

@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -34,7 +35,7 @@ public class Notification implements Serializable {
     private NotificationType type;
 
     @Column(name = "detail")
-    private String detail;
+    private Blob detail;
     
     @Column(name = "id_reference")
     private Long idReference;
@@ -132,11 +133,11 @@ public class Notification implements Serializable {
 		this.type = type;
 	}
 
-	public String getDetail() {
+	public Blob getDetail() {
 		return detail;
 	}
 
-	public void setDetail(String detail) {
+	public void setDetail(Blob detail) {
 		this.detail = detail;
 	}
 
