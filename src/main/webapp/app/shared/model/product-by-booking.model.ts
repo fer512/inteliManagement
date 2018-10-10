@@ -13,6 +13,7 @@ export class ProductByBooking implements IProductByBooking {
         public productId?: number,
         public bookingId?: number,
         public idReserveLocatorJuniperProduct?: string,
+        public idReserveLocatorJuniperProvider?: string,
         public idReserveLocatorJuniper?: string,
         public idReserveLocatorExternal?: string
     ) {}
