@@ -22,6 +22,173 @@ body {
     margin: 0 15px;
 }
 
+/* ubmat-CSS Margin & Padding */
+
+/* bottom*/
+.ubmat-mb-xsm {
+    margin-bottom: 5px;
+}
+.ubmat-mb-sm {
+    margin-bottom: 10px;
+}
+.ubmat-mb-md {
+    margin-bottom: 15px;
+}
+.ubmat-mb-lg {
+    margin-bottom: 20px;
+}
+.ubmat-mb-xlg {
+    margin-bottom: 25px;
+}
+
+.ubmat-pb-xsm {
+    padding-bottom: 5px;
+}
+.ubmat-pb-sm {
+    padding-bottom: 10px;
+}
+.ubmat-pb-md {
+    padding-bottom: 15px;
+}
+.ubmat-pb-lg {
+    padding-bottom: 20px;
+}
+.ubmat-pb-xlg {
+    padding-bottom: 25px;
+}
+
+/* top */
+.ubmat-mt-xsm {
+    margin-top: 5px;
+}
+.ubmat-mt-sm {
+    margin-top: 10px;
+}
+.ubmat-mt-md {
+    margin-top: 15px;
+}
+.ubmat-mt-lg {
+    margin-top: 20px;
+}
+.ubmat-mt-xlg {
+    margin-top: 25px;
+}
+
+.ubmat-pt-xsm {
+    padding-top: 5px;
+}
+.ubmat-pt-sm {
+    padding-top: 10px;
+}
+.ubmat-pt-md {
+    padding-top: 15px;
+}
+.ubmat-pt-lg {
+    padding-top: 20px;
+}
+.ubmat-pt-xlg {
+    padding-top: 25px;
+}
+
+/* left */
+.ubmat-ml-xsm {
+    margin-left: 5px;
+}
+.ubmat-ml-sm {
+    margin-left: 10px;
+}
+.ubmat-ml-md {
+    margin-left: 15px;
+}
+.ubmat-ml-lg {
+    margin-left: 20px;
+}
+.ubmat-ml-xlg {
+    margin-left: 25px;
+}
+
+.ubmat-pl-xsm {
+    padding-left: 5px;
+}
+.ubmat-pl-sm {
+    padding-left: 10px;
+}
+.ubmat-pl-md {
+    padding-left: 15px;
+}
+.ubmat-pl-lg {
+    padding-left: 20px;
+}
+.ubmat-pl-xlg {
+    padding-left: 25px;
+}
+
+/* right */
+.ubmat-mr-xsm {
+    margin-right: 5px;
+}
+.ubmat-mr-sm {
+    margin-right: 10px;
+}
+.ubmat-mr-md {
+    margin-right: 15px;
+}
+.ubmat-mr-lg {
+    margin-right: 20px;
+}
+.ubmat-mr-xlg {
+    margin-right: 25px;
+}
+
+.ubmat-pr-xsm {
+    padding-right: 5px;
+}
+.ubmat-pr-sm {
+    padding-right: 10px;
+}
+.ubmat-pr-md {
+    padding-right: 15px;
+}
+.ubmat-pr-lg {
+    padding-right: 20px;
+}
+.ubmat-pr-xlg {
+    padding-right: 25px;
+}
+
+/* all */
+.ubmat-m-xsm {
+    margin: 5px;
+}
+.ubmat-m-sm {
+    margin: 10px;
+}
+.ubmat-m-md {
+    margin: 15px;
+}
+.ubmat-m-lg {
+    margin: 20px;
+}
+.ubmat-m-xlg {
+    margin: 25px;
+}
+
+.ubmat-p-xsm {
+    padding: 5px;
+}
+.ubmat-p-sm {
+    padding: 10px;
+}
+.ubmat-p-md {
+    padding: 15px;
+}
+.ubmat-p-lg {
+    padding: 20px;
+}
+.ubmat-p-xlg {
+    padding: 25px;
+}
+
 /* ubmat-CSS Float */
 .ubmat-fl {
     float: left;

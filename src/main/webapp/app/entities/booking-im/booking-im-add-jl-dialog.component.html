@@ -23,6 +23,17 @@
     </tr>
     <tr>
       <td>
+        <mat-form-field class="ubmat-select -md">
+          <mat-select class="ubmat-select -md" name="idReserveLocatorJuniperProvider" id="idReserveLocatorJuniperProvider" [(ngModel)]="data.idReserveLocatorJuniperProvider" placeholder="Proveedor" required>
+            <mat-option *ngFor="let opt of data.providers" [(value)]="opt.value">
+              {{opt.description}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
           <mat-form-field  class="ubmat-input -md">
               <input matInput type="text" name="idReserveLocatorExternal" id="field_idReserveLocatorExternal"
               [(ngModel)]="data.idReserveLocatorExternal" placeholder="Id reserva localizador Externo" value="">

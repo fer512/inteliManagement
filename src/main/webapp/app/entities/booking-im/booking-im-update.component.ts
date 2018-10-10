@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -19,9 +20,9 @@ export interface ListOpt {
 
 export interface DialogData {
     idReserveLocatorJuniperProduct: string;
+    idReserveLocatorJuniperProvider: string;
     idReserveLocatorJuniper: string;
     idReserveLocatorExternal: string;
-    products: ListOpt[];
 }
 
 @Component({
@@ -29,6 +30,8 @@ export interface DialogData {
     templateUrl: './booking-im-update.component.html'
 })
 export class BookingImUpdateComponent implements OnInit {
+    emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+
     private _booking: IBookingIm;
     isSaving: boolean;
     companies: ICompanyIm[];
@@ -45,6 +48,13 @@ export class BookingImUpdateComponent implements OnInit {
         { value: 'CAR', description: 'Auto' },
         { value: 'TRANFER', description: ' Traslado' },
         { value: 'TOURS', description: 'Actividades' }
+    ];
+
+    providers: ListOpt[] = [
+        { value: 'CON', description: 'Consolid' },
+        { value: 'EXP', description: 'Expidia' },
+        { value: 'HBS', description: 'HotelBeds' },
+        { value: 'TOU', description: 'Tourico' }
     ];
 
     constructor(
@@ -100,7 +110,8 @@ export class BookingImUpdateComponent implements OnInit {
         const dialogRef = this.dialog.open(BookingImAddJlDialogComponent, {
             width: '500px',
             data: {
-                products: this.products
+                products: this.products,
+                providers: this.providers
             }
         });
 
@@ -159,6 +170,8 @@ export class BookingImAddJlDialogComponent {
         dto.idReserveLocatorExternal = this.data.idReserveLocatorExternal;
         dto.idReserveLocatorJuniper = this.data.idReserveLocatorJuniper;
         dto.productId = Number(this.data.idReserveLocatorJuniperProduct);
+        dto.idReserveLocatorJuniperProduct = this.data.idReserveLocatorJuniperProduct;
+        dto.idReserveLocatorJuniperProvider = this.data.idReserveLocatorJuniperProvider;
         this.dialogRef.close(dto);
     }
 }
