@@ -6,6 +6,7 @@ import ar.com.intelimanagement.web.rest.errors.BadRequestAlertException;
 import ar.com.intelimanagement.web.rest.util.HeaderUtil;
 import ar.com.intelimanagement.web.rest.util.PaginationUtil;
 import ar.com.intelimanagement.service.dto.VariationDTO;
+import ar.com.intelimanagement.service.dto.VariationFullDTO;
 import ar.com.intelimanagement.service.dto.VariationCriteria;
 import ar.com.intelimanagement.domain.Approvals;
 import ar.com.intelimanagement.domain.Variation;
@@ -110,9 +111,9 @@ public class VariationResource {
      */
     @GetMapping("/variations")
     @Timed
-    public ResponseEntity<List<VariationDTO>> getAllVariations(VariationCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<VariationFullDTO>> getAllVariations(VariationCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Variations by criteria: {}", criteria);
-        Page<VariationDTO> page = variationQueryService.findByCriteria(criteria, pageable);
+        Page<VariationFullDTO> page = variationQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/variations");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

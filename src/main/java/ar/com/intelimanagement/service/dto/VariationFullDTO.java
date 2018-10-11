@@ -1,96 +1,55 @@
-package ar.com.intelimanagement.domain;
+package ar.com.intelimanagement.service.dto;
 
-import java.io.Serializable;
 import java.time.ZonedDateTime;
+import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
- * A Variation.
+ * A DTO for the Variation entity.
  */
-@Entity
-@Table(name = "variation")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Variation implements Serializable {
+public class VariationFullDTO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "extra_charge")
     private Double extraCharge;
 
-    @Column(name = "new_charge")
     private Double newCharge;
 
-    @Column(name = "new_cost")
     private Double newCost;
 
-    @Column(name = "new_benefit")
     private Double newBenefit;
 
-    @Column(name = "new_external_locator_id")
     private Integer newExternalLocatorId;
 
-    @Column(name = "comments")
     private String comments;
 
-    @NotNull
-    @Column(name = "creation_date", nullable = false)
     private ZonedDateTime creationDate;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "creation_user")
-    private User creationUser;
+    private UserMinDTO creationUser;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private ProductByBooking product;
+    private ProductByBookingFullDTO product;
 
     @NotNull
-    @Column(name = "area", nullable = false)
     private String area;
 
     @NotNull
-    @Column(name = "campaing", nullable = false)
     private String campaing;
 
     @NotNull
-    @Column(name = "reason", nullable = false)
     private String reason;
 
-    @Column(name = "jhi_recoverable")
     private Boolean recoverable;
 
-    @Column(name = "refund_in_points")
     private Integer refundInPoints;
 
-    @Column(name = "refund_in_cash")
     private Double refundInCash;
 
-    @Column(name = "cacel")
     private Boolean cacel;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Approvals approvals;
+    private Long approvalsId;
+    
     
     public Long getId() {
 		return id;
@@ -156,19 +115,19 @@ public class Variation implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-	public User getCreationUser() {
+	public UserMinDTO getCreationUser() {
 		return creationUser;
 	}
 
-	public void setCreationUser(User creationUser) {
+	public void setCreationUser(UserMinDTO creationUser) {
 		this.creationUser = creationUser;
 	}
 
-	public ProductByBooking getProduct() {
+	public ProductByBookingFullDTO getProduct() {
 		return product;
 	}
 
-	public void setProduct(ProductByBooking product) {
+	public void setProduct(ProductByBookingFullDTO product) {
 		this.product = product;
 	}
 
@@ -228,15 +187,6 @@ public class Variation implements Serializable {
 		this.cacel = cacel;
 	}
 
-
-    public Approvals getApprovals() {
-		return approvals;
-	}
-
-	public void setApprovals(Approvals approvals) {
-		this.approvals = approvals;
-	}
-
 	@Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -245,11 +195,12 @@ public class Variation implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Variation variation = (Variation) o;
-        if (variation.getId() == null || getId() == null) {
+
+        VariationFullDTO variationDTO = (VariationFullDTO) o;
+        if (variationDTO.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), variation.getId());
+        return Objects.equals(getId(), variationDTO.getId());
     }
 
     @Override
@@ -257,15 +208,23 @@ public class Variation implements Serializable {
         return Objects.hashCode(getId());
     }
 
+	public Long getApprovalsId() {
+		return approvalsId;
+	}
+
+	public void setApprovalsId(Long approvalsId) {
+		this.approvalsId = approvalsId;
+	}
+
 	@Override
 	public String toString() {
-		return "Variation [id=" + id + ", extraCharge=" + extraCharge + ", newCharge=" + newCharge + ", newCost="
+		return "VariationDTO [id=" + id + ", extraCharge=" + extraCharge + ", newCharge=" + newCharge + ", newCost="
 				+ newCost + ", newBenefit=" + newBenefit + ", newExternalLocatorId=" + newExternalLocatorId
 				+ ", comments=" + comments + ", creationDate=" + creationDate + ", creationUser=" + creationUser
 				+ ", product=" + product + ", area=" + area + ", campaing=" + campaing + ", reason=" + reason
 				+ ", recoverable=" + recoverable + ", refundInPoints=" + refundInPoints + ", refundInCash="
-				+ refundInCash + ", cacel=" + cacel + ", approvals=" + approvals + "]";
+				+ refundInCash + ", cacel=" + cacel + ", approvalsId=" + approvalsId + "]";
 	}
-
-    
+	
+	
 }

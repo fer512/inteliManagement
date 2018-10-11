@@ -53,7 +53,8 @@ export class VariationComponent implements OnInit, OnDestroy {
             .query({
                 page: this.page - 1,
                 size: this.itemsPerPage,
-                sort: this.sort()
+                sort: this.sort(),
+                'creationUser.equals': this.currentAccount.id
             })
             .subscribe(
                 (res: HttpResponse<IVariation[]>) => this.paginateVariations(res.body, res.headers),
@@ -92,9 +93,9 @@ export class VariationComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.loadAll();
         });
         this.registerChangeInVariations();
     }

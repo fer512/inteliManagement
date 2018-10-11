@@ -7,13 +7,13 @@ import java.util.Objects;
 /**
  * A DTO for the ProductByBooking entity.
  */
-public class ProductByBookingDTO implements Serializable {
+public class ProductByBookingFullDTO implements Serializable {
 
     private Long id;
 
-    private Long productId; //creo q deberia ir el provider id
+    private ProductDTO product;
 
-    private Long bookingId;
+    private BookingMinDTO booking;
 
     private String idReserveLocatorJuniperProduct;
     
@@ -29,20 +29,20 @@ public class ProductByBookingDTO implements Serializable {
         this.id = id;
     }
 
-    public Long getProductId() {
-        return productId;
+    public ProductDTO getProduct() {
+        return product;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setProduct(ProductDTO productId) {
+        this.product = productId;
     }
 
-    public Long getBookingId() {
-        return bookingId;
+    public BookingMinDTO getBooking() {
+        return booking;
     }
 
-    public void setBookingId(Long bookingId) {
-        this.bookingId = bookingId;
+    public void setBooking(BookingMinDTO bookingId) {
+        this.booking = bookingId;
     }
     
     public String getIdReserveLocatorJuniperProduct() {
@@ -78,7 +78,7 @@ public class ProductByBookingDTO implements Serializable {
             return false;
         }
 
-        ProductByBookingDTO productByBookingDTO = (ProductByBookingDTO) o;
+        ProductByBookingFullDTO productByBookingDTO = (ProductByBookingFullDTO) o;
         if (productByBookingDTO.getId() == null || getId() == null) {
             return false;
         }
@@ -92,7 +92,7 @@ public class ProductByBookingDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ProductByBookingDTO [id=" + id + ", productId=" + productId + ", bookingId=" + bookingId
+		return "ProductByBookingDTO [id=" + id + ", product=" + product + ", booking=" + booking
 				+ ", idReserveLocatorJuniperProduct=" + idReserveLocatorJuniperProduct + ", idReserveLocatorJuniper="
 				+ idReserveLocatorJuniper + ", idReserveLocatorExternal=" + idReserveLocatorExternal + "]";
 	}

@@ -19,6 +19,7 @@ export class SearchComponent implements OnInit {
     links = [
         { title: 'Mis Registros', routerlink: '/booking-im' },
         { title: 'Mis Pendientes', routerlink: '' },
+        { title: 'Mis Pedidos', routerlink: '/variation' },
         { title: 'Notificaciones', routerlink: '/notification-im' }
     ];
     activeLink = this.links[0];

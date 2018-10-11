@@ -16,6 +16,7 @@ import ar.com.intelimanagement.repository.VariationRepository;
 import ar.com.intelimanagement.service.dto.VariationCriteria;
 
 import ar.com.intelimanagement.service.dto.VariationDTO;
+import ar.com.intelimanagement.service.dto.VariationFullDTO;
 import ar.com.intelimanagement.service.mapper.VariationMapper;
 
 /**
@@ -58,11 +59,11 @@ public class VariationQueryService extends QueryService<Variation> {
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public Page<VariationDTO> findByCriteria(VariationCriteria criteria, Pageable page) {
+    public Page<VariationFullDTO> findByCriteria(VariationCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Variation> specification = createSpecification(criteria);
         return variationRepository.findAll(specification, page)
-            .map(variationMapper::toDto);
+            .map(variationMapper::toFullDto);
     }
 
     /**
@@ -100,7 +101,7 @@ public class VariationQueryService extends QueryService<Variation> {
             }
 
             if (criteria.getProduct() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getProduct(), Variation_.product, Product_.id));
+                specification = specification.and(buildReferringEntitySpecification(criteria.getProduct(), Variation_.product, ProductByBooking_.id));
             }
             if (criteria.getArea() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getArea(), Variation_.area));
