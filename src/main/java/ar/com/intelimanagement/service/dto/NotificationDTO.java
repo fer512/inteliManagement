@@ -14,7 +14,7 @@ public class NotificationDTO implements Serializable {
 
     private String type;
 
-    private Blob detail;
+    private byte[] detail;
     
     private String idReference;
 
@@ -102,11 +102,11 @@ public class NotificationDTO implements Serializable {
 		this.type = type;
 	}
 
-	public Blob getDetail() {
+	public byte[] getDetail() {
 		return detail;
 	}
 
-	public void setDetail(Blob detail) {
+	public void setDetail(byte[] detail) {
 		this.detail = detail;
 	}
 

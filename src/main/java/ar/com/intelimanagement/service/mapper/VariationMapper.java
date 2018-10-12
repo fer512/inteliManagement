@@ -12,6 +12,7 @@ public interface VariationMapper extends EntityMapper<VariationDTO, Variation> {
 
     @Mapping(source = "creationUser", target = "creationUser")
     @Mapping(source = "product", target = "product")
+    @Mapping(source = "approvals", target = "approvals")
     VariationFullDTO toFullDto(Variation variation);
     
     Variation toEntity(VariationDTO variationDTO);

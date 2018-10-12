@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import ar.com.intelimanagement.domain.Approvals;
 import ar.com.intelimanagement.domain.Product;
 import ar.com.intelimanagement.domain.ProductByBooking;
 import ar.com.intelimanagement.domain.SupervisorApprovals;
@@ -152,6 +153,21 @@ public class VariationMapperImpl implements VariationMapper {
         return id;
     }
 
+    private Long variationApprovalsId(Variation variation) {
+        if ( variation == null ) {
+            return null;
+        }
+        Approvals approvals = variation.getApprovals();
+        if ( approvals == null ) {
+            return null;
+        }
+        Long id = approvals.getId();
+        if ( id == null ) {
+            return null;
+        }
+        return id;
+    }
+    
 	@Override
 	public VariationFullDTO toFullDto(Variation variation) {
 		  if ( variation == null ) {
@@ -168,6 +184,12 @@ public class VariationMapperImpl implements VariationMapper {
 	        if ( id1 != null ) {
 	            variationDTO.setCreationUser(userMapper.userToUserMinDTO(variation.getCreationUser()));
 	        }
+	        
+	        Long id2 = variationApprovalsId( variation );
+	        if ( id2 != null ) {
+	            variationDTO.setApprovals(approvalsMapper.toDto(variation.getApprovals()));
+	        }
+	        
 	        variationDTO.setId( variation.getId() );
 	        variationDTO.setExtraCharge( variation.getExtraCharge() );
 	        variationDTO.setNewCharge( variation.getNewCharge() );

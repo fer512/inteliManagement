@@ -39,47 +39,7 @@ export class NotificationImComponent implements OnInit, OnDestroy {
     queryCount: any;
     reverse: any;
     totalItems: number;
-    listNotifications: ListNotif[] = [
-        {
-            id: 'abcd-efgh-ijkl-0001',
-            code: 'SO-0009',
-            type: 'msg_approval_request',
-            title: 'Pedido de aprobación',
-            comment: 'Requiere tu aprobación para registrar una variacion generada por un Error en la tarifa...',
-            status: '-pending',
-            icon: 'timer',
-            user: 'jperez',
-            name: 'Maximiliano Perez',
-            date: '2018-08-01 19:20:15',
-            approval: true
-        },
-        {
-            id: 'abcd-efgh-ijkl-0002',
-            code: 'SO-0015',
-            type: 'msg_request_approved',
-            title: 'Tú pedido fue Aprobado!',
-            comment: 'Requiere tu aprobación para registrar una variacion generada por un Error en la tarifa...',
-            status: '-accept',
-            icon: 'check_circle_outline',
-            user: 'clopez',
-            name: 'Raul Alberto Fernandez',
-            date: '2018-08-02 15:34:12',
-            approval: false
-        },
-        {
-            id: 'abcd-efgh-ijkl-0003',
-            code: 'SO-0021',
-            type: 'msg_request_refused',
-            title: 'Tú pedido fue Rechazado',
-            comment: 'Requiere tu aprobación para registrar una variacion generada por un Error en la tarifa...',
-            status: '-refuse',
-            icon: 'highlight_off',
-            user: 'mperalta',
-            name: 'Martín Peralta',
-            date: '2018-08-01 16:59:45',
-            approval: false
-        }
-    ];
+    listNotifications: ListNotif[] = [];
 
     constructor(
         private notificationService: NotificationImService,
@@ -100,7 +60,7 @@ export class NotificationImComponent implements OnInit, OnDestroy {
 
     loadAll() {
         this.notificationService
-            .query({
+            .myNotifications({
                 page: this.page,
                 size: this.itemsPerPage,
                 sort: this.sort()
@@ -114,6 +74,7 @@ export class NotificationImComponent implements OnInit, OnDestroy {
     reset() {
         this.page = 0;
         this.notifications = [];
+        this.listNotifications = [];
         this.loadAll();
     }
 
@@ -123,9 +84,9 @@ export class NotificationImComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.loadAll();
         });
         this.registerChangeInNotifications();
     }
@@ -155,7 +116,24 @@ export class NotificationImComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         for (let i = 0; i < data.length; i++) {
             this.notifications.push(data[i]);
+            this.listNotifications.push(this.createRow(data[i]));
         }
+    }
+
+    createRow(n: INotificationIm): ListNotif {
+        return {
+            id: 'abcd-efgh-ijkl-0003',
+            code: 'SO-0021',
+            type: 'msg_request_refused',
+            title: 'Tú pedido fue Rechazado',
+            comment: 'Requiere tu aprobación para registrar una variacion generada por un Error en la tarifa...',
+            status: '-refuse',
+            icon: 'highlight_off',
+            user: 'mperalta',
+            name: 'Martín Peralta',
+            date: '2018-08-01 16:59:45',
+            approval: false
+        };
     }
 
     private onError(errorMessage: string) {

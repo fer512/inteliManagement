@@ -9,7 +9,10 @@ import {
     NotificationImDeletePopupComponent,
     NotificationImDeleteDialogComponent,
     notificationRoute,
-    notificationPopupRoute
+    notificationPopupRoute,
+    VariationApprovedComponent,
+    VariationPendingComponent,
+    VariationRejectedComponent
 } from './';
 
 const ENTITY_STATES = [...notificationRoute, ...notificationPopupRoute];
@@ -21,13 +24,19 @@ const ENTITY_STATES = [...notificationRoute, ...notificationPopupRoute];
         NotificationImDetailComponent,
         NotificationImUpdateComponent,
         NotificationImDeleteDialogComponent,
-        NotificationImDeletePopupComponent
+        NotificationImDeletePopupComponent,
+        VariationApprovedComponent,
+        VariationPendingComponent,
+        VariationRejectedComponent
     ],
     entryComponents: [
         NotificationImComponent,
         NotificationImUpdateComponent,
         NotificationImDeleteDialogComponent,
-        NotificationImDeletePopupComponent
+        NotificationImDeletePopupComponent,
+        VariationApprovedComponent,
+        VariationPendingComponent,
+        VariationRejectedComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

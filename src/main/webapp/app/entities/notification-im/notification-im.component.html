@@ -5,8 +5,7 @@
             <h3>Mis Notificaciones</h3>
             <mat-card class="example-card" *ngFor="let notification of listNotifications">
               <mat-card-header class="notif-header">
-                <mat-card-title
-                ><mat-icon class="notif-icon" [ngClass]="notification.status">{{notification.icon}}</mat-icon>
+                <mat-card-title><mat-icon class="notif-icon" [ngClass]="notification.status">{{notification.icon}}</mat-icon>
                 <b>{{notification.title}}</b>: <a mat-button routerLink=".">#<em>{{notification.code}}</em></a></mat-card-title>
                 <mat-card-subtitle>Enviado por: {{notification.name}} ~ {{notification.date}}</mat-card-subtitle>
               </mat-card-header>
@@ -15,10 +14,7 @@
               </mat-card-content>
                 <mat-card-actions *ngIf="notification.approval">
                 <button mat-button color="primary">APROBAR</button>
-                <button mat-button color="warn">RECHAZAR</button>
-
-
-                
+                <button mat-button color="warn">RECHAZAR</button>    
               </mat-card-actions>
             </mat-card>
           </section>

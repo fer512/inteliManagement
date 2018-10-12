@@ -35,7 +35,7 @@ public class Notification implements Serializable {
     private NotificationType type;
 
     @Column(name = "detail")
-    private Blob detail;
+    private byte[] detail;
     
     @Column(name = "id_reference")
     private Long idReference;
@@ -133,11 +133,11 @@ public class Notification implements Serializable {
 		this.type = type;
 	}
 
-	public Blob getDetail() {
+	public byte[] getDetail() {
 		return detail;
 	}
 
-	public void setDetail(Blob detail) {
+	public void setDetail(byte[] detail) {
 		this.detail = detail;
 	}
 
