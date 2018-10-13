@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -142,6 +143,7 @@ public class VariationService {
     	Approvals approvals = approvalsService.save(ap);
     	
     	variationDTO.setCreationUser(u.getId());
+    	variationDTO.setCreationDate(ZonedDateTime.now());
     	variationDTO.setApprovalsId(approvals.getId());
     	Variation v =  this.saveOk(variationDTO);
     	v.setApprovals(approvals);

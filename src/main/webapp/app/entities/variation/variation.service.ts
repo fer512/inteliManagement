@@ -15,13 +15,14 @@ type EntityArrayResponseType = HttpResponse<IVariation[]>;
 @Injectable({ providedIn: 'root' })
 export class VariationService {
     private resourceUrl = SERVER_API_URL + 'api/variations';
-
+    private urlCreateVariation = SERVER_API_URL + 'api/createVariation';
+    createVariation;
     constructor(private http: HttpClient) {}
 
     create(variation: IVariation): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(variation);
         return this.http
-            .post<IVariation>(this.resourceUrl, copy, { observe: 'response' })
+            .post<IVariation>(this.urlCreateVariation, copy, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 

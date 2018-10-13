@@ -1,7 +1,7 @@
 <div class="ubmat-panel">
   <mat-card>
     <mat-card-content>
-      <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+      <form name="editForm" role="form" novalidate #editForm="ngForm">
       <!-- reservation ids -->
       <section class="loss-section">
         <h3>Datos de la reserva</h3>
@@ -118,7 +118,7 @@
           </tr> 
         </table>
         <hr class="ubmat-mt-md ubmat-mb-lg">
-        <button mat-raised-button  type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" color="primary">Registrar</button>
+        <button mat-raised-button  type="submit" id="save-entity" (click)="save()" [disabled]="editForm.form.invalid || isSaving" color="primary">Registrar</button>
         <button mat-raised-button  type="submit" id="cancel-save" (click)="previousState()" color="warn">Cancelar</button>
         
       </section>
