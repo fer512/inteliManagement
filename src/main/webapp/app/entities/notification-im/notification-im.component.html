@@ -2,22 +2,13 @@
         <mat-card>
           <mat-card-content>
             <section class="loss-section">
-            <h3>Mis Notificaciones</h3>
-            <mat-card class="example-card" *ngFor="let notification of listNotifications">
-              <mat-card-header class="notif-header">
-                <mat-card-title><mat-icon class="notif-icon" [ngClass]="notification.status">{{notification.icon}}</mat-icon>
-                <b>{{notification.title}}</b>: <a mat-button routerLink=".">#<em>{{notification.code}}</em></a></mat-card-title>
-                <mat-card-subtitle>Enviado por: {{notification.name}} ~ {{notification.date}}</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content class="notif-content">
-                <p>{{notification.comment}}</p>
-              </mat-card-content>
-                <mat-card-actions *ngIf="notification.approval">
-                <button mat-button color="primary">APROBAR</button>
-                <button mat-button color="warn">RECHAZAR</button>    
-              </mat-card-actions>
-            </mat-card>
-          </section>
+                <h3>Mis Notificaciones</h3>
+                <div *ngFor="let notification of listNotifications" [ngSwitch]="notification.type">
+                    <jhi-variation-approved *ngSwitchCase="'VARIATION_APPROVED'" [notification]="notification"></jhi-variation-approved>
+                    <jhi-variation-pending  *ngSwitchCase="'VARIATION_PENDING'" [notification]="notification"></jhi-variation-pending>
+                    <jhi-variation-rejected *ngSwitchCase="'VARIATION_REJECTED'" [notification]="notification"></jhi-variation-rejected>
+                </div>
+            </section>
           </mat-card-content>
         </mat-card>
       </div> 

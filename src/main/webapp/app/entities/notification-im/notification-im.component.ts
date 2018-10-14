@@ -8,19 +8,15 @@ import { Principal } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { NotificationImService } from './notification-im.service';
+import { Moment } from 'moment';
 
 export interface ListNotif {
-    id: string;
-    code: string;
+    id: number;
+    referenceId: string;
     type: string;
-    title: string;
-    comment: string;
-    status: string;
-    icon: string;
     user: string;
     name: string;
-    date: string;
-    approval: boolean;
+    date: Moment;
 }
 
 @Component({
@@ -115,6 +111,7 @@ export class NotificationImComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         for (let i = 0; i < data.length; i++) {
+            let j: any = JSON.stringify(data[i].detail);
             this.notifications.push(data[i]);
             this.listNotifications.push(this.createRow(data[i]));
         }
@@ -122,17 +119,12 @@ export class NotificationImComponent implements OnInit, OnDestroy {
 
     createRow(n: INotificationIm): ListNotif {
         return {
-            id: 'abcd-efgh-ijkl-0003',
-            code: 'SO-0021',
-            type: 'msg_request_refused',
-            title: 'Tú pedido fue Rechazado',
-            comment: 'Requiere tu aprobación para registrar una variacion generada por un Error en la tarifa...',
-            status: '-refuse',
-            icon: 'highlight_off',
-            user: 'mperalta',
-            name: 'Martín Peralta',
-            date: '2018-08-01 16:59:45',
-            approval: false
+            id: n.id,
+            referenceId: n.idReference,
+            type: n.type,
+            user: n.userCreation.login,
+            name: n.userCreation.firstName + ' ' + n.userCreation.lastName,
+            date: n.creationDate
         };
     }
 

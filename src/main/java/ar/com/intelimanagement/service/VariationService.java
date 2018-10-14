@@ -8,6 +8,7 @@ import ar.com.intelimanagement.domain.Variation;
 import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
 import ar.com.intelimanagement.repository.VariationRepository;
 import ar.com.intelimanagement.service.dto.VariationDTO;
+import ar.com.intelimanagement.service.dto.VariationFullDTO;
 import ar.com.intelimanagement.service.mapper.VariationMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -166,6 +167,13 @@ public class VariationService {
 
 	public ApprovalsService getApprovalsService() {
 		return approvalsService;
+	}
+
+	public Page<VariationFullDTO> getPending(Pageable pageable) {
+		  log.debug("Request to get pending Variations");
+		  User u = this.userService.getUserWithAuthorities().get();
+	        return variationRepository.getPending(pageable,u)
+	            .map(variationMapper::toFullDto);
 	}
 
 }

@@ -16,7 +16,7 @@ type EntityArrayResponseType = HttpResponse<IVariation[]>;
 export class VariationService {
     private resourceUrl = SERVER_API_URL + 'api/variations';
     private urlCreateVariation = SERVER_API_URL + 'api/createVariation';
-    createVariation;
+
     constructor(private http: HttpClient) {}
 
     create(variation: IVariation): Observable<EntityResponseType> {

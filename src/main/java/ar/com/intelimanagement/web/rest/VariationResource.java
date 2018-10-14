@@ -169,4 +169,22 @@ public class VariationResource {
         
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("Approve", id.toString())).body(true);
     }
+    
+    
+    /**
+     * GET  /variations : get all the variations.
+     *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
+     * @return the ResponseEntity with status 200 (OK) and the list of variations in body
+     */
+    @GetMapping("/pending-variations")
+    @Timed
+    public ResponseEntity<List<VariationFullDTO>> getAllPendingVariations(Pageable pageable) {
+        log.debug("REST request togetAllPendingVariations");
+        Page<VariationFullDTO> page = variationService.getPending(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/pending-variations");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 }
