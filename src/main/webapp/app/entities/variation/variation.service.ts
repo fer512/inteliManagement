@@ -16,7 +16,7 @@ type EntityArrayResponseType = HttpResponse<IVariation[]>;
 export class VariationService {
     private resourceUrl = SERVER_API_URL + 'api/variations';
     private urlCreateVariation = SERVER_API_URL + 'api/createVariation';
-
+    private urlPending = SERVER_API_URL + 'api//pending-variations';
     constructor(private http: HttpClient) {}
 
     create(variation: IVariation): Observable<EntityResponseType> {
@@ -43,6 +43,13 @@ export class VariationService {
         const options = createRequestOption(req);
         return this.http
             .get<IVariation[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    pending(req?: any): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http
+            .get<IVariation[]>(this.urlPending, { params: options, observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
