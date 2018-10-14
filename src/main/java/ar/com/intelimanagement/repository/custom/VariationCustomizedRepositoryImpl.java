@@ -2,6 +2,7 @@ package ar.com.intelimanagement.repository.custom;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.LongSupplier;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -86,7 +87,8 @@ public class VariationCustomizedRepositoryImpl implements VariationCustomizedRep
 			query.setMaxResults(pageable.getPageSize());
 		}
 		
-		return PageableExecutionUtils.getPage(query.getResultList(), pageable,null);
+		LongSupplier supplier = () -> 20l; // aca va  el count
+		return PageableExecutionUtils.getPage(query.getResultList(), pageable,supplier);
 	}
 
 }

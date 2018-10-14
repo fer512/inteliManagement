@@ -168,7 +168,8 @@ public class VariationService {
 	public ApprovalsService getApprovalsService() {
 		return approvalsService;
 	}
-
+	
+	@Transactional(readOnly = true)
 	public Page<VariationFullDTO> getPending(Pageable pageable) {
 		  log.debug("Request to get pending Variations");
 		  User u = this.userService.getUserWithAuthorities().get();
