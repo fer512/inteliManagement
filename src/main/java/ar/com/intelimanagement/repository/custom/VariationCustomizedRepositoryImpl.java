@@ -48,8 +48,52 @@ public class VariationCustomizedRepositoryImpl implements VariationCustomizedRep
 		this.em = entityManager;
 	}
 	
+	
 	@Override
-	public Page<Variation> getPending(Pageable pageable, User u) {
+	public Page<Variation> getPending(Pageable pageable, User u) {	
+		List<Variation> pendientes = this.obtenerPendientes(pageable,u);
+		LongSupplier count = this.contarPendientes(pageable,u);
+		return PageableExecutionUtils.getPage(pendientes, pageable,count);
+	}
+
+
+	private LongSupplier contarPendientes(Pageable pageable, User u) {
+		
+		//CREO EL BUILDER DEL CRITERIA
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		
+		//ARMO EL CRITERIA DE LA CLASE Long
+		CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+		Root<Variation> pRoot = criteria.from(Variation.class);
+		
+		//ARMO EL SELECT
+		criteria.select(builder.count(pRoot));
+		
+		//JOINEO CON APPROVALS
+		Join<Variation, Approvals> approvalsJoin = pRoot.join("approvals", JoinType.LEFT);
+		Predicate conjunction = builder.conjunction();
+
+		//ARMO LA CONSULTA IN
+		Path<User> parentExpression = pRoot.get(Variation_.creationUser);
+		Predicate parentPredicate = parentExpression.in(u.getTeam().stream().collect(Collectors.toList()));
+		
+		//ARMO EL WHERE
+		criteria.where(builder.and(
+			parentPredicate,	
+		    builder.or(
+		    		builder.equal(approvalsJoin.get(Approvals_.status), ApprovalsStatusType.PENDING),
+		    		builder.equal(approvalsJoin.get(Approvals_.status), ApprovalsStatusType.CREATE)
+		    		)
+		    )
+		);
+
+		TypedQuery<Long> query = em.createQuery(criteria);
+		LongSupplier supplier = () -> query.getSingleResult();
+		return supplier;
+	}
+
+
+	private List<Variation> obtenerPendientes(Pageable pageable, User u) {
 		//CREO EL BUILDER DEL CRITERIA
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		
@@ -79,16 +123,14 @@ public class VariationCustomizedRepositoryImpl implements VariationCustomizedRep
 		);
 
 		TypedQuery<Variation> query = em.createQuery(criteria);
-		//TypedQuery<Variation> queryCount = em.createQuery(criteria);
-		//queryCount.select(builder.count(pRoot));
 		
 		if (pageable.isPaged()) {
 			query.setFirstResult((int) pageable.getOffset());
 			query.setMaxResults(pageable.getPageSize());
 		}
 		
-		LongSupplier supplier = () -> 20l; // aca va  el count
-		return PageableExecutionUtils.getPage(query.getResultList(), pageable,supplier);
+		return query.getResultList();
 	}
 
+	
 }

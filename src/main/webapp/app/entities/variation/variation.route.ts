@@ -12,6 +12,7 @@ import { VariationDetailComponent } from './variation-detail.component';
 import { VariationUpdateComponent } from './variation-update.component';
 import { VariationDeletePopupComponent } from './variation-delete-dialog.component';
 import { IVariation } from 'app/shared/model/variation.model';
+import { VariationPendingComponent } from 'app/entities/variation/variation-pending.component';
 
 @Injectable({ providedIn: 'root' })
 export class VariationResolve implements Resolve<IVariation> {
@@ -30,6 +31,19 @@ export const variationRoute: Routes = [
     {
         path: 'variation',
         component: VariationComponent,
+        resolve: {
+            pagingParams: JhiResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            defaultSort: 'id,asc',
+            pageTitle: 'inteliManagementApp.variation.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'variation-pending',
+        component: VariationPendingComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams
         },

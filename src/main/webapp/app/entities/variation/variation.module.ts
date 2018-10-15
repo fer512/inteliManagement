@@ -12,6 +12,7 @@ import {
     variationRoute,
     variationPopupRoute
 } from './';
+import { VariationPendingComponent } from 'app/entities/variation/variation-pending.component';
 
 const ENTITY_STATES = [...variationRoute, ...variationPopupRoute];
 
@@ -21,6 +22,7 @@ const ENTITY_STATES = [...variationRoute, ...variationPopupRoute];
         VariationComponent,
         VariationDetailComponent,
         VariationUpdateComponent,
+        VariationPendingComponent,
         VariationDeleteDialogComponent,
         VariationDeletePopupComponent
     ],
