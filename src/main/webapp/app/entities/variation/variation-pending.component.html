@@ -15,7 +15,7 @@
                         <p>{{variation.comments}}</p>
                     </mat-card-content>
                     <mat-card-actions >
-                        <button mat-button color="primary">Ver Historial</button>
+                        <button mat-button color="primary" (click)="approve(variation.id)">Approve</button>
                     </mat-card-actions>
                 </mat-card>
             </section>

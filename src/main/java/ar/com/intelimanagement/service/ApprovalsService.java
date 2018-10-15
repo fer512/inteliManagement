@@ -46,7 +46,7 @@ public interface ApprovalsService {
      */
     void delete(Long id);
 
-	Approvals approve(Long id);
+	Approvals approve(Long id) throws Exception;
 
 	Approvals save(Approvals approvals);
 }

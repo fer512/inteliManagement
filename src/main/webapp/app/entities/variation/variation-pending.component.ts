@@ -127,6 +127,17 @@ export class VariationPendingComponent implements OnInit, OnDestroy {
         this.variations = data;
     }
 
+    private approve(id: number) {
+        this.variationService.approve(id).subscribe(
+            data => {
+                this.jhiAlertService.success('ok', null, null);
+            },
+            error => {
+                this.jhiAlertService.error(error.error.detail, null, null);
+            }
+        );
+    }
+
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }

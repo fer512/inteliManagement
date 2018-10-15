@@ -129,25 +129,33 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 		this.creationUser = creationUser;
 	}
 
-	public Boolean approved(User user){
-		return this.getHistory().stream().anyMatch(h-> h.getUser().getId().equals(user.getId()) && ApprovalsStatusType.APPOVED.equals(h.getStatus()) || h.getApprovals().getCreationUser().getId().equals(user.getId()));
-		//throw
+	public Boolean approved(User user) throws Exception{
+		if(this.getHistory().stream().anyMatch(h-> h.getApprovals().getCreationUser().getId().equals(user.getId())))
+			throw new Exception("error.cant.approve.user.creation");
+
+		if(this.getHistory().stream().anyMatch(h-> h.getUser().getId().equals(user.getId()) && ApprovalsStatusType.APPOVED.equals(h.getStatus())))
+			throw new Exception("error.cant.approve.user.approve");
+		
+		return false;
 	}
 	
-	public Boolean validDate(){
+	public Boolean validDate() throws Exception{
 		Instant now = Instant.now();
-		return (this.getStastDate() == null || now.isAfter(this.getStastDate())) && (this.getEndDate() == null || now.isBefore(this.getEndDate()));
+		return ((this.getStastDate() == null || now.isAfter(this.getStastDate())) && (this.getEndDate() == null || now.isBefore(this.getEndDate())));
 	}
 	
-	public Boolean validStatus(){
-		return ApprovalsStatusType.CREATE.equals(this.getStatus()) || ApprovalsStatusType.PENDING.equals(this.getStatus());//throw
+	public Boolean validStatus() throws Exception{
+		if(ApprovalsStatusType.CREATE.equals(this.getStatus()) || ApprovalsStatusType.PENDING.equals(this.getStatus())) {
+			return true;
+		}
+		throw new Exception("error.cant.approve.status.invalid");
 	}
 	
-	public Approvals approve(User user) {
+	public Approvals approve(User user) throws Exception {
 		if(this.validStatus() && this.validDate() && !this.approved(user)) {
 			return this.approveOK(user);
 		}
-		return null;
+		throw new Exception("error.cant.approve");
 	}
 
 	private Approvals approveOK(User user) {

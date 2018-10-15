@@ -17,6 +17,8 @@ export class VariationService {
     private resourceUrl = SERVER_API_URL + 'api/variations';
     private urlCreateVariation = SERVER_API_URL + 'api/createVariation';
     private urlPending = SERVER_API_URL + 'api/pending-variations';
+    private urlApprove = SERVER_API_URL + 'api/approve';
+
     constructor(private http: HttpClient) {}
 
     create(variation: IVariation): Observable<EntityResponseType> {
@@ -55,6 +57,10 @@ export class VariationService {
 
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
+
+    approve(id: number): Observable<EntityResponseType> {
+        return this.http.post<IVariation>(this.urlApprove, id, { observe: 'response' }).pipe(map((res: EntityResponseType) => res));
     }
 
     private convertDateFromClient(variation: IVariation): IVariation {

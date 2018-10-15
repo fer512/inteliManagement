@@ -153,7 +153,7 @@ public class VariationResource {
      * */
     @PostMapping("/approve")
     @Timed
-    public ResponseEntity<Boolean> approve(@RequestBody Long id) throws URISyntaxException {
+    public ResponseEntity<Boolean> approve(@RequestBody Long id) throws Exception {
         log.debug("REST request to approve : {}", id);
         if (id == null) {
             throw new BadRequestAlertException("approve - id is null", ENTITY_NAME, "id is null");

@@ -106,7 +106,7 @@ public class ApprovalsServiceImpl implements ApprovalsService {
 
 	@Override
 	@Transactional
-	public Approvals approve(Long id) {
+	public Approvals approve(Long id) throws Exception {
 		Optional<User> currentUser = this.userService.getUserWithAuthorities();
 		Optional<Approvals> approvals = approvalsRepository.findById(id);
 		return approvals.get().approve(currentUser.get());
