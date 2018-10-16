@@ -114,8 +114,9 @@ public class VariationService {
      *
      * @param variationDTO the entity to save
      * @return the persisted entity
+     * @throws Exception
      */
-    public Variation create(VariationDTO variationDTO) {   	
+    public Variation create(VariationDTO variationDTO) throws Exception {   	
     	User u = this.userService.getUserWithAuthorities().get();
     	   	    	
     	SupervisorApprovals ap = new SupervisorApprovals();

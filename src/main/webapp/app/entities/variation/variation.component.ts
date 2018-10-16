@@ -29,6 +29,7 @@ export class VariationComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    displayedColumns: string[] = ['id', 'product', 'reason', 'area', 'campaing', 'bookingId'];
 
     constructor(
         private variationService: VariationService,

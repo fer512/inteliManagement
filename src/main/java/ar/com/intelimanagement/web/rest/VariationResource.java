@@ -58,19 +58,23 @@ public class VariationResource {
     }
 
     /**
-     * POST  /variations : Create a new variation.
+     * POST /variations : Create a new variation.
      *
      * @param variationDTO the variationDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new variationDTO, or with status 400 (Bad Request) if the variation has already an ID
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @return the ResponseEntity with status 201 (Created) and with body the new
+     *         variationDTO, or with status 400 (Bad Request) if the variation has
+     *         already an ID
+     * @throws Exception
      */
     @PostMapping("/createVariation")
     @Timed
-    public ResponseEntity<VariationDTO> createVariation(@Valid @RequestBody VariationDTO variationDTO) throws URISyntaxException {
+    public ResponseEntity<VariationDTO> createVariation(@Valid @RequestBody VariationDTO variationDTO) throws Exception {
         log.debug("REST request to save Variation : {}", variationDTO);
+        
         if (variationDTO.getId() != null) {
             throw new BadRequestAlertException("A new variation cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        
         Variation result = variationService.create(variationDTO);
 
         this.notificationService.sendNotification(result);
