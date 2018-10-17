@@ -22,6 +22,87 @@ body {
     margin: 0 15px;
 }
 
+/* ubmat-CSS text-align */
+
+.ubmat-align-l {
+    text-align: left;
+}
+
+.ubmat-align-r {
+    text-align: right;
+}
+
+.ubmat-align-c {
+    text-align: center;
+}
+
+/* ubmat-CSS font-size */
+
+.ubmat-fs-xsm {
+    font-size: 8px;
+}
+
+.ubmat-fs-sm {
+    font-size: 12px;
+}
+
+.ubmat-fs-md {
+    font-size: 14px;
+}
+
+.ubmat-fs-lg {
+    font-size: 16px;
+}
+
+.ubmat-fs-xlg {
+    font-size: 20px;
+}
+
+/* ubmat-CSS Colors */
+.ubmat-tc-white {
+    color: #fff;
+}
+
+.ubmat-tc-gray-8 {
+    color: #f5f5f5;
+}
+
+.ubmat-tc-gray-7 {
+    color: #eee;
+}
+
+.ubmat-tc-gray-6 {
+    color: #ddd;
+}
+
+.ubmat-tc-gray-5 {
+    color: #ccc;
+}
+
+.ubmat-tc-gray-4 {
+    color: #aaa;
+}
+
+.ubmat-tc-gray-3 {
+    color: #888;
+}
+
+.ubmat-tc-gray-2 {
+    color: #666;
+}
+
+.ubmat-tc-gray-1 {
+    color: #444;
+}
+
+.ubmat-tc-gray-0 {
+    color: #444;
+}
+
+.ubmat-tc-black {
+    color: #000;
+}
+
 /* ubmat-CSS Margin & Padding */
 
 /* bottom*/
@@ -201,6 +282,32 @@ body {
 /* ubmat-CSS Nav-bar */
 .ubmat-nav-spacer {
     flex: 1 1 auto;
+}
+
+/* ubmat-CSS Tabs */
+
+.ubmat-tab-detail-title {
+    font-weight: bold;
+    font-size: 14px;
+    padding-bottom: 5px;
+    padding-top: 7.5px;
+}
+
+.ubmat-tab-detail-comment {
+    font-size: 12px;
+    padding-bottom: 7.5px;
+    color: #aaa;
+}
+
+.ubmat-tab-detail-group
+    > .mat-tab-header
+    > .mat-tab-label-container
+    > .mat-tab-list
+    > .mat-tab-labels
+    > .mat-tab-label
+    > .mat-tab-label-content {
+    display: inline-block;
+    text-align: left;
 }
 
 /* ubmat-CSS Card */

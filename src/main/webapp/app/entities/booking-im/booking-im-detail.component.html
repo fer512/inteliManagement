@@ -2,54 +2,72 @@
         <mat-card>
             <mat-card-content>
                 <section class="loss-section">    
-                    <h2><b>#{{booking.idReserveLocatorJuniper}}</b></h2>           
-                    <table>
-                        <tr><td>Transacción</td><td>{{booking.idTransaction}}</td></tr>
-                        <tr><td>Externar Locator</td><td>{{booking.idReserveLocatorExternal}}</td></tr>
-                    </table>
-                
-                    <table>
-                        <tr>
-                            <td>
-                                <table>
-                                    <tr><td colspan="2"><b>Pagos</b></td></tr>
-                                    <tr><td>Tipo de pago</td><td>{{booking.paymentType}}</td></tr>
-                                    <tr><td>Tarjeta de Crédito</td><td>{{booking.paymentCreditCard}}</td></tr>
-                                    <tr><td>Puntos</td><td>{{booking.paymentPointsInUSD}}</td></tr>
-                                </table>                
-                            </td>
-                            <td>
-                                <table>
-                                    <tr><td colspan="2"><b>Costos Juniper</b></td></tr>
-                                    <tr><td>Costo de la reserva </td><td>{{booking.juniperReservationCost}}</td></tr>
-                                    <tr><td>Precio de venta</td><td>{{booking.juniperSalePrice}}</td></tr>
-                                    <tr><td>Beneficio</td><td>{{booking.benefitInReservation}}</td></tr>
-                                </table>               
-                            </td>
-                        </tr>
-                    </table>
-                    <button mat-button color="primary"  [routerLink]="['/variation', 'new' ]">+ Agregar una variación</button>
-                <hr>
-                <mat-card class="ubmat-card" *ngFor="let variation of variations">
-                  <mat-card-header>
-                    <mat-card-title><b>{{variation.code}}</b> ~ {{variation.product}} / {{variation.provider}}</mat-card-title>
-                    <mat-card-subtitle>
-                       <div>Creado por: {{variation.creation_user}} ~ {{variation.creation_date}}</div> 
-                       <div>Autorizado: {{variation.approval_user}} ~ {{variation.approval_date}}</div> 
-                    </mat-card-subtitle>
-                  </mat-card-header>
-                  <mat-card-content>
-                            <table>
-                                <tr><td>Cargo</td><td>~ usd</td><td>{{variation.new_charge}}</td></tr>
-                                <tr><td>Costo</td><td>~ usd</td><td>{{variation.new_cost}}</td></tr>
-                                <tr><td>Beneficio</td><td>~ usd</td><td>{{variation.new_benefit}}</td></tr>
-                            </table> 
-                    <h4><b>Descripción</b></h4>         
-                    <p>{{variation.comments}}</p>
-                  </mat-card-content>
-                </mat-card>
-              </section>
-             
+                            <!-- booking detail -->
+                            <h3 class="ubmat-mb-sm">Reserva Numero <b>#{{booking.idTransaction}}</b></h3> 
+                            <p class="ubmat-tc-gray-4">Ultima actualización, hace 2 semanas el 20-09-2018 a las 18:07:35</p>                                  
+                            <mat-chip-list>
+                                    <mat-chip color="primary" selected>Total Ingresos: 0.00</mat-chip>
+                                    <mat-chip>Total Beneficio: 0.00</mat-chip>
+                                    <mat-chip>Total Pago a proveedores: 0.00</mat-chip>
+                            </mat-chip-list>   
+                            <table class ="ubmat-table ubmat-mt-md">
+                                <tr>
+                                    <td>
+                                        <table>
+                                            <tr><td colspan="2"><b>Pagos</b></td></tr>
+                                            <tr><td>Tipo de pago</td><td>{{booking.paymentType}}</td></tr>
+                                            <tr><td>Tarjeta de Crédito</td><td>{{booking.paymentCreditCard}}</td></tr>
+                                            <tr><td>Puntos</td><td>{{booking.paymentPointsInUSD}}</td></tr>
+                                        </table>                
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr><td colspan="2"><b>Costos Juniper</b></td></tr>
+                                            <tr><td>Costo de la reserva </td><td>{{booking.juniperReservationCost}}</td></tr>
+                                            <tr><td>Precio de venta</td><td>{{booking.juniperSalePrice}}</td></tr>
+                                            <tr><td>Beneficio</td><td>{{booking.benefitInReservation}}</td></tr>
+                                        </table>               
+                                    </td>
+                                </tr>
+                            </table>
+                            <hr class="ubmat-divider -lg">
+                             <!-- end booking detail -->                   
+                        <mat-tab-group class="ubmat-tab-detail-group">
+                            <mat-tab *ngFor="let tab of booking.products">
+                                    <ng-template mat-tab-label class="ubmat-tab-detail">
+                                            <div class="ubmat-tab-detail-title">Hotel</div>
+                                            <div class="ubmat-tab-detail-comment">Locador Juniper N° 506077</div>
+                                    </ng-template>
+                                    <ng-template matTabContent>
+                                        <div class="ubmat-p-lg">
+                                            <h1 class="ubmat-mb-xsm"><!--{{tab.productId}}--> Hotel</h1>
+                                            <p class="ubmat-mt-xsm ubmat-tc-gray-4">Locador Juniper N° 506077 <!--{{tab.idReserveLocatorJuniper}}--></p>
+                                              <!--beging content-->
+                                              <mat-card class="ubmat-card" *ngFor="let variation of variations">
+                                                  <mat-card-header>
+                                                    <mat-card-title><b>{{variation.code}}</b> ~ {{variation.product}} / {{variation.provider}}</mat-card-title>
+                                                    <mat-card-subtitle>
+                                                       <div>Creado por: {{variation.creation_user}} ~ {{variation.creation_date}}</div> 
+                                                       <div>Autorizado: {{variation.approval_user}} ~ {{variation.approval_date}}</div> 
+                                                    </mat-card-subtitle>
+                                                  </mat-card-header>
+                                                  <mat-card-content>
+                                                            <table>
+                                                                <tr><td>Cargo</td><td>~ usd</td><td>{{variation.new_charge}}</td></tr>
+                                                                <tr><td>Costo</td><td>~ usd</td><td>{{variation.new_cost}}</td></tr>
+                                                                <tr><td>Beneficio</td><td>~ usd</td><td>{{variation.new_benefit}}</td></tr>
+                                                            </table> 
+                                                    <h4><b>Descripción</b></h4>         
+                                                    <p>{{variation.comments}}</p>
+                                                  </mat-card-content>
+                                              </mat-card>
+                                              <!--end content--> 
+                                        </div>      
+                                    </ng-template>                                               
+                            </mat-tab>
+                        </mat-tab-group>
+                        <button mat-button color="primary"  [routerLink]="['/variation', 'new' ]">+ Agregar una variación</button>            
+                </section>
             </mat-card-content>
             </mat-card>
           </div> 

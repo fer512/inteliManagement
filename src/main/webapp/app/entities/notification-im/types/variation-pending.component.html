@@ -1,10 +1,12 @@
 <mat-card class="example-card ubmat-mb-sm">
     <mat-card-header class="notif-header">
-      <mat-card-title><mat-icon class="notif-icon" [ngClass]="-pending">access_time</mat-icon>
-      <b>Requiere tu autorización</b>: <a mat-button routerLink=".">#<em>{{notification.referenceId}}</em></a></mat-card-title>
-      <mat-card-subtitle>Enviado por: {{notification.name}} ~ {{notification.date | date:'dd-MM-yyyy HH:mm:ss'}}</mat-card-subtitle>
+      <mat-card-title>
+        <b>#<em>{{notification.referenceId}}</em> Solicitud de Aprobación</b>
+      </mat-card-title>
     </mat-card-header>
     <mat-card-content class="notif-content">
-      <p>{{notification.comment}}</p>
+      <p>Se requiere tú aprobación para validar un nuevo registro en la reserva n° xxxxxxxx</p>
+      <p class="ubmat-tc-gray-4">Enviado por: {{notification.name}} ~ {{notification.date | date:'dd-MM-yyyy HH:mm:ss'}}</p>
     </mat-card-content>
+    
   </mat-card>

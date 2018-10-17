@@ -6,7 +6,7 @@
                     Registros creados por mí
                 </h3>
                
-                <table mat-table [dataSource]="variations" class="ubmat-table" *ngIf="variations && variations.length">
+                <table mat-table [dataSource]="variations" class="ubmat-table" *ngIf="(variations$ | async)?.length>=1">
      
                     <ng-container matColumnDef="id">
                         <th mat-header-cell *matHeaderCellDef> Id </th>
@@ -56,9 +56,8 @@
                         </mat-paginator>
                     </div> 
                 </div>
-
-                <div *ngIf="variations && !variations.length">Aún no haz creado ningun registro.</div>
-
+                
+                <div *ngIf="(variations$ | async)?.length < 1">Aún no haz creado ningun registro.</div>
                <!--
                 <mat-card class="example-card" *ngFor="let variation of variations ;trackBy: trackId">
                     <mat-card-header class="notif-header">
