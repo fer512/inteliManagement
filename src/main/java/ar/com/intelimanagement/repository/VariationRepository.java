@@ -2,7 +2,6 @@ package ar.com.intelimanagement.repository;
 
 import ar.com.intelimanagement.domain.User;
 import ar.com.intelimanagement.domain.Variation;
-import ar.com.intelimanagement.repository.custom.VariationCustomizedRepository;
 import ar.com.intelimanagement.service.dto.VariationDTO;
 
 import org.springframework.data.domain.Page;

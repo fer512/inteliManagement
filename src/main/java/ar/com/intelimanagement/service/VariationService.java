@@ -152,6 +152,15 @@ public class VariationService {
     	
     	return v;
     }
+    
+    @Transactional(readOnly = true)
+    public Page<VariationFullDTO> getPending(Pageable pageable) {
+    	log.debug("Request to get pending Variations");
+    	User u = this.userService.getUserWithAuthorities().get();
+    	u.getTeam();
+    	Page<Variation> p =  variationRepository.getPending(pageable,u);
+    	return p.map(variationMapper::toFullDto);
+    }
 
 	public Variation findById(Long id) {
 		  log.debug("Request to get Variation : {}", id);
@@ -170,12 +179,5 @@ public class VariationService {
 		return approvalsService;
 	}
 	
-	@Transactional(readOnly = true)
-	public Page<VariationFullDTO> getPending(Pageable pageable) {
-		  log.debug("Request to get pending Variations");
-		  User u = this.userService.getUserWithAuthorities().get();
-	        return variationRepository.getPending(pageable,u)
-	            .map(variationMapper::toFullDto);
-	}
 
 }

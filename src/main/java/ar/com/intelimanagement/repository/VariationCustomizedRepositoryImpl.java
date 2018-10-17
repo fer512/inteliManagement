@@ -1,7 +1,8 @@
-package ar.com.intelimanagement.repository.custom;
+package ar.com.intelimanagement.repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.function.LongSupplier;
 import java.util.stream.Collectors;
 
@@ -38,8 +39,8 @@ import org.springframework.data.repository.support.PageableExecutionUtils;
  * Spring Data repository for the Variation entity.
  */
 @SuppressWarnings("unused")
-@Transactional
 @Repository
+@Transactional(readOnly = true)
 public class VariationCustomizedRepositoryImpl implements VariationCustomizedRepository {
 
 	private final EntityManager em;
@@ -50,17 +51,17 @@ public class VariationCustomizedRepositoryImpl implements VariationCustomizedRep
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public Page<Variation> getPending(Pageable pageable, User u) {
-		List<Variation> pendientes = this.obtenerPendientes(pageable, u);
-		LongSupplier count = this.contarPendientes(pageable, u);
+		Set<User> team = u.getTeam();
+		List<User> teamL = team.stream().collect(Collectors.toList());
+		List<Variation> pendientes = this.obtenerPendientes(pageable, u ,teamL);
+		LongSupplier count = this.contarPendientes(pageable, u , teamL);
 		return PageableExecutionUtils.getPage(pendientes, pageable, count);
 	}
 
-	@Transactional(readOnly = true)
-	private LongSupplier contarPendientes(Pageable pageable, User u) {
 
-		List<User> team = u.getTeam().stream().collect(Collectors.toList());
+	private LongSupplier contarPendientes(Pageable pageable, User u, List<User> team) {
 
 		if (team != null && team.size() > 0) {
 			// CREO EL BUILDER DEL CRITERIA
@@ -96,10 +97,8 @@ public class VariationCustomizedRepositoryImpl implements VariationCustomizedRep
 		return supplier;
 	}
 
-	@Transactional(readOnly = true)
-	private List<Variation> obtenerPendientes(Pageable pageable, User u) {
 
-		List<User> team = u.getTeam().stream().collect(Collectors.toList());
+	private List<Variation> obtenerPendientes(Pageable pageable, User u, List<User> team) {
 
 		if (team != null && team.size() > 0) {
 			// CREO EL BUILDER DEL CRITERIA

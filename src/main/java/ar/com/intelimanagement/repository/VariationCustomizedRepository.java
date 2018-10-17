@@ -1,4 +1,4 @@
-package ar.com.intelimanagement.repository.custom;
+package ar.com.intelimanagement.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
