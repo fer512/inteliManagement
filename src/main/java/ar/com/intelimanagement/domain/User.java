@@ -286,23 +286,42 @@ public class User extends AbstractAuditingEntity implements Serializable {
         User user = (User) o;
         return !(user.getId() == null || getId() == null) && Objects.equals(getId(), user.getId());
     }
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (activated ? 1231 : 1237);
+		result = prime * result + ((activationKey == null) ? 0 : activationKey.hashCode());
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((authorities == null) ? 0 : authorities.hashCode());
+		result = prime * result + ((company == null) ? 0 : company.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((imageUrl == null) ? 0 : imageUrl.hashCode());
+		result = prime * result + ((langKey == null) ? 0 : langKey.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result + ((notifications == null) ? 0 : notifications.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((phones == null) ? 0 : phones.hashCode());
+		result = prime * result + ((resetDate == null) ? 0 : resetDate.hashCode());
+		result = prime * result + ((resetKey == null) ? 0 : resetKey.hashCode());
+		result = prime * result + ((supervisor == null) ? 0 : supervisor.hashCode());
+		result = prime * result + ((team == null) ? 0 : team.hashCode());
+		return result;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated='" + activated + '\'' +
-            ", langKey='" + langKey + '\'' +
-            ", activationKey='" + activationKey + '\'' +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", login=" + login + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", email=" + email + ", activated=" + activated + ", langKey=" + langKey
+				+ ", imageUrl=" + imageUrl + ", activationKey=" + activationKey + ", resetKey=" + resetKey
+				+ ", resetDate=" + resetDate + ", authorities=" + authorities + ", company=" + company + ", phones="
+				+ phones + ", address=" + address + ", notifications=" + notifications + ", supervisor=" + supervisor
+				+ "]";
+	}
+	
+	
 }
