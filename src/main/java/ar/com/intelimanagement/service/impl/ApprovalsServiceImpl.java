@@ -112,4 +112,11 @@ public class ApprovalsServiceImpl implements ApprovalsService {
 		return approvals.get().approve(currentUser.get());
 	}
 
+	@Override
+	@Transactional
+	public Approvals rejected(Long id) throws Exception {
+		Optional<User> currentUser = this.userService.getUserWithAuthorities();
+		Optional<Approvals> approvals = approvalsRepository.findById(id);
+		return approvals.get().rejected(currentUser.get());
+	}
 }

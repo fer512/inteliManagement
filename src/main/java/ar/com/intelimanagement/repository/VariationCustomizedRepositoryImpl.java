@@ -53,8 +53,7 @@ public class VariationCustomizedRepositoryImpl implements VariationCustomizedRep
 	@Override
 	@Transactional
 	public Page<Variation> getPending(Pageable pageable, User u) {
-		Set<User> team = u.getTeam();
-		List<User> teamL = team.stream().collect(Collectors.toList());
+		List<User> teamL =  u.getTeam().stream().collect(Collectors.toList());
 		List<Variation> pendientes = this.obtenerPendientes(pageable, u ,teamL);
 		LongSupplier count = this.contarPendientes(pageable, u , teamL);
 		return PageableExecutionUtils.getPage(pendientes, pageable, count);

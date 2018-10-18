@@ -54,6 +54,23 @@ public class SupervisorApprovals extends Approvals implements Serializable {
 		return null;
 	}
 	
+	private Approvals rejectedOK(User user) {
+		User userCurrentLevel = this.getUserCurrentLevel();
+		User supervisor = userCurrentLevel.getSupervisor();
+		
+		if(supervisor == null || user.getId().equals(supervisor.getId())) {
+			ApprovalHistory history = new ApprovalHistory();
+			history.setStatus(ApprovalsStatusType.REJECTED);
+			history.setUser(user);
+			this.getHistory().add(history);
+			this.setStatus(ApprovalsStatusType.REJECTED);
+			return this;
+		}
+		
+		//throw
+		return null;
+	}
+	
 	private Integer getCurrentLevel() {
 		return this.getHistory().size() - 1;
 	}

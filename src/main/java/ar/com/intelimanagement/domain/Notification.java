@@ -208,6 +208,8 @@ public class Notification implements Serializable {
 			return NotificationType.VARIATION_PENDING;
 		case APPOVED:
 			return NotificationType.VARIATION_APPROVED;
+		case REJECTED:
+			return NotificationType.VARIATION_REJECTED;
 		default:
 			return null;
 		}

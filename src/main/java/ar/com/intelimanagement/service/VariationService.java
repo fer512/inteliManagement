@@ -156,7 +156,7 @@ public class VariationService {
     @Transactional(readOnly = true)
     public Page<VariationFullDTO> getPending(Pageable pageable) {
     	log.debug("Request to get pending Variations");
-    	User u = this.userService.getUserWithAuthorities().get();
+    	User u = this.userService.findById(this.userService.getUserWithAuthorities().get().getId());
     	u.getTeam();
     	Page<Variation> p =  variationRepository.getPending(pageable,u);
     	return p.map(variationMapper::toFullDto);

@@ -186,4 +186,20 @@ public class VariationResource {
     }
     
 
+    @PostMapping("/rejected")
+    @Timed
+    public ResponseEntity<Boolean> rejected(@RequestBody Long id) throws Exception {
+        log.debug("REST request to rejected : {}", id);
+        if (id == null) {
+            throw new BadRequestAlertException("rejected - id is null", ENTITY_NAME, "id is null");
+        }
+        Variation variation = variationService.findById(id);
+        Approvals approvals = approvalsService.rejected(variation.getApprovals().getId());
+        variation.setApprovals(approvals);
+        variation = variationService.save(variation);
+        this.notificationService.sendNotification(variation);
+        
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Rejected", id.toString())).body(true);
+    }
+    
 }

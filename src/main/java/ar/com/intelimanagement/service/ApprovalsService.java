@@ -49,4 +49,6 @@ public interface ApprovalsService {
 	Approvals approve(Long id) throws Exception;
 
 	Approvals save(Approvals approvals);
+
+	Approvals rejected(Long id) throws Exception;
 }
