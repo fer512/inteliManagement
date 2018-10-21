@@ -211,6 +211,10 @@ public class UserService {
         });
     }
 
+    public User findById(Long id) {
+        return userRepository.findById(id).get();
+    }
+    
     public void changePassword(String currentClearTextPassword, String newPassword) {
         SecurityUtils.getCurrentUserLogin()
             .flatMap(userRepository::findOneByLogin)

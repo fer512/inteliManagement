@@ -6,7 +6,12 @@ import ar.com.intelimanagement.web.rest.errors.BadRequestAlertException;
 import ar.com.intelimanagement.web.rest.util.HeaderUtil;
 import ar.com.intelimanagement.web.rest.util.PaginationUtil;
 import ar.com.intelimanagement.service.dto.VariationDTO;
+import ar.com.intelimanagement.service.dto.VariationFullDTO;
 import ar.com.intelimanagement.service.dto.VariationCriteria;
+import ar.com.intelimanagement.domain.Approvals;
+import ar.com.intelimanagement.domain.Variation;
+import ar.com.intelimanagement.service.ApprovalsService;
+import ar.com.intelimanagement.service.NotificationService;
 import ar.com.intelimanagement.service.VariationQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -16,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,29 +46,43 @@ public class VariationResource {
 
     private final VariationQueryService variationQueryService;
 
-    public VariationResource(VariationService variationService, VariationQueryService variationQueryService) {
+    private final ApprovalsService approvalsService;
+    
+    private final NotificationService notificationService;
+    
+    public VariationResource(VariationService variationService, VariationQueryService variationQueryService,
+    		ApprovalsService approvalsService,NotificationService notificationService) {
         this.variationService = variationService;
         this.variationQueryService = variationQueryService;
+        this.approvalsService = approvalsService;
+        this.notificationService = notificationService;
     }
 
     /**
-     * POST  /variations : Create a new variation.
+     * POST /variations : Create a new variation.
      *
      * @param variationDTO the variationDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new variationDTO, or with status 400 (Bad Request) if the variation has already an ID
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @return the ResponseEntity with status 201 (Created) and with body the new
+     *         variationDTO, or with status 400 (Bad Request) if the variation has
+     *         already an ID
+     * @throws Exception
      */
-    @PostMapping("/variations")
+    @PostMapping("/createVariation")
     @Timed
-    public ResponseEntity<VariationDTO> createVariation(@Valid @RequestBody VariationDTO variationDTO) throws URISyntaxException {
+    public ResponseEntity<VariationDTO> createVariation(@Valid @RequestBody VariationDTO variationDTO) throws Exception {
         log.debug("REST request to save Variation : {}", variationDTO);
+        
         if (variationDTO.getId() != null) {
             throw new BadRequestAlertException("A new variation cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        VariationDTO result = variationService.save(variationDTO);
+        
+        Variation result = variationService.create(variationDTO);
+
+        this.notificationService.sendNotification(result);
+        
         return ResponseEntity.created(new URI("/api/variations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+            .body(variationService.getDTO(result));
     }
 
     /**
@@ -96,13 +116,23 @@ public class VariationResource {
      */
     @GetMapping("/variations")
     @Timed
-    public ResponseEntity<List<VariationDTO>> getAllVariations(VariationCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<VariationFullDTO>> getAllVariations(VariationCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Variations by criteria: {}", criteria);
-        Page<VariationDTO> page = variationQueryService.findByCriteria(criteria, pageable);
+        Page<VariationFullDTO> page = variationQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/variations");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    @GetMapping("/pending-variations")
+    @Timed
+    @Transactional
+    public ResponseEntity<List<VariationFullDTO>> getAllPendingVariations(Pageable pageable) {
+        log.debug("REST request togetAllPendingVariations");
+        Page<VariationFullDTO> page = variationService.getPending(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/pending-variations");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
     /**
      * GET  /variations/:id : get the "id" variation.
      *
@@ -130,4 +160,46 @@ public class VariationResource {
         variationService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+    
+    
+    /*
+     *   1) TENGO Q RETORNAR EL ESTADO GENERAL y el PARTICULAR
+     *   2) si se aprobo la Particular y falta la General => envio notificacion
+     * */
+    @PostMapping("/approve")
+    @Timed
+    public ResponseEntity<Boolean> approve(@RequestBody Long id) throws Exception {
+        log.debug("REST request to approve : {}", id);
+        if (id == null) {
+            throw new BadRequestAlertException("approve - id is null", ENTITY_NAME, "id is null");
+        }
+        Variation variation = variationService.findById(id);
+        Approvals approvals = approvalsService.approve(variation.getApprovals().getId());
+        variation.setApprovals(approvals);
+        variation = variationService.save(variation);
+        //puede pasar que llege a un punto sin retorno, x ejemplo cuando no tenga mas supervisores en un nivel x
+        	//- opciones darle la opcion q apruebe de todos modos - para eso crear un metodo aprroavcion.neverCantApprove()
+        		//dejo q la execcion se envie a front
+        this.notificationService.sendNotification(variation);
+        
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Approve", id.toString())).body(true);
+    }
+    
+
+    @PostMapping("/rejected")
+    @Timed
+    public ResponseEntity<Boolean> rejected(@RequestBody Long id) throws Exception {
+        log.debug("REST request to rejected : {}", id);
+        if (id == null) {
+            throw new BadRequestAlertException("rejected - id is null", ENTITY_NAME, "id is null");
+        }
+        Variation variation = variationService.findById(id);
+        Approvals approvals = approvalsService.rejected(variation.getApprovals().getId());
+        variation.setApprovals(approvals);
+        variation = variationService.save(variation);
+        this.notificationService.sendNotification(variation);
+        
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Rejected", id.toString())).body(true);
+    }
+    
 }

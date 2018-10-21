@@ -6,12 +6,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import ar.com.intelimanagement.domain.Approvals;
 import ar.com.intelimanagement.domain.Product;
+import ar.com.intelimanagement.domain.ProductByBooking;
 import ar.com.intelimanagement.domain.SupervisorApprovals;
 import ar.com.intelimanagement.domain.User;
 import ar.com.intelimanagement.domain.Variation;
 import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
 import ar.com.intelimanagement.service.dto.VariationDTO;
+import ar.com.intelimanagement.service.dto.VariationFullDTO;
+import ar.com.intelimanagement.service.mapper.ApprovalsMapper;
+import ar.com.intelimanagement.service.mapper.ProductByBookingMapper;
 import ar.com.intelimanagement.service.mapper.ProductMapper;
 import ar.com.intelimanagement.service.mapper.UserMapper;
 import ar.com.intelimanagement.service.mapper.VariationMapper;
@@ -22,8 +27,10 @@ public class VariationMapperImpl implements VariationMapper {
     @Autowired
     private UserMapper userMapper;
     @Autowired
-    private ProductMapper productMapper;
-
+    private ProductByBookingMapper productMapper;
+    @Autowired
+    private ApprovalsMapper approvalsMapper;
+    
     @Override
     public List<Variation> toEntity(List<VariationDTO> dtoList) {
         if ( dtoList == null ) {
@@ -97,6 +104,7 @@ public class VariationMapperImpl implements VariationMapper {
 
         variation.setProduct( productMapper.fromId( variationDTO.getProduct() ) );
         variation.setCreationUser( userMapper.userFromId( variationDTO.getCreationUser() ) );
+        variation.setApprovals(approvalsMapper.fromId(variationDTO.getApprovalsId()));
         variation.setId( variationDTO.getId() );
         variation.setExtraCharge( variationDTO.getExtraCharge() );
         variation.setNewCharge( variationDTO.getNewCharge() );
@@ -112,11 +120,6 @@ public class VariationMapperImpl implements VariationMapper {
         variation.setRefundInPoints( variationDTO.getRefundInPoints() );
         variation.setRefundInCash( variationDTO.getRefundInCash() );
         variation.setCacel( variationDTO.getCacel() );
-        SupervisorApprovals approvals = new SupervisorApprovals();
-        approvals.setCreationUser(userMapper.userFromId( variationDTO.getCreationUser()));
-        approvals.setStatus(ApprovalsStatusType.PENDING);
-        approvals.setApproveLevel(1);
-        variation.setApprovals(approvals);
         return variation;
     }
 
@@ -124,7 +127,7 @@ public class VariationMapperImpl implements VariationMapper {
         if ( variation == null ) {
             return null;
         }
-        Product product = variation.getProduct();
+        ProductByBooking product = variation.getProduct();
         if ( product == null ) {
             return null;
         }
@@ -149,4 +152,60 @@ public class VariationMapperImpl implements VariationMapper {
         }
         return id;
     }
+
+    private Long variationApprovalsId(Variation variation) {
+        if ( variation == null ) {
+            return null;
+        }
+        Approvals approvals = variation.getApprovals();
+        if ( approvals == null ) {
+            return null;
+        }
+        Long id = approvals.getId();
+        if ( id == null ) {
+            return null;
+        }
+        return id;
+    }
+    
+	@Override
+	public VariationFullDTO toFullDto(Variation variation) {
+		  if ( variation == null ) {
+	            return null;
+	        }
+
+		  	VariationFullDTO variationDTO = new VariationFullDTO();
+
+	        Long id = variationProductId( variation );
+	        if ( id != null ) {
+	            variationDTO.setProduct(this.productMapper.toFullDto(variation.getProduct()));
+	        }
+	        Long id1 = variationCreationUserId( variation );
+	        if ( id1 != null ) {
+	            variationDTO.setCreationUser(userMapper.userToUserMinDTO(variation.getCreationUser()));
+	        }
+	        
+	        Long id2 = variationApprovalsId( variation );
+	        if ( id2 != null ) {
+	            variationDTO.setApprovals(approvalsMapper.toDto(variation.getApprovals()));
+	        }
+	        
+	        variationDTO.setId( variation.getId() );
+	        variationDTO.setExtraCharge( variation.getExtraCharge() );
+	        variationDTO.setNewCharge( variation.getNewCharge() );
+	        variationDTO.setNewCost( variation.getNewCost() );
+	        variationDTO.setNewBenefit( variation.getNewBenefit() );
+	        variationDTO.setNewExternalLocatorId( variation.getNewExternalLocatorId() );
+	        variationDTO.setComments( variation.getComments() );
+	        variationDTO.setCreationDate( variation.getCreationDate() );
+	        variationDTO.setArea( variation.getArea() );
+	        variationDTO.setCampaing( variation.getCampaing() );
+	        variationDTO.setReason( variation.getReason() );
+	        variationDTO.setRecoverable( variation.getRecoverable() );
+	        variationDTO.setRefundInPoints( variation.getRefundInPoints() );
+	        variationDTO.setRefundInCash( variation.getRefundInCash() );
+	        variationDTO.setCacel( variation.getCacel() );
+
+	        return variationDTO;
+	}
 }

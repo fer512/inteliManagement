@@ -48,6 +48,8 @@ public class VariationDTO implements Serializable {
 
     private Boolean cacel;
 
+    private Long approvalsId;
+    
     
     public Long getId() {
 		return id;
@@ -205,4 +207,24 @@ public class VariationDTO implements Serializable {
     public int hashCode() {
         return Objects.hashCode(getId());
     }
+
+	public Long getApprovalsId() {
+		return approvalsId;
+	}
+
+	public void setApprovalsId(Long approvalsId) {
+		this.approvalsId = approvalsId;
+	}
+
+	@Override
+	public String toString() {
+		return "VariationDTO [id=" + id + ", extraCharge=" + extraCharge + ", newCharge=" + newCharge + ", newCost="
+				+ newCost + ", newBenefit=" + newBenefit + ", newExternalLocatorId=" + newExternalLocatorId
+				+ ", comments=" + comments + ", creationDate=" + creationDate + ", creationUser=" + creationUser
+				+ ", product=" + product + ", area=" + area + ", campaing=" + campaing + ", reason=" + reason
+				+ ", recoverable=" + recoverable + ", refundInPoints=" + refundInPoints + ", refundInCash="
+				+ refundInCash + ", cacel=" + cacel + ", approvalsId=" + approvalsId + "]";
+	}
+	
+	
 }

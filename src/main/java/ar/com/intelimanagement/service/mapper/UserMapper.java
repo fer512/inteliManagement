@@ -3,6 +3,7 @@ package ar.com.intelimanagement.service.mapper;
 import ar.com.intelimanagement.domain.Authority;
 import ar.com.intelimanagement.domain.User;
 import ar.com.intelimanagement.service.dto.UserDTO;
+import ar.com.intelimanagement.service.dto.UserMinDTO;
 
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,10 @@ public class UserMapper {
         return new UserDTO(user);
     }
 
+    public UserMinDTO userToUserMinDTO(User user) {
+        return new UserMinDTO(user);
+    }
+    
     public List<UserDTO> usersToUserDTOs(List<User> users) {
         return users.stream()
             .filter(Objects::nonNull)

@@ -27,21 +27,6 @@ export class VariationUpdateComponent implements OnInit {
     creation_date: string;
     creation_user: string;
 
-    providers: ListOpt[] = [
-        { value: 'CON', description: 'Consolid' },
-        { value: 'EXP', description: 'Expidia' },
-        { value: 'HBS', description: 'HotelBeds' },
-        { value: 'TOU', description: 'Tourico' }
-    ];
-
-    products: ListOpt[] = [
-        { value: 'HOTEL', description: 'Hotel' },
-        { value: 'FLIGHT', description: 'Vuelo' },
-        { value: 'CAR', description: 'Auto' },
-        { value: 'TRANFER', description: ' Traslado' },
-        { value: 'TOURS', description: 'Actividades' }
-    ];
-
     areas: ListOpt[] = [
         { value: 'CUSTOMER_SERVICE', description: 'Customer Service' },
         { value: 'POST_SALE', description: 'Post Venta' },
@@ -93,6 +78,7 @@ export class VariationUpdateComponent implements OnInit {
         if (this.variation.id !== undefined) {
             this.subscribeToSaveResponse(this.variationService.update(this.variation));
         } else {
+            this.variation.product = 1;
             this.subscribeToSaveResponse(this.variationService.create(this.variation));
         }
     }

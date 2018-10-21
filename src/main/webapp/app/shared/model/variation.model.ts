@@ -13,7 +13,7 @@ export interface IVariation {
     creation_date?: Moment;
     creation_user?: string;
     provider?: string;
-    product?: string;
+    product?: number;
     area?: string;
     campaing?: string;
     reason?: string;
@@ -39,7 +39,7 @@ export class Variation implements IVariation {
         public creation_date?: Moment,
         public creation_user?: string,
         public provider?: string,
-        public product?: string,
+        public product?: number,
         public area?: string,
         public campaing?: string,
         public reason?: string,

@@ -2,7 +2,9 @@ package ar.com.intelimanagement.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the Booking entity.
@@ -36,6 +38,8 @@ public class BookingDTO implements Serializable {
 
     private Long companyId;
 
+    private Set<ProductByBookingDTO> products;
+    
     public Long getId() {
         return id;
     }
@@ -170,4 +174,12 @@ public class BookingDTO implements Serializable {
             ", company=" + getCompanyId() +
             "}";
     }
+
+	public Set<ProductByBookingDTO> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<ProductByBookingDTO> products) {
+		this.products = products;
+	}
 }

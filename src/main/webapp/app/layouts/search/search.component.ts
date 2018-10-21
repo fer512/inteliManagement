@@ -17,9 +17,10 @@ export class SearchComponent implements OnInit {
     currentAccount: any;
     search = null;
     links = [
-        { title: 'Mis Registros', routerlink: '/booking-im' },
-        { title: 'Mis Pendientes', routerlink: '' },
-        { title: 'Notificaciones', routerlink: '/notification-im' }
+        { title: 'Home', routerlink: '/booking-im', icon: 'home' },
+        { title: 'Mis Pendientes', routerlink: '/variation-pending', icon: null },
+        { title: 'Mis Pedidos', routerlink: '/variation', icon: null },
+        { title: 'Notificaciones', routerlink: '/notification-im', icon: null }
     ];
     activeLink = this.links[0];
     background = '';

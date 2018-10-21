@@ -1,8 +1,14 @@
 package ar.com.intelimanagement.service;
 
+import ar.com.intelimanagement.domain.ApprovalHistory;
+import ar.com.intelimanagement.domain.Approvals;
+import ar.com.intelimanagement.domain.SupervisorApprovals;
+import ar.com.intelimanagement.domain.User;
 import ar.com.intelimanagement.domain.Variation;
+import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
 import ar.com.intelimanagement.repository.VariationRepository;
 import ar.com.intelimanagement.service.dto.VariationDTO;
+import ar.com.intelimanagement.service.dto.VariationFullDTO;
 import ar.com.intelimanagement.service.mapper.VariationMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +18,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 /**
  * Service Implementation for managing Variation.
@@ -27,9 +36,15 @@ public class VariationService {
 
     private final VariationMapper variationMapper;
 
-    public VariationService(VariationRepository variationRepository, VariationMapper variationMapper) {
+    private final UserService userService;
+    
+    private final ApprovalsService approvalsService;
+
+    public VariationService(VariationRepository variationRepository, VariationMapper variationMapper,UserService userService,ApprovalsService approvalsService) {
         this.variationRepository = variationRepository;
         this.variationMapper = variationMapper;
+        this.userService = userService;
+        this.approvalsService = approvalsService;
     }
 
     /**
@@ -45,6 +60,18 @@ public class VariationService {
         return variationMapper.toDto(variation);
     }
 
+    public Variation saveOk(VariationDTO variationDTO) {
+        log.debug("Request to save Variation : {}", variationDTO);
+        Variation variation = variationMapper.toEntity(variationDTO);
+        variation = variationRepository.save(variation);
+        return variation;
+    }
+    
+    public Variation save(Variation variation) {
+        variation = variationRepository.save(variation);
+        return variation;
+    }
+    
     /**
      * Get all the variations.
      *
@@ -81,4 +108,76 @@ public class VariationService {
         log.debug("Request to delete Variation : {}", id);
         variationRepository.deleteById(id);
     }
+    
+    /**
+     * Save a variation.
+     *
+     * @param variationDTO the entity to save
+     * @return the persisted entity
+     * @throws Exception
+     */
+    public Variation create(VariationDTO variationDTO) throws Exception {   	
+    	User u = this.userService.getUserWithAuthorities().get();
+    	   	    	
+    	SupervisorApprovals ap = new SupervisorApprovals();
+    	ap.setApproveLevel(1);
+    	ap.setCreationUser(u);
+    	ap.setEndDate(null);
+    	ap.setStastDate(Instant.now());
+    	ap.setStatus(ApprovalsStatusType.CREATE);
+    	
+    	List<ApprovalHistory> history = new ArrayList<ApprovalHistory>();
+    	ApprovalHistory h = new ApprovalHistory();
+    	h.setArea("");
+    	h.setRole("");
+    	h.setStatus(ApprovalsStatusType.CREATE);
+    	h.setUser(u);
+    	h.setApprovals(ap);
+    	history.add(h);
+    	
+    	ap.setHistory(history);
+    	
+    	
+        if(ap.pointOfNoReturn()){
+        	ap.approve(u);
+        }
+        
+    	Approvals approvals = approvalsService.save(ap);
+    	
+    	variationDTO.setCreationUser(u.getId());
+    	variationDTO.setCreationDate(ZonedDateTime.now());
+    	variationDTO.setApprovalsId(approvals.getId());
+    	Variation v =  this.saveOk(variationDTO);
+    	v.setApprovals(approvals);
+    	
+    	return v;
+    }
+    
+    @Transactional(readOnly = true)
+    public Page<VariationFullDTO> getPending(Pageable pageable) {
+    	log.debug("Request to get pending Variations");
+    	User u = this.userService.findById(this.userService.getUserWithAuthorities().get().getId());
+    	u.getTeam();
+    	Page<Variation> p =  variationRepository.getPending(pageable,u);
+    	return p.map(variationMapper::toFullDto);
+    }
+
+	public Variation findById(Long id) {
+		  log.debug("Request to get Variation : {}", id);
+	        return variationRepository.findById(id).get();
+	}
+
+	public VariationDTO getDTO(Variation variation) {
+		return this.variationMapper.toDto(variation);
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public ApprovalsService getApprovalsService() {
+		return approvalsService;
+	}
+	
+
 }

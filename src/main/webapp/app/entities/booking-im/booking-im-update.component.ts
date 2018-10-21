@@ -1,18 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
-
 import { IBookingIm } from 'app/shared/model/booking-im.model';
 import { BookingImService } from './booking-im.service';
 import { ICompanyIm } from 'app/shared/model/company-im.model';
 import { CompanyImService } from 'app/entities/company-im';
-import { MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { IProductByBooking, ProductByBooking } from 'app/shared/model/product-by-booking.model';
+import { ProductImService } from 'app/entities/product-im';
+import { IProductIm } from 'app/shared/model/product-im.model';
 
 export interface ListOpt {
-    value: string;
+    value: any;
     description: string;
+}
+
+export interface DialogData {
+    idReserveLocatorJuniperProduct: string;
+    idReserveLocatorJuniperProvider: string;
+    idReserveLocatorJuniper: string;
+    idReserveLocatorExternal: string;
 }
 
 @Component({
@@ -20,9 +30,10 @@ export interface ListOpt {
     templateUrl: './booking-im-update.component.html'
 })
 export class BookingImUpdateComponent implements OnInit {
+    emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+
     private _booking: IBookingIm;
     isSaving: boolean;
-
     companies: ICompanyIm[];
 
     paytypes: ListOpt[] = [
@@ -31,11 +42,28 @@ export class BookingImUpdateComponent implements OnInit {
         { value: 'MIXED', description: 'Mixto' }
     ];
 
+    products: ListOpt[] = [
+        { value: 'HOTEL', description: 'Hotel' },
+        { value: 'FLIGHT', description: 'Vuelo' },
+        { value: 'CAR', description: 'Auto' },
+        { value: 'TRANFER', description: ' Traslado' },
+        { value: 'TOURS', description: 'Actividades' }
+    ];
+
+    providers: ListOpt[] = [
+        { value: 'CON', description: 'Consolid' },
+        { value: 'EXP', description: 'Expidia' },
+        { value: 'HBS', description: 'HotelBeds' },
+        { value: 'TOU', description: 'Tourico' }
+    ];
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private bookingService: BookingImService,
         private companyService: CompanyImService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private productService: ProductImService,
+        public dialog: MatDialog
     ) {}
 
     ngOnInit() {
@@ -46,6 +74,17 @@ export class BookingImUpdateComponent implements OnInit {
         this.companyService.query().subscribe(
             (res: HttpResponse<ICompanyIm[]>) => {
                 this.companies = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+
+        this.productService.query().subscribe(
+            (res: HttpResponse<IProductIm[]>) => {
+                let productsAux: ListOpt[] = [];
+                res.body.forEach(e => {
+                    productsAux.push({ value: e.id, description: e.name });
+                });
+                this.products = productsAux;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -65,6 +104,23 @@ export class BookingImUpdateComponent implements OnInit {
             this.subscribeToSaveResponse(this.bookingService.create(this.booking));
             //this.openSnackBar("Un nuevo Booking ha sido creado con el identificador","");
         }
+    }
+
+    openDialog(): void {
+        const dialogRef = this.dialog.open(BookingImAddJlDialogComponent, {
+            width: '500px',
+            data: {
+                products: this.products,
+                providers: this.providers
+            }
+        });
+
+        dialogRef.afterClosed().subscribe((result: ProductByBooking) => {
+            if (result != null) {
+                if (!this.booking.products) this.booking.products = [];
+                this.booking.products.push(result);
+            }
+        });
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IBookingIm>>) {
@@ -93,5 +149,29 @@ export class BookingImUpdateComponent implements OnInit {
 
     set booking(booking: IBookingIm) {
         this._booking = booking;
+    }
+}
+
+/*Dialog*/
+
+@Component({
+    selector: 'booking-im-add-jl-dialog.component',
+    templateUrl: 'booking-im-add-jl-dialog.component.html'
+})
+export class BookingImAddJlDialogComponent {
+    constructor(public dialogRef: MatDialogRef<BookingImAddJlDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
+    onConfirm() {
+        let dto: ProductByBooking = new ProductByBooking();
+        dto.idReserveLocatorExternal = this.data.idReserveLocatorExternal;
+        dto.idReserveLocatorJuniper = this.data.idReserveLocatorJuniper;
+        dto.productId = Number(this.data.idReserveLocatorJuniperProduct);
+        dto.idReserveLocatorJuniperProduct = this.data.idReserveLocatorJuniperProduct;
+        dto.idReserveLocatorJuniperProvider = this.data.idReserveLocatorJuniperProvider;
+        this.dialogRef.close(dto);
     }
 }

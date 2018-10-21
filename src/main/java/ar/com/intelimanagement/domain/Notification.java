@@ -2,6 +2,7 @@ package ar.com.intelimanagement.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
 import ar.com.intelimanagement.domain.enumeration.NotificationType;
 
 import org.hibernate.annotations.Cache;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -33,7 +35,7 @@ public class Notification implements Serializable {
     private NotificationType type;
 
     @Column(name = "detail")
-    private String detail;
+    private byte[] detail;
     
     @Column(name = "id_reference")
     private Long idReference;
@@ -131,11 +133,11 @@ public class Notification implements Serializable {
 		this.type = type;
 	}
 
-	public String getDetail() {
+	public byte[] getDetail() {
 		return detail;
 	}
 
-	public void setDetail(String detail) {
+	public void setDetail(byte[] detail) {
 		this.detail = detail;
 	}
 
@@ -197,4 +199,19 @@ public class Notification implements Serializable {
             ", view='" + isView() + "'" +
             "}";
     }
+
+	public NotificationType getTypeByAppovalsStatus(ApprovalsStatusType status) {
+		switch (status) {
+		case CREATE:
+			return NotificationType.VARIATION_PENDING;
+		case PENDING:
+			return NotificationType.VARIATION_PENDING;
+		case APPOVED:
+			return NotificationType.VARIATION_APPROVED;
+		case REJECTED:
+			return NotificationType.VARIATION_REJECTED;
+		default:
+			return null;
+		}
+	}
 }

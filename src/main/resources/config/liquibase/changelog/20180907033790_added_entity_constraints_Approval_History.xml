@@ -2,15 +2,15 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-	<!-- Added the constraints for entity Variation. -->
-	<changeSet id="20180907023750-2" author="jhipster">
-		
+	<!-- Added the constraints for entity Approval History. -->
+	<changeSet id="20180907033790-2" author="jhipster">
+
 		<addForeignKeyConstraint baseColumnNames="user_id"
 			baseTableName="approval_history" constraintName="fk_approval_history_user_id"
 			referencedColumnNames="id" referencedTableName="jhi_user" />
 
 		<addForeignKeyConstraint baseColumnNames="approval_id"
 			baseTableName="approval_history" constraintName="fk_approval_history_approval_id"
-			referencedColumnNames="id" referencedTableName="approval" />
+			referencedColumnNames="id" referencedTableName="approvals" />
 	</changeSet>
 </databaseChangeLog>

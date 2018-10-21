@@ -57,6 +57,13 @@ public class ApprovalsServiceImpl implements ApprovalsService {
         return approvalsMapper.toDto(approvals);
     }
 
+    @Override
+    public Approvals save(Approvals approvals) {
+        log.debug("Request to save Approvals : {}", approvals);
+        Approvals newA = approvalsRepository.save(approvals);
+        return newA;
+    }
+    
     /**
      * Get all the approvals.
      *
@@ -99,10 +106,17 @@ public class ApprovalsServiceImpl implements ApprovalsService {
 
 	@Override
 	@Transactional
-	public Approvals approve(Long id) {
+	public Approvals approve(Long id) throws Exception {
 		Optional<User> currentUser = this.userService.getUserWithAuthorities();
 		Optional<Approvals> approvals = approvalsRepository.findById(id);
 		return approvals.get().approve(currentUser.get());
 	}
 
+	@Override
+	@Transactional
+	public Approvals rejected(Long id) throws Exception {
+		Optional<User> currentUser = this.userService.getUserWithAuthorities();
+		Optional<Approvals> approvals = approvalsRepository.findById(id);
+		return approvals.get().rejected(currentUser.get());
+	}
 }

@@ -9,6 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.context.annotation.Scope;
+
 import javax.validation.constraints.Email;
 
 import javax.persistence.*;
@@ -28,6 +30,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "jhi_user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Scope("session") 
 public class User extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -109,7 +112,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private Address address;
     
     @OneToMany(mappedBy = "user")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Notification> notifications = new HashSet<>();
     
     @ManyToOne
@@ -286,7 +288,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
         User user = (User) o;
         return !(user.getId() == null || getId() == null) && Objects.equals(getId(), user.getId());
     }
-
+	
     @Override
     public int hashCode() {
         return Objects.hashCode(getId());
@@ -305,4 +307,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
             ", activationKey='" + activationKey + '\'' +
             "}";
     }
+	
+	
 }

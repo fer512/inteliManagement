@@ -1,0 +1,173 @@
+<div class="ubmat-panel">
+    <mat-card>
+        <mat-card-content>
+            <section class="loss-section">
+                <h3><!-- {{ 'inteliManagementApp.variation.home.title' | translate }} --> 
+                    Mis registros pendientes
+                </h3>
+                <div *ngIf="variations">
+                    <mat-card class="example-card" *ngFor="let variation of variations; trackBy: trackId">
+                        <mat-card-header class="notif-header">
+                            <mat-card-title>
+                                <mat-icon class="notif-icon" [ngClass]="variation.approvals.status">{{variation.icon}}</mat-icon>
+                                <b>{{variation.product.product.name}}</b>: <a mat-button routerLink=".">#<em>{{variation.product.booking.id}}</em></a>
+                            </mat-card-title>
+                            <mat-card-subtitle>{{variation.creationDate | date }}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content class="notif-content">
+                            <p>{{variation.comments}}</p>
+                        </mat-card-content>
+                        <mat-card-actions >
+                            <button mat-button color="primary" (click)="approve(variation.id)">Approve</button>
+                        </mat-card-actions>
+                        <mat-card-actions >
+                            <button mat-button color="danger" (click)="rejected(variation.id)">Rejected</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+                <!--<div *ngIf="(variations$ | async)?.length < 1">Estupendo, no tienes registros pendientes.</div>-->
+            </section>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+
+<!--div>
+    <h2 id="page-heading">
+        <span jhiTranslate="inteliManagementApp.variation.home.title">Variations</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-variation"
+            [routerLink]="['/variation/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span jhiTranslate="inteliManagementApp.variation.home.createLabel">
+                Create new Variation
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br />
+    <div class="table-responsive" *ngIf="variations">
+        <table class="table table-striped">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="extra_charge"><span jhiTranslate="inteliManagementApp.variation.extra_charge">Extra
+                            Charge</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="new_charge"><span jhiTranslate="inteliManagementApp.variation.new_charge">New Charge</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="new_cost"><span jhiTranslate="inteliManagementApp.variation.new_cost">New Cost</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="new_benefit"><span jhiTranslate="inteliManagementApp.variation.new_benefit">New
+                            Benefit</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="new_external_locator_id"><span jhiTranslate="inteliManagementApp.variation.new_external_locator_id">New
+                            External Locator Id</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="comments"><span jhiTranslate="inteliManagementApp.variation.comments">Comments</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="creation_date"><span jhiTranslate="inteliManagementApp.variation.creation_date">Creation
+                            Date</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="creation_user"><span jhiTranslate="inteliManagementApp.variation.creation_user">Creation
+                            User</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="provider"><span jhiTranslate="inteliManagementApp.variation.provider">Provider</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="product"><span jhiTranslate="inteliManagementApp.variation.product">Product</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="area"><span jhiTranslate="inteliManagementApp.variation.area">Area</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="campaing"><span jhiTranslate="inteliManagementApp.variation.campaing">Campaing</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="reason"><span jhiTranslate="inteliManagementApp.variation.reason">Reason</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="recoverable"><span jhiTranslate="inteliManagementApp.variation.recoverable">Recoverable</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="refund_in_points"><span jhiTranslate="inteliManagementApp.variation.refund_in_points">Refund
+                            In Points</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="refund_in_cash"><span jhiTranslate="inteliManagementApp.variation.refund_in_cash">Refund
+                            In Cash</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="cacel"><span jhiTranslate="inteliManagementApp.variation.cacel">Cacel</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="relationship_user_variationLogin"><span jhiTranslate="inteliManagementApp.variation.relationship_user_variation">Relationship
+                            User Variation</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let variation of variations ;trackBy: trackId">
+                    <td><a [routerLink]="['/variation', variation.id, 'view' ]">{{variation.id}}</a></td>
+                    <td>{{variation.extra_charge}}</td>
+                    <td>{{variation.new_charge}}</td>
+                    <td>{{variation.new_cost}}</td>
+                    <td>{{variation.new_benefit}}</td>
+                    <td>{{variation.new_external_locator_id}}</td>
+                    <td>{{variation.comments}}</td>
+                    <td>{{variation.creation_date | date:'medium'}}</td>
+                    <td>{{variation.creation_user}}</td>
+                    <td>{{variation.provider}}</td>
+                    <td>{{variation.product}}</td>
+                    <td>{{variation.area}}</td>
+                    <td>{{variation.campaing}}</td>
+                    <td>{{variation.reason}}</td>
+                    <td>{{variation.recoverable}}</td>
+                    <td>{{variation.refund_in_points}}</td>
+                    <td>{{variation.refund_in_cash}}</td>
+                    <td>{{variation.cacel}}</td>
+                    <td>
+                        {{variation.relationship_user_variationLogin}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" [routerLink]="['/variation', variation.id, 'view' ]" class="btn btn-info btn-sm">
+                                <fa-icon [icon]="'eye'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+                            <button type="submit" [routerLink]="['/variation', variation.id, 'edit']" class="btn btn-primary btn-sm">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+                            <button type="submit" [routerLink]="['/', { outlets: { popup: 'variation/'+ variation.id + '/delete'} }]"
+                                replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div-->
+<div *ngIf="variations && variations.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+                [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+</div>

@@ -90,9 +90,9 @@
                 <constraints nullable="false" />
             </column>
             
-             <column name="booking_id" type="bigint">
+             <!-- column name="booking_id" type="bigint">
                 <constraints nullable="false" />
-            </column>
+            </column-->
                        
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>

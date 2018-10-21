@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -59,8 +60,7 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
     @JoinColumn(name = "creation_user")
     private User creationUser;
     
-    @OneToMany
-    @JoinColumn(name = "approval_id")
+    @OneToMany(mappedBy="approvals",cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<ApprovalHistory> history;
     
@@ -129,25 +129,55 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 		this.creationUser = creationUser;
 	}
 
-	public Boolean approved(User user){
-		return this.getHistory().stream().anyMatch(h-> h.getUser().getId().equals(user.getId()) && ApprovalsStatusType.APPOVED.equals(h.getStatus()));
-		//throw
+	public Boolean approved(User user) throws Exception{
+		if(this.getHistory().stream().anyMatch(h-> h.getApprovals().getCreationUser().getId().equals(user.getId())))
+			throw new Exception("error.cant.approve.user.creation");
+
+		if(this.getHistory().stream().anyMatch(h-> h.getUser().getId().equals(user.getId()) && ApprovalsStatusType.APPOVED.equals(h.getStatus())))
+			throw new Exception("error.cant.approve.user.approve");
+		
+		return false;
 	}
 	
-	public Boolean validDate(){
+	public Boolean validDate() throws Exception{
 		Instant now = Instant.now();
-		return now.isAfter(this.getStastDate()) && now.isBefore(this.getEndDate());
+		return ((this.getStastDate() == null || now.isAfter(this.getStastDate())) && (this.getEndDate() == null || now.isBefore(this.getEndDate())));
 	}
 	
-	public Boolean validStatus(){
-		return ApprovalsStatusType.PENDING.equals(this.getStatus());//throw
+	public Boolean validStatus() throws Exception{
+		if(ApprovalsStatusType.CREATE.equals(this.getStatus()) || ApprovalsStatusType.PENDING.equals(this.getStatus())) {
+			return true;
+		}
+		throw new Exception("error.cant.approve.status.invalid");
 	}
 	
-	public Approvals approve(User user) {
+	public Approvals approve(User user) throws Exception {
 		if(this.validStatus() && this.validDate() && !this.approved(user)) {
 			return this.approveOK(user);
 		}
-		return null;
+		throw new Exception("error.cant.approve");
+	}
+
+	public Approvals rejected(User user) throws Exception {
+		if(this.validStatus() && this.validDate() && !this.approved(user)) {
+			return this.rejectedOK(user);
+		}
+		throw new Exception("error.cant.rejected");
+	}
+	
+	
+	private Approvals rejectedOK(User user) {
+		return this.rejectedAny(user);
+	}
+
+	private Approvals rejectedAny(User user) {
+		ApprovalHistory history = new ApprovalHistory();
+		history.setStatus(ApprovalsStatusType.REJECTED);
+		history.setUser(user);
+		history.setApprovals(this);
+		this.getHistory().add(history);
+		this.setStatus(ApprovalsStatusType.REJECTED);
+		return this;
 	}
 
 	private Approvals approveOK(User user) {
@@ -158,6 +188,7 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 		ApprovalHistory history = new ApprovalHistory();
 		history.setStatus(ApprovalsStatusType.APPOVED);
 		history.setUser(user);
+		history.setApprovals(this);
 		this.getHistory().add(history);
 		this.setStatus(ApprovalsStatusType.APPOVED);
 		return this;
@@ -172,6 +203,9 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 	public List<User> getUserByNextLevel() {
 		return new ArrayList<User>();
 	}
-	
+
+	public boolean pointOfNoReturn() {
+		return false;
+	}
 	
 }

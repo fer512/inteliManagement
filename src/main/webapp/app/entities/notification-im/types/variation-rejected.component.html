@@ -1,0 +1,10 @@
+<mat-card class="example-card ubmat-mb-sm">
+    <mat-card-header class="notif-header">
+      <mat-card-title><mat-icon class="notif-icon" [ngClass]="-refuse">highlight_off</mat-icon>
+      <b>Registro de Variación Rechazado</b>: <a mat-button routerLink=".">#<em>{{notification.referenceId}}</em></a></mat-card-title>
+      <mat-card-subtitle>Enviado por: {{notification.name}} ~ {{notification.date | date:'dd-MM-yyyy HH:mm:ss'}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="notif-content">
+      <p>{{notification.comment}}</p>
+    </mat-card-content>
+</mat-card>

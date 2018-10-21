@@ -62,7 +62,7 @@ public class Variation implements Serializable {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    private ProductByBooking product;
 
     @NotNull
     @Column(name = "area", nullable = false)
@@ -164,11 +164,11 @@ public class Variation implements Serializable {
 		this.creationUser = creationUser;
 	}
 
-	public Product getProduct() {
+	public ProductByBooking getProduct() {
 		return product;
 	}
 
-	public void setProduct(Product product) {
+	public void setProduct(ProductByBooking product) {
 		this.product = product;
 	}
 

@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Relacionar Id reserva localizador Juniper {{data.name}}</h1>
+<div mat-dialog-content>
+  <table class="ubmat-table">
+    <tr>
+      <td>
+        <mat-form-field class="ubmat-select -md">
+          <mat-select class="ubmat-select -md" name="idReserveLocatorJuniperProduct" id="idReserveLocatorJuniperProduct" [(ngModel)]="data.idReserveLocatorJuniperProduct" placeholder="Producto" required>
+            <mat-option *ngFor="let opt of data.products" [(value)]="opt.value">
+              {{opt.description}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+
+    <tr>
+      <td>  
+        <mat-form-field  class="ubmat-input -md">
+        <input matInput type="text" name="idReserveLocatorJuniper" id="field_idReserveLocatorJuniper"
+        [(ngModel)]="data.idReserveLocatorJuniper" placeholder="Id reserva localizador Juniper" value="">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field class="ubmat-select -md">
+          <mat-select class="ubmat-select -md" name="idReserveLocatorJuniperProvider" id="idReserveLocatorJuniperProvider" [(ngModel)]="data.idReserveLocatorJuniperProvider" placeholder="Proveedor" required>
+            <mat-option *ngFor="let opt of data.providers" [(value)]="opt.value">
+              {{opt.description}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+          <mat-form-field  class="ubmat-input -md">
+              <input matInput type="text" name="idReserveLocatorExternal" id="field_idReserveLocatorExternal"
+              [(ngModel)]="data.idReserveLocatorExternal" placeholder="Id reserva localizador Externo" value="">
+          </mat-form-field>
+      </td>
+    </tr>
+
+  </table>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button (click)="onConfirm()" cdkFocusInitial>Registrar</button>
+</div>

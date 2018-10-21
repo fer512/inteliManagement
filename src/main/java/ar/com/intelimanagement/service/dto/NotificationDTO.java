@@ -2,6 +2,7 @@ package ar.com.intelimanagement.service.dto;
 
 import java.time.Instant;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Objects;
 
 /**
@@ -13,7 +14,7 @@ public class NotificationDTO implements Serializable {
 
     private String type;
 
-    private String detail;
+    private byte[] detail;
     
     private String idReference;
 
@@ -101,11 +102,11 @@ public class NotificationDTO implements Serializable {
 		this.type = type;
 	}
 
-	public String getDetail() {
+	public byte[] getDetail() {
 		return detail;
 	}
 
-	public void setDetail(String detail) {
+	public void setDetail(byte[] detail) {
 		this.detail = detail;
 	}
 

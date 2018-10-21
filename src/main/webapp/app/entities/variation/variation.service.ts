@@ -15,13 +15,16 @@ type EntityArrayResponseType = HttpResponse<IVariation[]>;
 @Injectable({ providedIn: 'root' })
 export class VariationService {
     private resourceUrl = SERVER_API_URL + 'api/variations';
-
+    private urlCreateVariation = SERVER_API_URL + 'api/createVariation';
+    private urlPending = SERVER_API_URL + 'api/pending-variations';
+    private urlApprove = SERVER_API_URL + 'api/approve';
+    private urlRejected = SERVER_API_URL + 'api/rejected';
     constructor(private http: HttpClient) {}
 
     create(variation: IVariation): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(variation);
         return this.http
-            .post<IVariation>(this.resourceUrl, copy, { observe: 'response' })
+            .post<IVariation>(this.urlCreateVariation, copy, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
@@ -45,8 +48,23 @@ export class VariationService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
+    pending(req?: any): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http
+            .get<IVariation[]>(this.urlPending, { params: options, observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
+
+    approve(id: number): Observable<EntityResponseType> {
+        return this.http.post<IVariation>(this.urlApprove, id, { observe: 'response' }).pipe(map((res: EntityResponseType) => res));
+    }
+
+    rejected(id: number): Observable<EntityResponseType> {
+        return this.http.post<IVariation>(this.urlRejected, id, { observe: 'response' }).pipe(map((res: EntityResponseType) => res));
     }
 
     private convertDateFromClient(variation: IVariation): IVariation {
