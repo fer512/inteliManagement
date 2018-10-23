@@ -29,6 +29,7 @@ export class VariationPendingComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    displayedColumns: string[] = ['id', 'product', 'reason', 'area', 'campaing', 'bookingId', 'status', 'action'];
 
     constructor(
         private variationService: VariationService,

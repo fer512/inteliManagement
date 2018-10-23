@@ -1,13 +1,14 @@
-                <nav class="nav-find" mat-tab-nav-bar [backgroundColor]="background">
-                        <a mat-tab-link *ngFor="let link of links" (click)="activeLink = link.title" [active]="activeLink == link.title"
-                                routerLink="{{link.routerlink}}"><mat-icon class="ubmat-mr-sm" *ngIf="link.icon" matSuffix>{{link.icon}}</mat-icon> {{link.title}} </a>
-                </nav>
-                <nav class="nav-find">
-                        <mat-form-field class="ubmat-input -md">
-                                <input matInput type="text" placeholder="Identificador Onepocket Juniper" [(ngModel)]="search">
-                                <mat-icon  matSuffix>search</mat-icon>
-                        </mat-form-field>
-                        <div class="button-find">
-                                <button mat-raised-button color="primary" (click)="onSearch()">Buscar</button>
-                        </div>
-                </nav>
+<nav class="nav-find" mat-tab-nav-bar [backgroundColor]="background">
+        <a mat-tab-link *ngFor="let link of links" (click)="activeLink = link.title" [active]="activeLink == link.title" routerLink="{{link.routerlink}}">
+                <mat-icon class="ubmat-mr-sm" *ngIf="link.icon" matSuffix>{{link.icon}}</mat-icon> {{link.title}}
+        </a>
+</nav>
+<nav class="nav-find" *ngIf="activeLink == 'Home'">
+        <mat-form-field class="ubmat-input -md">
+                <input matInput type="text" placeholder="Identificador Onepocket Juniper" [(ngModel)]="search">
+                <mat-icon class="ubmat-icon-md" matSuffix>search</mat-icon>
+        </mat-form-field>
+        <div class="button-find">
+                <button mat-raised-button color="primary" (click)="onSearch()">Buscar</button>
+        </div>
+</nav>

@@ -24,7 +24,8 @@ import {
     FooterComponent,
     PageRibbonComponent,
     ActiveMenuDirective,
-    ErrorComponent
+    ErrorComponent,
+    DialogOverviewExampleDialog
 } from './layouts';
 import { MaterialModule } from './shared';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -50,8 +51,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         ErrorComponent,
         PageRibbonComponent,
         ActiveMenuDirective,
-        FooterComponent
+        FooterComponent,
+        DialogOverviewExampleDialog
     ],
+    entryComponents: [DialogOverviewExampleDialog],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,

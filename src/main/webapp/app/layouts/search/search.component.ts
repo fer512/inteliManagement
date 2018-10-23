@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Principal } from 'app/core';
 import { HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
@@ -6,12 +6,12 @@ import { IBookingIm } from 'app/shared/model/booking-im.model';
 import { BookingImService } from 'app/entities/booking-im';
 import { INotificationIm } from 'app/shared/model/notification-im.model';
 import { NotificationImService } from 'app/entities/notification-im';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
     selector: 'jhi-search',
     /*  templateUrl: './navbar.component.html',*/
-    templateUrl: './search.material.html',
-    styleUrls: ['search.css']
+    templateUrl: './search.material.html'
 })
 export class SearchComponent implements OnInit {
     currentAccount: any;
@@ -22,7 +22,7 @@ export class SearchComponent implements OnInit {
         { title: 'Mis Pedidos', routerlink: '/variation', icon: null },
         { title: 'Notificaciones', routerlink: '/notification-im', icon: null }
     ];
-    activeLink = this.links[0];
+    activeLink = this.links[0].title;
     background = '';
     countNotification: any = 5;
     notifications: INotificationIm[];
@@ -31,12 +31,26 @@ export class SearchComponent implements OnInit {
         private principal: Principal,
         private bookingService: BookingImService,
         private router: Router,
-        private notificationService: NotificationImService
+        private notificationService: NotificationImService,
+        public dialog: MatDialog
     ) {}
 
     ngOnInit() {
         this.principal.identity().then(account => {
             this.currentAccount = account;
+        });
+    }
+
+    openDialog(bookingId: string): void {
+        const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+            width: '500px',
+            data: bookingId
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result != null) {
+                this.newBooking(result);
+            }
         });
     }
 
@@ -58,7 +72,7 @@ export class SearchComponent implements OnInit {
         if (list != null && list.length == 1) {
             this.view(list[0].id);
         } else {
-            this.newBooking();
+            this.openDialog(this.search);
         }
     }
 
@@ -67,8 +81,9 @@ export class SearchComponent implements OnInit {
         this.router.navigate([url]);
     }
 
-    newBooking() {
+    newBooking(bookingId: string) {
         let url = '/booking-im/new';
+        this.bookingService.addNewBookingId(bookingId);
         this.router.navigate([url]);
     }
 
@@ -102,5 +117,21 @@ export class SearchComponent implements OnInit {
 
     private onError(errorMessage: string) {
         //this.jhiAlertService.error(errorMessage, null, null);
+    }
+}
+
+@Component({
+    selector: 'dialog-overview-example-dialog',
+    templateUrl: 'dialog-overview-example-dialog.html'
+})
+export class DialogOverviewExampleDialog {
+    constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>, @Inject(MAT_DIALOG_DATA) public data: string) {}
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
+    onConfirm(): void {
+        this.dialogRef.close(this.data);
     }
 }

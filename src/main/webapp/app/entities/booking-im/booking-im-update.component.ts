@@ -12,6 +12,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { IProductByBooking, ProductByBooking } from 'app/shared/model/product-by-booking.model';
 import { ProductImService } from 'app/entities/product-im';
 import { IProductIm } from 'app/shared/model/product-im.model';
+import { isNumber } from '@ng-bootstrap/ng-bootstrap/util/util';
 
 export interface ListOpt {
     value: any;
@@ -68,15 +69,24 @@ export class BookingImUpdateComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
+
         this.activatedRoute.data.subscribe(({ booking }) => {
             this.booking = booking;
         });
+
         this.companyService.query().subscribe(
             (res: HttpResponse<ICompanyIm[]>) => {
                 this.companies = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+
+        this.bookingService.newBookingId.subscribe(data => {
+            if (data != null) {
+                this.booking.idTransaction = data;
+                this.bookingService.addNewBookingId(null);
+            }
+        });
 
         this.productService.query().subscribe(
             (res: HttpResponse<IProductIm[]>) => {
@@ -88,6 +98,32 @@ export class BookingImUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+    }
+
+    varSum(a: number, b: number): Number {
+        let result;
+        let val1;
+        let val2;
+
+        if (isNaN(a)) {
+            val1 = 0;
+        } else {
+            val1 = Number(a);
+        }
+
+        if (isNaN(b)) {
+            val2 = 0;
+        } else {
+            val2 = Number(b);
+        }
+
+        result = +val1 + val2;
+
+        if (isNaN(result)) {
+            return 0;
+        } else {
+            return result;
+        }
     }
 
     previousState() {

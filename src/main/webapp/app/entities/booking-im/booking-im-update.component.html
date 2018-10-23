@@ -10,7 +10,7 @@
             <td>
             <mat-form-field  class="ubmat-input -md">
               <input matInput type="text" name="idTransaction" id="field_idTransaction"
-              [(ngModel)]="booking.idTransaction" placeholder="Id transacción" value="">
+              [(ngModel)]="booking.idTransaction" disabled placeholder="Id transacción" value="">
             </mat-form-field> 
             </td>
             <td>
@@ -63,12 +63,13 @@
               <mat-form-field  class="ubmat-input -md">
                 <input matInput type="text" name="paymentPointsInUSD" id="field_paymentPointsInUSD"
                 [(ngModel)]="booking.paymentPointsInUSD" placeholder="USD en Puntos" value="">
+                <span matPrefix>USD&nbsp;</span>
               </mat-form-field>
             </td>
             <!-- Total -->
             <td>
               <mat-form-field  class="ubmat-input -md">
-                <input matInput type="text" placeholder="Total" value="">
+                <input matInput type="text" disabled placeholder="Total" value="{{varSum(booking.paymentPointsInUSD,booking.paymentCreditCard)}}">
                 <span matPrefix>USD&nbsp;</span>
               </mat-form-field>
             </td>
@@ -113,13 +114,13 @@
           </tr>
           <tr>
             <td colspan="3">
-              <button mat-stroked-button color="primary" (click)="openDialog()">Relacionar Id reserva localizador Juniper</button>
+              <button mat-raised-button color="primary" (click)="openDialog()">Nuevo localizador Juniper</button>
             </td>
           </tr> 
         </table>
         <hr class="ubmat-mt-md ubmat-mb-lg">
-        <button mat-raised-button  type="submit" id="save-entity" (click)="save()" [disabled]="editForm.form.invalid || isSaving" color="primary">Registrar</button>
-        <button mat-raised-button  type="submit" id="cancel-save" (click)="previousState()" color="warn">Cancelar</button>
+        <button mat-raised-button  type="submit" id="save-entity" (click)="save()" [disabled]="editForm.form.invalid || isSaving" color="primary">Listo</button>
+        <button mat-raised-button  type="submit" id="cancel-save" (click)="previousState()" color="default">Cancelar</button>
         
       </section>
     </form>

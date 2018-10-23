@@ -1,12 +1,13 @@
-<mat-card class="example-card ubmat-mb-sm">
-    <mat-card-header class="notif-header">
-      <mat-card-title>
-        <b>#<em>{{notification.referenceId}}</em> Solicitud de Aprobación</b>
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="notif-content">
-      <p>Se requiere tú aprobación para validar un nuevo registro en la reserva n° xxxxxxxx</p>
-      <p class="ubmat-tc-gray-4">Enviado por: {{notification.name}} ~ {{notification.date | date:'dd-MM-yyyy HH:mm:ss'}}</p>
-    </mat-card-content>
-    
-  </mat-card>
+<div class="ubmat-notification">
+  <div class="-header">  
+    <p class="-title">
+      #<em>{{notification.referenceId}}</em> Solicitud de Aprobación
+    </p>
+  </div>
+  <div class="-content">
+    <p>Se requiere tú aprobación para validar un nuevo registro en la reserva n° <b>xxxxxxxx</b>.</p>
+  </div>
+  <div class="-footer">
+    <p>Enviado por: {{notification.name}} ~ {{notification.date | date:'dd-MM-yyyy HH:mm:ss'}}</p>
+  </div>  
+</div>

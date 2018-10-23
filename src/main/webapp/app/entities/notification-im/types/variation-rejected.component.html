@@ -1,10 +1,14 @@
-<mat-card class="example-card ubmat-mb-sm">
-    <mat-card-header class="notif-header">
-      <mat-card-title><mat-icon class="notif-icon" [ngClass]="-refuse">highlight_off</mat-icon>
-      <b>Registro de Variación Rechazado</b>: <a mat-button routerLink=".">#<em>{{notification.referenceId}}</em></a></mat-card-title>
-      <mat-card-subtitle>Enviado por: {{notification.name}} ~ {{notification.date | date:'dd-MM-yyyy HH:mm:ss'}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content class="notif-content">
-      <p>{{notification.comment}}</p>
-    </mat-card-content>
-</mat-card>
+<div class="ubmat-notification">
+  <div class="-header">  
+    <p class="-title">
+      #<em>{{notification.referenceId}}</em> Registro de variación Rechazado
+    </p>
+  </div>
+  <div class="-content">
+    <p>Tu registro de variación creado para la reserva n° xxxxxxxx fue rechazado por <b>{{notification.name}}</b>.</p>
+  </div>
+  <div class="-footer">
+      <p>Enviado por: {{notification.name}} ~ {{notification.date | date:'dd-MM-yyyy HH:mm:ss'}}</p>
+  </div>  
+</div>
+<!--<a mat-button routerLink=".">#<em>{{notification.referenceId}}</em></a>-->

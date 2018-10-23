@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
@@ -13,7 +13,13 @@ type EntityArrayResponseType = HttpResponse<IBookingIm[]>;
 export class BookingImService {
     private resourceUrl = SERVER_API_URL + 'api/bookings';
 
+    public newBookingId: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+
     constructor(private http: HttpClient) {}
+
+    addNewBookingId(newBookingId: string) {
+        this.newBookingId.next(newBookingId);
+    }
 
     create(booking: IBookingIm): Observable<EntityResponseType> {
         return this.http.post<IBookingIm>(this.resourceUrl, booking, { observe: 'response' });

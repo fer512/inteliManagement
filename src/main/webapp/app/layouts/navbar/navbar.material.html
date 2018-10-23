@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
         <mat-toolbar-row>
-                <span>IM Novae</span>
+                <span>IM Novae <span class="navbar-version">{{version}}</span></span>
                 <span class="ubmat-nav-spacer"></span>
 
                 <button mat-button [matMenuTriggerFor]="menu">
@@ -8,7 +8,7 @@
                         <span *ngIf="!getImageUrl()">
                                 <fa-icon [icon]="'user'"></fa-icon>
                                 <span jhiTranslate="global.menu.account.main">
-                                        <mat-icon>account_circle</mat-icon> Account
+                                        <mat-icon>account_circle</mat-icon>
                                 </span>
                         </span>
                         <span *ngIf="getImageUrl()">
