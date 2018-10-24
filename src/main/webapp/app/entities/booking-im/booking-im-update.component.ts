@@ -101,29 +101,9 @@ export class BookingImUpdateComponent implements OnInit {
     }
 
     varSum(a: number, b: number): Number {
-        let result;
-        let val1;
-        let val2;
-
-        if (isNaN(a)) {
-            val1 = 0;
-        } else {
-            val1 = Number(a);
-        }
-
-        if (isNaN(b)) {
-            val2 = 0;
-        } else {
-            val2 = Number(b);
-        }
-
-        result = +val1 + val2;
-
-        if (isNaN(result)) {
-            return 0;
-        } else {
-            return result;
-        }
+        let val1: number = !isNaN(a) ? Number(a) : 0;
+        let val2: number = !isNaN(b) ? Number(b) : 0;
+        return val1 + val2;
     }
 
     previousState() {

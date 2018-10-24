@@ -2,18 +2,17 @@ import { IProductByBooking } from 'app/shared/model//product-by-booking.model';
 
 export interface IBookingIm {
     id?: number;
+    companyId?: number;
     idTransaction?: string;
-    idReserveLocatorJuniper?: string;
-    idReserveLocatorExternal?: string;
-    detail?: string;
-    paymentType?: string;
+    juniperReservationCost?: number;
+    juniperSalePrice?: number;
     paymentCreditCard?: number;
     paymentPointsInUSD?: number;
-    juniperSalePrice?: number;
-    juniperReservationCost?: number;
-    benefitInReservation?: number;
-    companyId?: number;
+    paymentType?: string;
     products?: IProductByBooking[];
+    detail?: string;
+    email?: string;
+    benefitInReservation?: number;
 }
 
 export class BookingIm implements IBookingIm {
