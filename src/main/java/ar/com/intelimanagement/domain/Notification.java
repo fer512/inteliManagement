@@ -33,9 +33,6 @@ public class Notification implements Serializable {
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private NotificationType type;
-
-    @Column(name = "detail")
-    private byte[] detail;
     
     @Column(name = "id_reference")
     private Long idReference;
@@ -133,13 +130,6 @@ public class Notification implements Serializable {
 		this.type = type;
 	}
 
-	public byte[] getDetail() {
-		return detail;
-	}
-
-	public void setDetail(byte[] detail) {
-		this.detail = detail;
-	}
 
 	public Long getIdReference() {
 		return idReference;

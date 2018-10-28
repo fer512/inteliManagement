@@ -5,10 +5,6 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="inteliManagementApp.notification.name">Name</span></dt>
-                <dd>
-                    <span>{{notification.name}}</span>
-                </dd>
                 <dt><span jhiTranslate="inteliManagementApp.notification.stastDate">Stast Date</span></dt>
                 <dd>
                     <span>{{notification.stastDate}}</span>
@@ -20,12 +16,6 @@
                 <dt><span jhiTranslate="inteliManagementApp.notification.view">View</span></dt>
                 <dd>
                     <span>{{notification.view}}</span>
-                </dd>
-                <dt><span jhiTranslate="inteliManagementApp.notification.employee">Employee</span></dt>
-                <dd>
-                    <div *ngIf="notification.employeeId">
-                        <a [routerLink]="['/employee-im', notification.employeeId, 'view']">{{notification.employeeId}}</a>
-                    </div>
                 </dd>
             </dl>
 

@@ -175,7 +175,7 @@ export class BookingImUpdateComponent implements OnInit {
     templateUrl: 'booking-im-add-jl-dialog.component.html'
 })
 export class BookingImAddJlDialogComponent {
-    constructor(public dialogRef: MatDialogRef<BookingImAddJlDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    constructor(public dialogRef: MatDialogRef<BookingImAddJlDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
     onNoClick(): void {
         this.dialogRef.close();

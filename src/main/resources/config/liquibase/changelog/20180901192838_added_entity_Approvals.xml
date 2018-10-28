@@ -42,7 +42,7 @@
                 <constraints nullable="false" />
             </column>
             
-            <column name="approve_level" type="bigint">
+            <column name="approve_level" type="integer">
                 <constraints nullable="false" />
             </column>
             

@@ -34,6 +34,9 @@ export class Principal {
         return false;
     }
 
+    getName() {
+        return this.userIdentity != null ? this.userIdentity.firstName + ' ' + this.userIdentity.lastName : '';
+    }
     hasAuthority(authority: string): Promise<boolean> {
         if (!this.authenticated) {
             return Promise.resolve(false);

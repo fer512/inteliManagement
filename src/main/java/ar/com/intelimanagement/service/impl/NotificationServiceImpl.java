@@ -140,7 +140,6 @@ public class NotificationServiceImpl implements NotificationService {
 		Notification n = new Notification();
 		n.setUser(u);
 		n.setCreationDate(Instant.now());
-		n.setDetail(MapperUtil.ObjectToBlob(this.variationService.getDTO(variation)));
 		n.setEndDate(null);
 		n.setIdReference(variation.getId());
 		n.setStastDate(Instant.now());

@@ -4,7 +4,7 @@
                 <span class="ubmat-nav-spacer"></span>
 
                 <span *ngIf="isAuthenticated()">
-                        <span>{{principal?.userIdentity?.firstName +' '+ principal?.userIdentity?.lastName }}</span>
+                        <span>{{principal.getName() }}</span>
                 </span>
 
                 <button mat-button [matMenuTriggerFor]="menu">

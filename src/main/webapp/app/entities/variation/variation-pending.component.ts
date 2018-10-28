@@ -128,7 +128,7 @@ export class VariationPendingComponent implements OnInit, OnDestroy {
         this.variations = data;
     }
 
-    private approve(id: number) {
+    approve(id: number) {
         this.variationService.approve(id).subscribe(
             data => {
                 this.jhiAlertService.success('ok', null, null);
@@ -139,7 +139,7 @@ export class VariationPendingComponent implements OnInit, OnDestroy {
         );
     }
 
-    private rejected(id: number) {
+    rejected(id: number) {
         this.variationService.rejected(id).subscribe(
             data => {
                 this.jhiAlertService.success('ok', null, null);
