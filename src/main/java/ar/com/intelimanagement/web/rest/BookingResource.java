@@ -6,6 +6,7 @@ import ar.com.intelimanagement.web.rest.errors.BadRequestAlertException;
 import ar.com.intelimanagement.web.rest.util.HeaderUtil;
 import ar.com.intelimanagement.web.rest.util.PaginationUtil;
 import ar.com.intelimanagement.service.dto.BookingDTO;
+import ar.com.intelimanagement.service.dto.BookingFullDTO;
 import ar.com.intelimanagement.service.dto.BookingCriteria;
 import ar.com.intelimanagement.service.BookingQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -54,7 +55,7 @@ public class BookingResource {
      */
     @PostMapping("/bookings")
     @Timed
-    public ResponseEntity<BookingDTO> createBooking(@Valid @RequestBody BookingDTO bookingDTO) throws URISyntaxException {
+    public ResponseEntity<BookingDTO> createBooking(@Valid @RequestBody BookingFullDTO bookingDTO) throws URISyntaxException {
         log.debug("REST request to save Booking : {}", bookingDTO);
         if (bookingDTO.getId() != null) {
             throw new BadRequestAlertException("A new booking cannot already have an ID", ENTITY_NAME, "idexists");
@@ -76,7 +77,7 @@ public class BookingResource {
      */
     @PutMapping("/bookings")
     @Timed
-    public ResponseEntity<BookingDTO> updateBooking(@Valid @RequestBody BookingDTO bookingDTO) throws URISyntaxException {
+    public ResponseEntity<BookingDTO> updateBooking(@Valid @RequestBody BookingFullDTO bookingDTO) throws URISyntaxException {
         log.debug("REST request to update Booking : {}", bookingDTO);
         if (bookingDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -127,9 +128,9 @@ public class BookingResource {
      */
     @GetMapping("/bookings/{id}")
     @Timed
-    public ResponseEntity<BookingDTO> getBooking(@PathVariable Long id) {
+    public ResponseEntity<BookingFullDTO> getBooking(@PathVariable Long id) {
         log.debug("REST request to get Booking : {}", id);
-        Optional<BookingDTO> bookingDTO = bookingService.findOne(id);
+        Optional<BookingFullDTO> bookingDTO = bookingService.findOne(id);
         return ResponseUtil.wrapOrNotFound(bookingDTO);
     }
 

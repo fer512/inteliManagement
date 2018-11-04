@@ -1,8 +1,11 @@
+import { IProductIm } from 'app/shared/model/product-im.model';
+import { IProviderIm } from 'app/shared/model/provider-im.model';
+
 export interface IProductByBooking {
     id?: number;
-    productId?: number;
     bookingId?: number;
-    idReserveLocatorJuniperProduct?: string;
+    reserveLocatorJuniperProduct?: IProductIm;
+    reserveLocatorJuniperProvider?: IProviderIm;
     idReserveLocatorJuniper?: string;
     idReserveLocatorExternal?: string;
 }
@@ -10,10 +13,9 @@ export interface IProductByBooking {
 export class ProductByBooking implements IProductByBooking {
     constructor(
         public id?: number,
-        public productId?: number,
         public bookingId?: number,
-        public idReserveLocatorJuniperProduct?: string,
-        public idReserveLocatorJuniperProvider?: string,
+        public reserveLocatorJuniperProduct?: IProductIm,
+        public reserveLocatorJuniperProvider?: IProviderIm,
         public idReserveLocatorJuniper?: string,
         public idReserveLocatorExternal?: string
     ) {}

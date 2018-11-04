@@ -17,14 +17,5 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
 
-    @Query(value = "select distinct product from Product product left join fetch product.product_by_providers",
-        countQuery = "select count(distinct product) from Product product")
-    Page<Product> findAllWithEagerRelationships(Pageable pageable);
-
-    @Query(value = "select distinct product from Product product left join fetch product.product_by_providers")
-    List<Product> findAllWithEagerRelationships();
-
-    @Query("select product from Product product left join fetch product.product_by_providers where product.id =:id")
-    Optional<Product> findOneWithEagerRelationships(@Param("id") Long id);
 
 }

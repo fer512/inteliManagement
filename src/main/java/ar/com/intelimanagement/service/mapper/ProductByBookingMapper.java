@@ -11,20 +11,28 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity ProductByBooking and its DTO ProductByBookingDTO.
  */
-@Mapper(componentModel = "spring", uses = {ProductMapper.class, BookingMapper.class})
+@Mapper(componentModel = "spring", uses = {ProductMapper.class,ProviderMapper.class, BookingMapper.class})
 public interface ProductByBookingMapper extends EntityMapper<ProductByBookingDTO, ProductByBooking> {
 
-    @Mapping(source = "product.id", target = "productId")
+    @Mapping(source = "product.id", target = "idReserveLocatorJuniperProduct")
+    @Mapping(source = "provider.id", target = "idReserveLocatorJuniperProvider")
     @Mapping(source = "booking.id", target = "bookingId")
     ProductByBookingDTO toDto(ProductByBooking productByBooking);
 
-    @Mapping(source = "product", target = "product")
+    @Mapping(source = "product", target = "reserveLocatorJuniperProduct")
+    @Mapping(source = "provider", target = "reserveLocatorJuniperProvider")
     @Mapping(source = "booking", target = "booking")
     ProductByBookingFullDTO toFullDto(ProductByBooking productByBooking);
     
-    @Mapping(source = "productId", target = "product")
+    @Mapping(source = "idReserveLocatorJuniperProduct", target = "product")
+    @Mapping(source = "idReserveLocatorJuniperProvider", target = "provider")
     @Mapping(source = "bookingId", target = "booking")
     ProductByBooking toEntity(ProductByBookingDTO productByBookingDTO);
+    
+    @Mapping(source = "reserveLocatorJuniperProduct", target = "product")
+    @Mapping(source = "reserveLocatorJuniperProvider", target = "provider")
+    @Mapping(source = "booking", target = "booking")
+    ProductByBooking toEntity(ProductByBookingFullDTO productByBookingDTO);  
     
     Set<ProductByBooking> productByBookingDTOToProductByBooking(Set<ProductByBookingDTO> products);
     

@@ -12,7 +12,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { IProductByBooking, ProductByBooking } from 'app/shared/model/product-by-booking.model';
 import { ProductImService } from 'app/entities/product-im';
 import { IProductIm } from 'app/shared/model/product-im.model';
-import { isNumber } from '@ng-bootstrap/ng-bootstrap/util/util';
+import { IProviderIm } from 'app/shared/model/provider-im.model';
+import { ProviderImService } from 'app/entities/provider-im';
 
 export interface ListOpt {
     value: any;
@@ -43,20 +44,9 @@ export class BookingImUpdateComponent implements OnInit {
         { value: 'MIXED', description: 'Mixto' }
     ];
 
-    products: ListOpt[] = [
-        { value: 'HOTEL', description: 'Hotel' },
-        { value: 'FLIGHT', description: 'Vuelo' },
-        { value: 'CAR', description: 'Auto' },
-        { value: 'TRANFER', description: ' Traslado' },
-        { value: 'TOURS', description: 'Actividades' }
-    ];
+    products: ListOpt[] = [];
 
-    providers: ListOpt[] = [
-        { value: 'CON', description: 'Consolid' },
-        { value: 'EXP', description: 'Expidia' },
-        { value: 'HBS', description: 'HotelBeds' },
-        { value: 'TOU', description: 'Tourico' }
-    ];
+    providers: ListOpt[] = [];
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -64,6 +54,7 @@ export class BookingImUpdateComponent implements OnInit {
         private companyService: CompanyImService,
         private activatedRoute: ActivatedRoute,
         private productService: ProductImService,
+        private providersService: ProviderImService,
         public dialog: MatDialog
     ) {}
 
@@ -92,9 +83,20 @@ export class BookingImUpdateComponent implements OnInit {
             (res: HttpResponse<IProductIm[]>) => {
                 let productsAux: ListOpt[] = [];
                 res.body.forEach(e => {
-                    productsAux.push({ value: e.id, description: e.name });
+                    productsAux.push({ value: e, description: e.name });
                 });
                 this.products = productsAux;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+
+        this.providersService.query().subscribe(
+            (res: HttpResponse<IProviderIm[]>) => {
+                let providersAux: ListOpt[] = [];
+                res.body.forEach(e => {
+                    providersAux.push({ value: e, description: e.name });
+                });
+                this.providers = providersAux;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -185,9 +187,8 @@ export class BookingImAddJlDialogComponent {
         let dto: ProductByBooking = new ProductByBooking();
         dto.idReserveLocatorExternal = this.data.idReserveLocatorExternal;
         dto.idReserveLocatorJuniper = this.data.idReserveLocatorJuniper;
-        dto.productId = Number(this.data.idReserveLocatorJuniperProduct);
-        dto.idReserveLocatorJuniperProduct = this.data.idReserveLocatorJuniperProduct;
-        dto.idReserveLocatorJuniperProvider = this.data.idReserveLocatorJuniperProvider;
+        dto.reserveLocatorJuniperProduct = this.data.idReserveLocatorJuniperProduct;
+        dto.reserveLocatorJuniperProvider = this.data.idReserveLocatorJuniperProvider;
         this.dialogRef.close(dto);
     }
 }

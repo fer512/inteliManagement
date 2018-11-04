@@ -12,7 +12,7 @@
                                  
 		<addForeignKeyConstraint baseColumnNames="product_id"
 			baseTableName="variation" constraintName="fk_varation_product_id"
-			referencedColumnNames="id" referencedTableName="product" />
+			referencedColumnNames="id" referencedTableName="product_by_booking" />
 
 		<addForeignKeyConstraint baseColumnNames="approvals_id"
 			baseTableName="variation" constraintName="fk_varation_approvals_id"

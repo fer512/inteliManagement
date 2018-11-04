@@ -14,10 +14,6 @@ public class BookingMinDTO implements Serializable {
 
     private String idTransaction;
 
-    private String idReserveLocatorJuniper;
-
-    private String idReserveLocatorExternal;
-
     private String detail;
 
     @NotNull
@@ -52,21 +48,6 @@ public class BookingMinDTO implements Serializable {
         this.idTransaction = idTransaction;
     }
 
-    public String getIdReserveLocatorJuniper() {
-        return idReserveLocatorJuniper;
-    }
-
-    public void setIdReserveLocatorJuniper(String idReserveLocatorJuniper) {
-        this.idReserveLocatorJuniper = idReserveLocatorJuniper;
-    }
-
-    public String getIdReserveLocatorExternal() {
-        return idReserveLocatorExternal;
-    }
-
-    public void setIdReserveLocatorExternal(String idReserveLocatorExternal) {
-        this.idReserveLocatorExternal = idReserveLocatorExternal;
-    }
 
     public String getDetail() {
         return detail;
@@ -150,8 +131,6 @@ public class BookingMinDTO implements Serializable {
         return "BookingDTO{" +
             "id=" + getId() +
             ", idTransaction='" + getIdTransaction() + "'" +
-            ", idReserveLocatorJuniper='" + getIdReserveLocatorJuniper() + "'" +
-            ", idReserveLocatorExternal='" + getIdReserveLocatorExternal() + "'" +
             ", detail='" + getDetail() + "'" +
             ", paymentType='" + getPaymentType() + "'" +
             ", paymentCreditCard=" + getPaymentCreditCard() +

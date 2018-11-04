@@ -25,14 +25,7 @@ public class Provider implements Serializable {
 
     @Column(name = "name")
     private String name;
-
-    @Column(name = "email")
-    private String email;
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Address address;
-
+    
     @ManyToOne
     @JsonIgnoreProperties("providers")
     private Company company;
@@ -57,32 +50,6 @@ public class Provider implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Provider email(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public Provider address(Address address) {
-        this.address = address;
-        return this;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     public Company getCompany() {
@@ -124,7 +91,6 @@ public class Provider implements Serializable {
         return "Provider{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", email='" + getEmail() + "'" +
             "}";
     }
 }

@@ -12,10 +12,6 @@ public class ProviderDTO implements Serializable {
 
     private String name;
 
-    private String email;
-
-    private Long addressId;
-
     private Long companyId;
 
     public Long getId() {
@@ -32,22 +28,6 @@ public class ProviderDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Long getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
     }
 
     public Long getCompanyId() {
@@ -84,8 +64,6 @@ public class ProviderDTO implements Serializable {
         return "ProviderDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", address=" + getAddressId() +
             ", company=" + getCompanyId() +
             "}";
     }

@@ -9,16 +9,6 @@
                 <dd>
                     <span>{{provider.name}}</span>
                 </dd>
-                <dt><span jhiTranslate="inteliManagementApp.provider.email">Email</span></dt>
-                <dd>
-                    <span>{{provider.email}}</span>
-                </dd>
-                <dt><span jhiTranslate="inteliManagementApp.provider.address">Address</span></dt>
-                <dd>
-                    <div *ngIf="provider.addressId">
-                        <a [routerLink]="['/address-im', provider.addressId, 'view']">{{provider.addressId}}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="inteliManagementApp.provider.company">Company</span></dt>
                 <dd>
                     <div *ngIf="provider.companyId">

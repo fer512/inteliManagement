@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 /**
  * A DTO for the Booking entity.
  */
-public class BookingDTO implements Serializable {
+public class BookingFullDTO implements Serializable {
 
     private Long id;
 
@@ -34,7 +34,7 @@ public class BookingDTO implements Serializable {
 
     private Long companyId;
 
-    private Set<ProductByBookingDTO> products;
+    private Set<ProductByBookingFullDTO> products;
     
     public Long getId() {
         return id;
@@ -126,7 +126,7 @@ public class BookingDTO implements Serializable {
             return false;
         }
 
-        BookingDTO bookingDTO = (BookingDTO) o;
+        BookingFullDTO bookingDTO = (BookingFullDTO) o;
         if (bookingDTO.getId() == null || getId() == null) {
             return false;
         }
@@ -154,11 +154,11 @@ public class BookingDTO implements Serializable {
             "}";
     }
 
-	public Set<ProductByBookingDTO> getProducts() {
+	public Set<ProductByBookingFullDTO> getProducts() {
 		return products;
 	}
 
-	public void setProducts(Set<ProductByBookingDTO> products) {
+	public void setProducts(Set<ProductByBookingFullDTO> products) {
 		this.products = products;
 	}
 }

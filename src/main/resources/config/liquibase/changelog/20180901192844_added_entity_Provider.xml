@@ -26,12 +26,6 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="email" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            <column name="address_id" type="bigint">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_provider_address_id" />
-            </column>
             <column name="company_id" type="bigint">
                 <constraints nullable="true" />
             </column>

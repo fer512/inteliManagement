@@ -26,7 +26,6 @@ export class ProviderImUpdateComponent implements OnInit {
     constructor(
         private jhiAlertService: JhiAlertService,
         private providerService: ProviderImService,
-        private addressService: AddressImService,
         private companyService: CompanyImService,
         private activatedRoute: ActivatedRoute
     ) {}
@@ -36,21 +35,6 @@ export class ProviderImUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ provider }) => {
             this.provider = provider;
         });
-        this.addressService.query({ filter: 'provider-is-null' }).subscribe(
-            (res: HttpResponse<IAddressIm[]>) => {
-                if (!this.provider.addressId) {
-                    this.addresses = res.body;
-                } else {
-                    this.addressService.find(this.provider.addressId).subscribe(
-                        (subRes: HttpResponse<IAddressIm>) => {
-                            this.addresses = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.companyService.query().subscribe(
             (res: HttpResponse<ICompanyIm[]>) => {
                 this.companies = res.body;

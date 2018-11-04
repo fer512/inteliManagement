@@ -42,6 +42,7 @@ public class CacheConfiguration {
             cm.createCache(ar.com.intelimanagement.domain.Company.class.getName() + ".users", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Company.class.getName() + ".bookings", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Company.class.getName() + ".providers", jcacheConfiguration);
+            cm.createCache(ar.com.intelimanagement.domain.Company.class.getName() + ".products", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Address.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Approvals.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Approvals.class.getName() + ".history", jcacheConfiguration);
@@ -55,16 +56,13 @@ public class CacheConfiguration {
             cm.createCache(ar.com.intelimanagement.domain.Booking.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Booking.class.getName()+ ".variations", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Provider.class.getName(), jcacheConfiguration);
-            cm.createCache(ar.com.intelimanagement.domain.Provider.class.getName() + ".products", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Product.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Notification.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Variation.class.getName(), jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.ApprovalHistory.class.getName(), jcacheConfiguration);
             //cm.createCache(ar.com.intelimanagement.domain.Variation.class.getName() + ".relationshipProviderVariations", jcacheConfiguration);
             //cm.createCache(ar.com.intelimanagement.domain.Variation.class.getName() + ".relationshipProductVariations", jcacheConfiguration);
-            cm.createCache(ar.com.intelimanagement.domain.Product.class.getName() + ".product_by_providers", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.ProductByBooking.class.getName(), jcacheConfiguration);
-            cm.createCache(ar.com.intelimanagement.domain.Product.class.getName() + ".bookings", jcacheConfiguration);
             cm.createCache(ar.com.intelimanagement.domain.Booking.class.getName() + ".products", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };

@@ -6,6 +6,7 @@ import ar.com.intelimanagement.domain.ProductByBooking;
 import ar.com.intelimanagement.repository.BookingRepository;
 import ar.com.intelimanagement.repository.ProductByBookingRepository;
 import ar.com.intelimanagement.service.dto.BookingDTO;
+import ar.com.intelimanagement.service.dto.BookingFullDTO;
 import ar.com.intelimanagement.service.mapper.BookingMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +47,7 @@ public class BookingServiceImpl implements BookingService {
      * @return the persisted entity
      */
     @Override
-    public BookingDTO save(BookingDTO bookingDTO) {
+    public BookingDTO save(BookingFullDTO bookingDTO) {
         log.debug("Request to save Booking : {}", bookingDTO);
         Booking booking = bookingMapper.toEntity(bookingDTO);
         Set<ProductByBooking> products = booking.getProducts();
@@ -83,10 +84,10 @@ public class BookingServiceImpl implements BookingService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<BookingDTO> findOne(Long id) {
+    public Optional<BookingFullDTO> findOne(Long id) {
         log.debug("Request to get Booking : {}", id);
         return bookingRepository.findById(id)
-            .map(bookingMapper::toDto);
+            .map(bookingMapper::toFullDto);
     }
 
     /**

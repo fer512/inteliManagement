@@ -25,7 +25,16 @@
             <column name="product_id" type="bigint">
                 <constraints nullable="false" />
             </column>
-
+            <column name="provider_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="id_reserve_locator_external" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="id_reserve_locator_juniper" type="bigint">
+                <constraints nullable="false" />
+            </column> 
+            
             <column name="booking_id" type="bigint">
                 <constraints nullable="false" />
             </column>

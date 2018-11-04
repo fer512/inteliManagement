@@ -5,12 +5,6 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="inteliManagementApp.productByBooking.product">Product</span></dt>
-                <dd>
-                    <div *ngIf="productByBooking.productId">
-                        <a [routerLink]="['/product-im', productByBooking.productId, 'view']">{{productByBooking.productId}}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="inteliManagementApp.productByBooking.booking">Booking</span></dt>
                 <dd>
                     <div *ngIf="productByBooking.bookingId">

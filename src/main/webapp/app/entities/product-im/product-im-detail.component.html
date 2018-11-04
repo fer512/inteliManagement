@@ -13,12 +13,6 @@
                 <dd>
                     <span>{{product.code}}</span>
                 </dd>
-                <dt><span jhiTranslate="inteliManagementApp.product.product_by_provider">Product By Provider</span></dt>
-                <dd>
-                    <span *ngFor="let product_by_provider of product.product_by_providers; let last = last">
-                        <a [routerLink]="['/provider-im', product_by_provider?.id, 'view' ]">{{product_by_provider.code}}</a>{{last ? '' : ', '}}
-                    </span>
-                </dd>
             </dl>
 
             <button type="submit"

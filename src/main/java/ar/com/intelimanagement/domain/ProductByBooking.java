@@ -29,11 +29,25 @@ public class ProductByBooking implements Serializable {
     @JsonIgnoreProperties("")
     private Product product;
 
+    
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("")
+    private Provider provider;
+    
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("")
     private Booking booking;
 
+
+    @Column(name = "id_reserve_locator_juniper")
+    private String idReserveLocatorJuniper;
+
+    @Column(name = "id_reserve_locator_external")
+    private String idReserveLocatorExternal;
+
+    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -68,9 +82,35 @@ public class ProductByBooking implements Serializable {
     public void setBooking(Booking booking) {
         this.booking = booking;
     }
+    
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
+    public String getIdReserveLocatorJuniper() {
+		return idReserveLocatorJuniper;
+	}
+
+	public void setIdReserveLocatorJuniper(String idReserveLocatorJuniper) {
+		this.idReserveLocatorJuniper = idReserveLocatorJuniper;
+	}
+
+	public String getIdReserveLocatorExternal() {
+		return idReserveLocatorExternal;
+	}
+
+	public void setIdReserveLocatorExternal(String idReserveLocatorExternal) {
+		this.idReserveLocatorExternal = idReserveLocatorExternal;
+	}
+
+	public Provider getProvider() {
+		return provider;
+	}
+
+	public void setProvider(Provider provider) {
+		this.provider = provider;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

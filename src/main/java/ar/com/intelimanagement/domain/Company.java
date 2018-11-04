@@ -64,6 +64,10 @@ public class Company implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Provider> providers = new HashSet<>();
 
+    @OneToMany(mappedBy = "company")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Product> products = new HashSet<>();
+    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -212,6 +216,34 @@ public class Company implements Serializable {
     public void setProviders(Set<Provider> providers) {
         this.providers = providers;
     }
+    
+    
+    
+    public Set<Provider> getProducts() {
+        return providers;
+    }
+
+    public Company products(Set<Product> products) {
+        this.products = products;
+        return this;
+    }
+
+    public Company addProducts(Product product) {
+        this.products.add(product);
+        product.setCompany(this);
+        return this;
+    }
+
+    public Company removeProducts(Product product) {
+        this.products.remove(product);
+        product.setCompany(null);
+        return this;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

@@ -26,14 +26,6 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="id_reserve_locator_juniper" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="id_reserve_locator_external" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
             <column name="detail" type="varchar(255)">
                 <constraints nullable="true" />
             </column>

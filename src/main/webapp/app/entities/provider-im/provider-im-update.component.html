@@ -15,19 +15,6 @@
                         [(ngModel)]="provider.name" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="inteliManagementApp.provider.email" for="field_email">Email</label>
-                    <input type="text" class="form-control" name="email" id="field_email"
-                        [(ngModel)]="provider.email" />
-                </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="inteliManagementApp.provider.address" for="field_address">Address</label>
-                    <select class="form-control" id="field_address" name="address" [(ngModel)]="provider.addressId">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="addressOption.id" *ngFor="let addressOption of addresses; trackBy: trackAddressById">{{addressOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="inteliManagementApp.provider.company" for="field_company">Company</label>
                     <select class="form-control" id="field_company" name="company" [(ngModel)]="provider.companyId" >
                         <option [ngValue]="null"></option>

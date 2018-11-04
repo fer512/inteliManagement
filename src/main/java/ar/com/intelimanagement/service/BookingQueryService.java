@@ -79,12 +79,6 @@ public class BookingQueryService extends QueryService<Booking> {
             if (criteria.getIdTransaction() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getIdTransaction(), Booking_.idTransaction));
             }
-            if (criteria.getIdReserveLocatorJuniper() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getIdReserveLocatorJuniper(), Booking_.idReserveLocatorJuniper));
-            }
-            if (criteria.getIdReserveLocatorExternal() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getIdReserveLocatorExternal(), Booking_.idReserveLocatorExternal));
-            }
             if (criteria.getDetail() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDetail(), Booking_.detail));
             }

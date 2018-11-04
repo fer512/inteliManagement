@@ -1,17 +1,25 @@
 package ar.com.intelimanagement.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A Booking.
@@ -29,12 +37,6 @@ public class Booking implements Serializable {
 
     @Column(name = "id_transaction")
     private String idTransaction;
-
-    @Column(name = "id_reserve_locator_juniper")
-    private String idReserveLocatorJuniper;
-
-    @Column(name = "id_reserve_locator_external")
-    private String idReserveLocatorExternal;
 
     @Column(name = "detail")
     private String detail;
@@ -90,31 +92,6 @@ public class Booking implements Serializable {
         this.idTransaction = idTransaction;
     }
 
-    public String getIdReserveLocatorJuniper() {
-        return idReserveLocatorJuniper;
-    }
-
-    public Booking idReserveLocatorJuniper(String idReserveLocatorJuniper) {
-        this.idReserveLocatorJuniper = idReserveLocatorJuniper;
-        return this;
-    }
-
-    public void setIdReserveLocatorJuniper(String idReserveLocatorJuniper) {
-        this.idReserveLocatorJuniper = idReserveLocatorJuniper;
-    }
-
-    public String getIdReserveLocatorExternal() {
-        return idReserveLocatorExternal;
-    }
-
-    public Booking idReserveLocatorExternal(String idReserveLocatorExternal) {
-        this.idReserveLocatorExternal = idReserveLocatorExternal;
-        return this;
-    }
-
-    public void setIdReserveLocatorExternal(String idReserveLocatorExternal) {
-        this.idReserveLocatorExternal = idReserveLocatorExternal;
-    }
 
     public String getDetail() {
         return detail;
@@ -271,8 +248,6 @@ public class Booking implements Serializable {
         return "Booking{" +
             "id=" + getId() +
             ", idTransaction='" + getIdTransaction() + "'" +
-            ", idReserveLocatorJuniper='" + getIdReserveLocatorJuniper() + "'" +
-            ", idReserveLocatorExternal='" + getIdReserveLocatorExternal() + "'" +
             ", detail='" + getDetail() + "'" +
             ", paymentType='" + getPaymentType() + "'" +
             ", paymentCreditCard=" + getPaymentCreditCard() +

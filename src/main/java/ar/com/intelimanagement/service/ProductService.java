@@ -28,12 +28,6 @@ public interface ProductService {
      */
     List<ProductDTO> findAll();
 
-    /**
-     * Get all the Product with eager load of many-to-many relationships.
-     *
-     * @return the list of entities
-     */
-    Page<ProductDTO> findAllWithEagerRelationships(Pageable pageable);
     
     /**
      * Get the "id" product.

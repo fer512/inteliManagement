@@ -16,8 +16,6 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="name"><span jhiTranslate="inteliManagementApp.provider.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="email"><span jhiTranslate="inteliManagementApp.provider.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="addressId"><span jhiTranslate="inteliManagementApp.provider.address">Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="companyId"><span jhiTranslate="inteliManagementApp.provider.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -26,12 +24,6 @@
             <tr *ngFor="let provider of providers ;trackBy: trackId">
                 <td><a [routerLink]="['/provider-im', provider.id, 'view' ]">{{provider.id}}</a></td>
                 <td>{{provider.name}}</td>
-                <td>{{provider.email}}</td>
-                <td>
-                    <div *ngIf="provider.addressId">
-                        <a [routerLink]="['../address-im', provider.addressId , 'view' ]" >{{provider.addressId}}</a>
-                    </div>
-                </td>
                 <td>
                     <div *ngIf="provider.companyId">
                         <a [routerLink]="['../company-im', provider.companyId , 'view' ]" >{{provider.companyId}}</a>

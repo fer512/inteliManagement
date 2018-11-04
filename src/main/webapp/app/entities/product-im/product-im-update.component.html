@@ -25,19 +25,6 @@
                         </small>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label jhiTranslate="inteliManagementApp.product.product_by_provider" for="field_product_by_provider">Product By Provider</label>
-                    <select class="form-control" id="field_product_by_provider" multiple name="product_by_provider" [(ngModel)]="product.product_by_providers" required>
-                        <option [ngValue]="getSelected(product.product_by_providers, providerOption)" *ngFor="let providerOption of providers; trackBy: trackProviderById">{{providerOption.code}}</option>
-                    </select>
-                </div>
-                <div [hidden]="!(editForm.controls.product_by_provider?.dirty && editForm.controls.product_by_provider?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.product_by_provider?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

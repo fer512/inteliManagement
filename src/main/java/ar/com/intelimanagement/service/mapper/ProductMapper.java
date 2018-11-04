@@ -12,7 +12,6 @@ import org.mapstruct.*;
 public interface ProductMapper extends EntityMapper<ProductDTO, Product> {
 
 
-    @Mapping(target = "bookings", ignore = true)
     Product toEntity(ProductDTO productDTO);
 
     default Product fromId(Long id) {

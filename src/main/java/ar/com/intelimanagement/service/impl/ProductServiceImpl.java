@@ -58,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public List<ProductDTO> findAll() {
         log.debug("Request to get all Products");
-        return productRepository.findAllWithEagerRelationships().stream()
+        return productRepository.findAll().stream()
             .map(productMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
@@ -68,8 +68,8 @@ public class ProductServiceImpl implements ProductService {
      *
      * @return the list of entities
      */
-    public Page<ProductDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return productRepository.findAllWithEagerRelationships(pageable).map(productMapper::toDto);
+    public Page<ProductDTO> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable).map(productMapper::toDto);
     }
     
 
@@ -83,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public Optional<ProductDTO> findOne(Long id) {
         log.debug("Request to get Product : {}", id);
-        return productRepository.findOneWithEagerRelationships(id)
+        return productRepository.findById(id)
             .map(productMapper::toDto);
     }
 

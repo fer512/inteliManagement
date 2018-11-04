@@ -1,6 +1,5 @@
 package ar.com.intelimanagement.service.dto;
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -11,30 +10,31 @@ public class ProductByBookingFullDTO implements Serializable {
 
     private Long id;
 
-    private ProductDTO product;
-
     private BookingMinDTO booking;
 
-    private String idReserveLocatorJuniperProduct;
+    private ProductDTO reserveLocatorJuniperProduct;
+    
+    private ProviderDTO reserveLocatorJuniperProvider;
     
     private String idReserveLocatorJuniper;
     
     private String idReserveLocatorExternal;
+  
     
-    public Long getId() {
+    public ProductDTO getReserveLocatorJuniperProduct() {
+		return reserveLocatorJuniperProduct;
+	}
+
+	public void setReserveLocatorJuniperProduct(ProductDTO idReserveLocatorJuniperProduct) {
+		this.reserveLocatorJuniperProduct = idReserveLocatorJuniperProduct;
+	}
+
+	public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public ProductDTO getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductDTO productId) {
-        this.product = productId;
     }
 
     public BookingMinDTO getBooking() {
@@ -45,14 +45,6 @@ public class ProductByBookingFullDTO implements Serializable {
         this.booking = bookingId;
     }
     
-    public String getIdReserveLocatorJuniperProduct() {
-		return idReserveLocatorJuniperProduct;
-	}
-
-	public void setIdReserveLocatorJuniperProduct(String idReserveLocatorJuniperProduct) {
-		this.idReserveLocatorJuniperProduct = idReserveLocatorJuniperProduct;
-	}
-
 	public String getIdReserveLocatorJuniper() {
 		return idReserveLocatorJuniper;
 	}
@@ -92,9 +84,17 @@ public class ProductByBookingFullDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ProductByBookingDTO [id=" + id + ", product=" + product + ", booking=" + booking
-				+ ", idReserveLocatorJuniperProduct=" + idReserveLocatorJuniperProduct + ", idReserveLocatorJuniper="
+		return "ProductByBookingDTO [id=" + id + ", booking=" + booking
+				+ ", idReserveLocatorJuniperProduct=" + reserveLocatorJuniperProduct + ", idReserveLocatorJuniper="
 				+ idReserveLocatorJuniper + ", idReserveLocatorExternal=" + idReserveLocatorExternal + "]";
+	}
+
+	public ProviderDTO getReserveLocatorJuniperProvider() {
+		return reserveLocatorJuniperProvider;
+	}
+
+	public void setReserveLocatorJuniperProvider(ProviderDTO idReserveLocatorJuniperProvider) {
+		this.reserveLocatorJuniperProvider = idReserveLocatorJuniperProvider;
 	}
 
 }

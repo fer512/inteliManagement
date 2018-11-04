@@ -1,6 +1,5 @@
 package ar.com.intelimanagement.service.dto;
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -11,11 +10,11 @@ public class ProductByBookingDTO implements Serializable {
 
     private Long id;
 
-    private Long productId; //creo q deberia ir el provider id
-
     private Long bookingId;
 
     private String idReserveLocatorJuniperProduct;
+    
+    private String idReserveLocatorJuniperProvider;
     
     private String idReserveLocatorJuniper;
     
@@ -29,14 +28,6 @@ public class ProductByBookingDTO implements Serializable {
         this.id = id;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
     public Long getBookingId() {
         return bookingId;
     }
@@ -45,13 +36,6 @@ public class ProductByBookingDTO implements Serializable {
         this.bookingId = bookingId;
     }
     
-    public String getIdReserveLocatorJuniperProduct() {
-		return idReserveLocatorJuniperProduct;
-	}
-
-	public void setIdReserveLocatorJuniperProduct(String idReserveLocatorJuniperProduct) {
-		this.idReserveLocatorJuniperProduct = idReserveLocatorJuniperProduct;
-	}
 
 	public String getIdReserveLocatorJuniper() {
 		return idReserveLocatorJuniper;
@@ -67,6 +51,23 @@ public class ProductByBookingDTO implements Serializable {
 
 	public void setIdReserveLocatorExternal(String idReserveLocatorExternal) {
 		this.idReserveLocatorExternal = idReserveLocatorExternal;
+	}
+
+	
+	public String getIdReserveLocatorJuniperProduct() {
+		return idReserveLocatorJuniperProduct;
+	}
+
+	public void setIdReserveLocatorJuniperProduct(String idReserveLocatorJuniperProduct) {
+		this.idReserveLocatorJuniperProduct = idReserveLocatorJuniperProduct;
+	}
+
+	public String getIdReserveLocatorJuniperProvider() {
+		return idReserveLocatorJuniperProvider;
+	}
+
+	public void setIdReserveLocatorJuniperProvider(String idReserveLocatorJuniperProvider) {
+		this.idReserveLocatorJuniperProvider = idReserveLocatorJuniperProvider;
 	}
 
 	@Override
@@ -92,7 +93,7 @@ public class ProductByBookingDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ProductByBookingDTO [id=" + id + ", productId=" + productId + ", bookingId=" + bookingId
+		return "ProductByBookingDTO [id=" + id + ", bookingId=" + bookingId
 				+ ", idReserveLocatorJuniperProduct=" + idReserveLocatorJuniperProduct + ", idReserveLocatorJuniper="
 				+ idReserveLocatorJuniper + ", idReserveLocatorExternal=" + idReserveLocatorExternal + "]";
 	}

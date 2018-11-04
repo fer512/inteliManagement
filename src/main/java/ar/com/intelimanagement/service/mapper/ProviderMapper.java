@@ -11,11 +11,9 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {AddressMapper.class, CompanyMapper.class})
 public interface ProviderMapper extends EntityMapper<ProviderDTO, Provider> {
 
-    @Mapping(source = "address.id", target = "addressId")
     @Mapping(source = "company.id", target = "companyId")
     ProviderDTO toDto(Provider provider);
 
-    @Mapping(source = "addressId", target = "address")
     @Mapping(source = "companyId", target = "company")
     Provider toEntity(ProviderDTO providerDTO);
 
