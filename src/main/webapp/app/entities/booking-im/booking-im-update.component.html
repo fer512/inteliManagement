@@ -2,127 +2,140 @@
   <mat-card>
     <mat-card-content>
       <form name="editForm" role="form" novalidate #editForm="ngForm">
-      <!-- reservation ids -->
-      <section class="loss-section">
-        <h3>Datos de la reserva</h3>
-        <table class="ubmat-table"> 
-          <tr>
-            <td>
-            <mat-form-field  class="ubmat-input -md">
-              <input matInput type="text" name="idTransaction" id="field_idTransaction"
-              [(ngModel)]="booking.idTransaction" disabled placeholder="Id transacción" value="">
-            </mat-form-field> 
-            </td>
-            <td>
-                <form class="example-form">
-                <mat-form-field class="ubmat-input -md">
-                    <input matInput placeholder="Email" [formControl]="emailFormControl">
-                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                      Please enter a valid email address
-                    </mat-error>
-                    <mat-error *ngIf="emailFormControl.hasError('required')">
-                      Email is <strong>required</strong>
-                    </mat-error>
-                  </mat-form-field>
-                </form>
-            </td>
-            <td><!-- empty --></td>
-          </tr>
-        </table>  
-      </section>
-      <!-- reservation data -->
-      <section class="loss-section">
-        <h3>Datos sobre el pago</h3>
-        <!-- Información sobre el Pago -->
-        <table class="ubmat-table">
-          <tr>
-            <!-- Tipo de Pago -->
-            <td>
-              <mat-form-field class="ubmat-select -md">
-              <mat-select name="paymentType" id="field_paymentType" [(ngModel)]="booking.paymentType" placeholder="Tipo de Pago" required>
-                <mat-option *ngFor="let opt of paytypes" [(value)]="opt.value">
-                  {{opt.description}}
-                </mat-option>
-              </mat-select>
-              </mat-form-field>
-            </td>
-            <td><!--empty--></td>
-            <td><!--empty--></td>  
-          </tr> 
-          <tr>
-            <!-- TC -->
-            <td>
-              <mat-form-field  class="ubmat-input -md">
-                <input matInput type="text" name="paymentCreditCard" id="field_paymentCreditCard"
-                [(ngModel)]="booking.paymentCreditCard" placeholder="Valor Tarjeta de Crédito" value="">
-                <span matPrefix>USD&nbsp;</span>
-              </mat-form-field>
-            </td> 
-            <!-- Pts -->
-            <td>
-              <mat-form-field  class="ubmat-input -md">
-                <input matInput type="text" name="paymentPointsInUSD" id="field_paymentPointsInUSD"
-                [(ngModel)]="booking.paymentPointsInUSD" placeholder="USD en Puntos" value="">
-                <span matPrefix>USD&nbsp;</span>
-              </mat-form-field>
-            </td>
-            <!-- Total -->
-            <td>
-              <mat-form-field  class="ubmat-input -md">
-                <input matInput type="text" disabled placeholder="Total" value="{{varSum(booking.paymentPointsInUSD,booking.paymentCreditCard)}}">
-                <span matPrefix>USD&nbsp;</span>
-              </mat-form-field>
-            </td>
-          </tr> 
-          <tr>
-              <!-- Precio de Venta -->
+      
+        <!-- reservation data -->
+        <section class="loss-section">
+          <h3>Datos de la reserva</h3>
+          <table class="ubmat-table"> 
+            <tr>
               <td>
-                <mat-form-field  class="ubmat-input -md">
-                  <input matInput type="text" name="juniperSalePrice" id="field_juniperSalePrice"
-                  [(ngModel)]="booking.juniperSalePrice" placeholder="Precio de Venta Juniper" value="" required/>
-                  <span matPrefix>USD&nbsp;</span>
-                </mat-form-field>
-              </td> 
-              <!-- Costo de la Reserva -->
-              <td>
-                <mat-form-field  class="ubmat-input -md">
-                  <input matInput type="text" name="juniperReservationCost" id="field_juniperReservationCost"
-                  [(ngModel)]="booking.juniperReservationCost" placeholder="Costo Reserva Juniper" value="" required/>
-                  <span matPrefix>USD&nbsp;</span>
-                </mat-form-field>
+              <!-- reservation ids -->
+              <mat-form-field  class="ubmat-input -md">
+                <input matInput type="text" name="idTransaction" id="field_idTransaction"
+                [(ngModel)]="booking.idTransaction" disabled placeholder="Id transacción" value="">
+              </mat-form-field> 
               </td>
-              <!-- Beneficio -->
+              
               <td>
-                <mat-form-field  class="ubmat-input -md">
-                  <input matInput type="text" name="benefitInReservation" id="field_benefitInReservation"
-                  [(ngModel)]="booking.benefitInReservation" placeholder="Beneficio" value="">
-                </mat-form-field>
+                  <form class="example-form">
+                  <mat-form-field class="ubmat-input -md">
+                      <input matInput placeholder="Email" [formControl]="emailFormControl">
+                      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                        Please enter a valid email address
+                      </mat-error>
+                      <mat-error *ngIf="emailFormControl.hasError('required')">
+                        Email is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </form>
               </td>
-          </tr>   
-        </table> 
-        <table>
-          <tr>          
-            <td colspan="3">
-              <mat-card class="ubmat-fl ubmat-card -sm ubmat-m-xsm " *ngFor="let opt of booking.products">
-                <mat-card-content>
-                  <h3> {{opt.idReserveLocatorJuniperProduct}} : {{opt.idReserveLocatorJuniperProvider}}</h3> 
-                  <h4>Juniper N°: {{opt.idReserveLocatorJuniper}} </h4>
-                  <h4>External N°: {{opt.idReserveLocatorExternal}} </h4>
-                </mat-card-content>
-              </mat-card>
-            </td>  
-          </tr>
-          <tr>
-            <td colspan="3">
-              <button mat-raised-button color="primary" (click)="openDialog()">Nuevo localizador Juniper</button>
-            </td>
-          </tr> 
-        </table>
-        <hr class="ubmat-mt-md ubmat-mb-lg">
-        <button mat-raised-button  type="submit" id="save-entity" (click)="save()" [disabled]="editForm.form.invalid || isSaving" color="primary">Listo</button>
-        <button mat-raised-button  type="submit" id="cancel-save" (click)="previousState()" color="default">Cancelar</button>
+
+              <td><button mat-raised-button color="primary" (click)="openDialog()">Nuevo localizador Juniper</button></td>
+            </tr>
+          </table>  
+        </section>
+      
+        <!-- Productos asociados -->
+        <section class="loss-section">
+          <table class="ubmat-table">
+              <tr>          
+                <td colspan="3">
+                  <h3 *ngIf="">Productos asociados</h3>
+                  <mat-card class="ubmat-fl ubmat-card -sm ubmat-bg-gray-8" *ngFor="let opt of booking.products">
+                    <mat-card-content>
+                      <h3> {{opt.idReserveLocatorJuniperProduct}} : {{opt.idReserveLocatorJuniperProvider}}</h3> 
+                      <h4>Juniper N°: {{opt.idReserveLocatorJuniper}} </h4>
+                      <h4>External N°: {{opt.idReserveLocatorExternal}} </h4>
+                    </mat-card-content>
+                  </mat-card>
+                </td>  
+              </tr>
+          </table>
+        </section>  
         
-      </section>
+        <mat-divider></mat-divider>
+        
+        <section class="loss-section ubmat-mt-lg">
+          
+          <table class="ubmat-table">
+            <tr>
+              <!-- Información sobre el Pago -->
+              <td class="ubmat-vertical-top">
+                <mat-card class="ubmat-card -md ubmat-bg-gray-8">
+                  <mat-card-content>
+                    <h3>Datos sobre el pago</h3>
+                    <!-- Tipo de Pago -->
+                    <mat-form-field class="ubmat-select -md">
+                      <mat-select name="paymentType" id="field_paymentType" [(ngModel)]="booking.paymentType" placeholder="Tipo de Pago" required>
+                        <mat-option *ngFor="let opt of paytypes" [(value)]="opt.value">
+                          {{opt.description}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <!-- TC -->
+                    <div *ngIf="booking.paymentType === 'CREDIT_CARD' || booking.paymentType === 'MIXED'">
+                      <mat-form-field  class="ubmat-input -md">
+                        <input matInput type="text" name="paymentCreditCard" id="field_paymentCreditCard"
+                        [(ngModel)]="booking.paymentCreditCard" placeholder="Valor Tarjeta de Crédito" value="">
+                        <span matPrefix>USD&nbsp;</span>
+                      </mat-form-field>
+                    </div> 
+                    <!-- Pts -->
+                    <div *ngIf="booking.paymentType === 'POINTS' || booking.paymentType === 'MIXED'">
+                      <mat-form-field  class="ubmat-input -md">
+                        <input matInput type="text" name="paymentPointsInUSD" id="field_paymentPointsInUSD"
+                        [(ngModel)]="booking.paymentPointsInUSD" placeholder="USD en Puntos" value="">
+                        <span matPrefix>USD&nbsp;</span>
+                      </mat-form-field>
+                    </div>
+                    <!-- Total -->
+                    <div>
+                      <mat-form-field  class="ubmat-input -md">
+                        <input matInput type="text" disabled placeholder="Total pagos realizados" value="{{varSum(booking.paymentPointsInUSD,booking.paymentCreditCard)}}">
+                        <span matPrefix>USD&nbsp;</span>
+                      </mat-form-field>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </td>
+              <!-- Información sobre el Costp -->
+              <td class="ubmat-vertical-top">
+                <mat-card class="ubmat-card -md ubmat-bg-gray-8">
+                  <mat-card-content>
+                    <h3>Datos sobre el Costo</h3>
+                    <!-- Precio de Venta -->
+                    <div>
+                      <mat-form-field  class="ubmat-input -md">
+                        <input matInput type="text" name="juniperSalePrice" id="field_juniperSalePrice" [(ngModel)]="booking.juniperSalePrice" placeholder="Precio de Venta Juniper" value="" required/>
+                        <span matPrefix>USD&nbsp;</span>
+                      </mat-form-field>
+                    </div> 
+                    <!-- Costo de la Reserva -->
+                    <div>
+                      <mat-form-field  class="ubmat-input -md">
+                        <input matInput type="text" name="juniperReservationCost" id="field_juniperReservationCost" [(ngModel)]="booking.juniperReservationCost" placeholder="Costo Reserva Juniper" value="" required/>
+                        <span matPrefix>USD&nbsp;</span>
+                      </mat-form-field>
+                    </div>
+                    <!-- Beneficio -->
+                    <div>
+                      <mat-form-field  class="ubmat-input -md">
+                        <input matInput type="text" name="benefitInReservation" id="field_benefitInReservation" [(ngModel)]="booking.benefitInReservation" placeholder="Beneficio" value="">
+                      </mat-form-field>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </td>
+            </tr>   
+          </table>
+        </section> 
+        
+        <mat-divider></mat-divider>
+        
+        <section class="loss-section ubmat-mt-lg ubmat-mb-md">
+          <button mat-raised-button  type="submit" id="save-entity" (click)="save()" [disabled]="editForm.form.invalid || isSaving" color="primary">Listo</button>
+          <button mat-raised-button  type="submit" id="cancel-save" (click)="previousState()" color="default">Cancelar</button>
+        </section>
     </form>
 </mat-card-content>
 </mat-card>

@@ -34,13 +34,14 @@
                              <!-- end booking detail -->                   
                         <mat-tab-group class="ubmat-tab-detail-group">
                             <mat-tab *ngFor="let tab of booking.products">
+                                
                                     <ng-template mat-tab-label class="ubmat-tab-detail">
-                                            <div class="ubmat-tab-detail-title">Hotel</div>
+                                            <div class="ubmat-tab-detail-title"><mat-icon class="ubmat-icon-sm">hotel</mat-icon> Hotel</div>
                                             <div class="ubmat-tab-detail-comment">Locador Juniper N° 506077</div>
                                     </ng-template>
                                     <ng-template matTabContent>
                                         <div class="ubmat-p-lg">
-                                            <h1 class="ubmat-mb-xsm"><!--{{tab.productId}}--> Hotel</h1>
+                                            <h1 class="ubmat-mb-xsm"><!--{{tab.productId}}--> <mat-icon class="ubmat-fl ubmat-mr-sm">hotel</mat-icon> Hotel</h1>
                                             <p class="ubmat-mt-xsm ubmat-tc-gray-4">Locador Juniper N° 506077 <!--{{tab.idReserveLocatorJuniper}}--></p>
                                               <!--beging content-->
                                               <mat-card class="ubmat-card" *ngFor="let variation of variations">
