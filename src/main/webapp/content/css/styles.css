@@ -51,6 +51,20 @@ body {
     font-size: 12px;
 }
 
+/* ubmat-CSS vertical-align */
+
+.ubmat-vertical-top {
+    vertical-align: top;
+}
+
+.ubmat-vertical-middle {
+    vertical-align: middle;
+}
+
+.ubmat-vertical-bottom {
+    vertical-align: bottom;
+}
+
 /* ubmat-CSS text-align */
 
 .ubmat-align-l {
@@ -163,6 +177,52 @@ body {
 
 .ubmat-tc-black {
     color: #000;
+}
+
+/* ubmat-CSS Background B&W */
+
+.ubmat-bg-white {
+    background: #fff;
+}
+
+.ubmat-bg-gray-8 {
+    background: #f5f5f5;
+}
+
+.ubmat-bg-gray-7 {
+    background: #eee;
+}
+
+.ubmat-bg-gray-6 {
+    background: #ddd;
+}
+
+.ubmat-bg-gray-5 {
+    background: #ccc;
+}
+
+.ubmat-bg-gray-4 {
+    background: #aaa;
+}
+
+.ubmat-bg-gray-3 {
+    background: #888;
+}
+
+.ubmat-bg-gray-2 {
+    background: #666;
+}
+
+.ubmat-bg-gray-1 {
+    background: #444;
+}
+
+.ubmat-bg-gray-0 {
+    background: #444;
+}
+
+.ubmat-bg-black {
+    background: #000;
 }
 
 /* ubmat-CSS Colors Yellow */

@@ -3,16 +3,10 @@
                 <span>IM Novae <span class="navbar-version">{{version}}</span></span>
                 <span class="ubmat-nav-spacer"></span>
 
-                <span *ngIf="isAuthenticated()">
-                        <span>{{principal.getName() }}</span>
-                </span>
-
                 <button mat-button [matMenuTriggerFor]="menu">
                         <span *ngIf="!getImageUrl()">
                                 <fa-icon [icon]="'user'"></fa-icon>
-                                <span jhiTranslate="global.menu.account.main">
-                                        <mat-icon>account_circle</mat-icon>
-                                </span>
+                                <span *ngIf="isAuthenticated()"> {{principal.getName()}}</span>
                         </span>
                         <span *ngIf="getImageUrl()">
                                 <img [src]="getImageUrl()" class="profile-image img-circle" alt="Avatar">
