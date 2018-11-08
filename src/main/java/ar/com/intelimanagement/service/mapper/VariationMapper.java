@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import ar.com.intelimanagement.domain.Variation;
 import ar.com.intelimanagement.service.dto.VariationDTO;
 import ar.com.intelimanagement.service.dto.VariationFullDTO;
+import ar.com.intelimanagement.service.dto.VariationMiddleDTO;
 
 public interface VariationMapper extends EntityMapper<VariationDTO, Variation> {
 
@@ -14,6 +15,10 @@ public interface VariationMapper extends EntityMapper<VariationDTO, Variation> {
     @Mapping(source = "product", target = "product")
     @Mapping(source = "approvals", target = "approvals")
     VariationFullDTO toFullDto(Variation variation);
+    
+    @Mapping(source = "creationUser", target = "creationUser")
+    @Mapping(source = "approvals", target = "approvals")
+    VariationMiddleDTO toMiddleDto(Variation variation);
     
     Variation toEntity(VariationDTO variationDTO);
 

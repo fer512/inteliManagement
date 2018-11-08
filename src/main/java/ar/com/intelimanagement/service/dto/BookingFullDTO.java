@@ -34,7 +34,7 @@ public class BookingFullDTO implements Serializable {
 
     private Long companyId;
 
-    private Set<ProductByBookingFullDTO> products;
+    private Set<ProductByBookingMiddleDTO> products;
     
     public Long getId() {
         return id;
@@ -154,11 +154,11 @@ public class BookingFullDTO implements Serializable {
             "}";
     }
 
-	public Set<ProductByBookingFullDTO> getProducts() {
+	public Set<ProductByBookingMiddleDTO> getProducts() {
 		return products;
 	}
 
-	public void setProducts(Set<ProductByBookingFullDTO> products) {
+	public void setProducts(Set<ProductByBookingMiddleDTO> products) {
 		this.products = products;
 	}
 }

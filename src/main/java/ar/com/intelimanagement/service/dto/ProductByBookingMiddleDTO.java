@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * A DTO for the ProductByBooking entity.
  */
-public class ProductByBookingFullDTO implements Serializable {
+public class ProductByBookingMiddleDTO implements Serializable {
 
     private Long id;
 
@@ -21,7 +21,7 @@ public class ProductByBookingFullDTO implements Serializable {
     
     private String idReserveLocatorExternal;
   
-    private List<VariationFullDTO> variations;
+    private List<VariationMiddleDTO> variations;
     
     public ProductDTO getReserveLocatorJuniperProduct() {
 		return reserveLocatorJuniperProduct;
@@ -72,7 +72,7 @@ public class ProductByBookingFullDTO implements Serializable {
             return false;
         }
 
-        ProductByBookingFullDTO productByBookingDTO = (ProductByBookingFullDTO) o;
+        ProductByBookingMiddleDTO productByBookingDTO = (ProductByBookingMiddleDTO) o;
         if (productByBookingDTO.getId() == null || getId() == null) {
             return false;
         }
@@ -99,11 +99,11 @@ public class ProductByBookingFullDTO implements Serializable {
 		this.reserveLocatorJuniperProvider = idReserveLocatorJuniperProvider;
 	}
 
-	public List<VariationFullDTO> getVariations() {
+	public List<VariationMiddleDTO> getVariations() {
 		return variations;
 	}
 
-	public void setVariations(List<VariationFullDTO> variations) {
+	public void setVariations(List<VariationMiddleDTO> variations) {
 		this.variations = variations;
 	}
 

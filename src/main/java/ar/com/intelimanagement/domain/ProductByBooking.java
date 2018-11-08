@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -47,6 +48,8 @@ public class ProductByBooking implements Serializable {
     @Column(name = "id_reserve_locator_external")
     private String idReserveLocatorExternal;
 
+    @OneToMany(mappedBy = "product",cascade=CascadeType.ALL)
+    private List<Variation> variations;
     
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -136,4 +139,12 @@ public class ProductByBooking implements Serializable {
             "id=" + getId() +
             "}";
     }
+
+	public List<Variation> getVariations() {
+		return variations;
+	}
+
+	public void setVariations(List<Variation> variations) {
+		this.variations = variations;
+	}
 }

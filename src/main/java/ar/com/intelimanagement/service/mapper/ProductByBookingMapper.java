@@ -3,6 +3,7 @@ package ar.com.intelimanagement.service.mapper;
 import ar.com.intelimanagement.domain.*;
 import ar.com.intelimanagement.service.dto.ProductByBookingDTO;
 import ar.com.intelimanagement.service.dto.ProductByBookingFullDTO;
+import ar.com.intelimanagement.service.dto.ProductByBookingMiddleDTO;
 
 import java.util.Set;
 
@@ -23,6 +24,11 @@ public interface ProductByBookingMapper extends EntityMapper<ProductByBookingDTO
     @Mapping(source = "provider", target = "reserveLocatorJuniperProvider")
     @Mapping(source = "booking", target = "booking")
     ProductByBookingFullDTO toFullDto(ProductByBooking productByBooking);
+    
+    @Mapping(source = "product", target = "reserveLocatorJuniperProduct")
+    @Mapping(source = "provider", target = "reserveLocatorJuniperProvider")
+    @Mapping(source = "booking", target = "booking")
+    ProductByBookingMiddleDTO toMiddleDto(ProductByBooking productByBooking);
     
     @Mapping(source = "idReserveLocatorJuniperProduct", target = "product")
     @Mapping(source = "idReserveLocatorJuniperProvider", target = "provider")
