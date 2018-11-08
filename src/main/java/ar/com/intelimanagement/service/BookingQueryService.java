@@ -18,6 +18,7 @@ import ar.com.intelimanagement.repository.BookingRepository;
 import ar.com.intelimanagement.service.dto.BookingCriteria;
 
 import ar.com.intelimanagement.service.dto.BookingDTO;
+import ar.com.intelimanagement.service.dto.BookingFullDTO;
 import ar.com.intelimanagement.service.mapper.BookingMapper;
 
 /**
@@ -47,10 +48,10 @@ public class BookingQueryService extends QueryService<Booking> {
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public List<BookingDTO> findByCriteria(BookingCriteria criteria) {
+    public List<BookingFullDTO> findByCriteria(BookingCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
         final Specification<Booking> specification = createSpecification(criteria);
-        return bookingMapper.toDto(bookingRepository.findAll(specification));
+        return bookingMapper.toFullDto(bookingRepository.findAll(specification));
     }
 
     /**
@@ -60,11 +61,11 @@ public class BookingQueryService extends QueryService<Booking> {
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public Page<BookingDTO> findByCriteria(BookingCriteria criteria, Pageable page) {
+    public Page<BookingFullDTO> findByCriteria(BookingCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Booking> specification = createSpecification(criteria);
         return bookingRepository.findAll(specification, page)
-            .map(bookingMapper::toDto);
+            .map(bookingMapper::toFullDto);
     }
 
     /**

@@ -5,6 +5,8 @@ import ar.com.intelimanagement.service.dto.BookingDTO;
 import ar.com.intelimanagement.service.dto.BookingFullDTO;
 import ar.com.intelimanagement.service.dto.BookingMinDTO;
 
+import java.util.List;
+
 import org.mapstruct.*;
 
 /**
@@ -17,6 +19,8 @@ public interface BookingMapper extends EntityMapper<BookingDTO, Booking> {
     BookingDTO toDto(Booking booking);
 
     BookingFullDTO toFullDto(Booking booking);
+    
+    List<BookingFullDTO> toFullDto(List<Booking> booking);
     
     BookingMinDTO toMinDto(Booking booking);
     

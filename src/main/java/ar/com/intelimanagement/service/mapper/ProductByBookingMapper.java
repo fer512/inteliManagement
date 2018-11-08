@@ -40,6 +40,10 @@ public interface ProductByBookingMapper extends EntityMapper<ProductByBookingDTO
     @Mapping(source = "booking", target = "booking")
     ProductByBooking toEntity(ProductByBookingFullDTO productByBookingDTO);  
     
+    @Mapping(source = "reserveLocatorJuniperProduct", target = "product")
+    @Mapping(source = "reserveLocatorJuniperProvider", target = "provider")
+    ProductByBooking toEntity(ProductByBookingMiddleDTO productByBookingDTO);  
+    
     Set<ProductByBooking> productByBookingDTOToProductByBooking(Set<ProductByBookingDTO> products);
     
     default ProductByBooking fromId(Long id) {

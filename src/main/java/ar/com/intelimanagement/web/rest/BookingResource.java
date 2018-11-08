@@ -97,9 +97,9 @@ public class BookingResource {
      */
     @GetMapping("/bookings")
     @Timed
-    public ResponseEntity<List<BookingDTO>> getAllBookings(BookingCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<BookingFullDTO>> getAllBookings(BookingCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Bookings by criteria: {}", criteria);
-        Page<BookingDTO> page = bookingQueryService.findByCriteria(criteria, pageable);
+        Page<BookingFullDTO> page = bookingQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/bookings");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -113,9 +113,9 @@ public class BookingResource {
      */
     @PostMapping("/bookings/findByCriteria")
     @Timed
-    public ResponseEntity<List<BookingDTO>> findByCriteria(@RequestBody BookingCriteria criteria) {
+    public ResponseEntity<List<BookingFullDTO>> findByCriteria(@RequestBody BookingCriteria criteria) {
         log.debug("REST request to get Bookings by criteria: {}", criteria);
-        List<BookingDTO> l = bookingQueryService.findByCriteria(criteria);
+        List<BookingFullDTO> l = bookingQueryService.findByCriteria(criteria);
         return new ResponseEntity<>(l, HeaderUtil.createAlert(ENTITY_NAME,criteria.toString()), HttpStatus.OK);
     }
 
