@@ -187,8 +187,8 @@ export class BookingImAddJlDialogComponent {
         let dto: ProductByBooking = new ProductByBooking();
         dto.idReserveLocatorExternal = this.data.idReserveLocatorExternal;
         dto.idReserveLocatorJuniper = this.data.idReserveLocatorJuniper;
-        dto.reserveLocatorJuniperProduct = this.data.idReserveLocatorJuniperProduct;
-        dto.reserveLocatorJuniperProvider = this.data.idReserveLocatorJuniperProvider;
+        dto.reserveLocatorJuniperProduct = this.data.reserveLocatorJuniperProduct;
+        dto.reserveLocatorJuniperProvider = this.data.reserveLocatorJuniperProvider;
         this.dialogRef.close(dto);
     }
 }

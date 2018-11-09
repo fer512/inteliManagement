@@ -15,6 +15,7 @@ import ar.com.intelimanagement.domain.Variation;
 import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
 import ar.com.intelimanagement.service.dto.VariationDTO;
 import ar.com.intelimanagement.service.dto.VariationFullDTO;
+import ar.com.intelimanagement.service.dto.VariationListDTO;
 import ar.com.intelimanagement.service.dto.VariationMiddleDTO;
 import ar.com.intelimanagement.service.mapper.ApprovalsMapper;
 import ar.com.intelimanagement.service.mapper.ProductByBookingMapper;
@@ -210,6 +211,49 @@ public class VariationMapperImpl implements VariationMapper {
 		return variationDTO;
 	}
 
+	
+	@Override
+	public VariationListDTO toDtoPending(Variation variation) {
+		if (variation == null) {
+			return null;
+		}
+
+		VariationListDTO variationDTO = new VariationListDTO();
+
+		Long id = variationProductId(variation);
+		if (id != null) {
+			variationDTO.setProduct(this.productMapper.toDtoByVariation(variation.getProduct()));
+		}
+		Long id1 = variationCreationUserId(variation);
+		if (id1 != null) {
+			variationDTO.setCreationUser(userMapper.userToUserMinDTO(variation.getCreationUser()));
+		}
+
+		Long id2 = variationApprovalsId(variation);
+		if (id2 != null) {
+			variationDTO.setApprovals(approvalsMapper.toDto(variation.getApprovals()));
+		}
+
+		variationDTO.setId(variation.getId());
+		variationDTO.setExtraCharge(variation.getExtraCharge());
+		variationDTO.setNewCharge(variation.getNewCharge());
+		variationDTO.setNewCost(variation.getNewCost());
+		variationDTO.setNewBenefit(variation.getNewBenefit());
+		variationDTO.setNewExternalLocatorId(variation.getNewExternalLocatorId());
+		variationDTO.setComments(variation.getComments());
+		variationDTO.setCreationDate(variation.getCreationDate());
+		variationDTO.setArea(variation.getArea());
+		variationDTO.setCampaing(variation.getCampaing());
+		variationDTO.setReason(variation.getReason());
+		variationDTO.setRecoverable(variation.getRecoverable());
+		variationDTO.setRefundInPoints(variation.getRefundInPoints());
+		variationDTO.setRefundInCash(variation.getRefundInCash());
+		variationDTO.setCacel(variation.getCacel());
+
+		return variationDTO;
+	}
+
+	
 	@Override
 	public VariationMiddleDTO toMiddleDto(Variation variation) {
 		if (variation == null) {

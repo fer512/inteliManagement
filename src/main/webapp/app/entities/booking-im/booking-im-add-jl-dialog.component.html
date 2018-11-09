@@ -4,7 +4,7 @@
     <tr>
       <td>
         <mat-form-field class="ubmat-select -md">
-          <mat-select class="ubmat-select -md" name="idReserveLocatorJuniperProduct" id="idReserveLocatorJuniperProduct" [(ngModel)]="data.idReserveLocatorJuniperProduct" placeholder="Producto" required>
+          <mat-select class="ubmat-select -md" name="idReserveLocatorJuniperProduct" id="idReserveLocatorJuniperProduct" [(ngModel)]="data.reserveLocatorJuniperProduct" placeholder="Producto" required>
             <mat-option *ngFor="let opt of data.products" [(value)]="opt.value">
               {{opt.description}}
             </mat-option>
@@ -24,7 +24,7 @@
     <tr>
       <td>
         <mat-form-field class="ubmat-select -md">
-          <mat-select class="ubmat-select -md" name="idReserveLocatorJuniperProvider" id="idReserveLocatorJuniperProvider" [(ngModel)]="data.idReserveLocatorJuniperProvider" placeholder="Proveedor" required>
+          <mat-select class="ubmat-select -md" name="idReserveLocatorJuniperProvider" id="idReserveLocatorJuniperProvider" [(ngModel)]="data.reserveLocatorJuniperProvider" placeholder="Proveedor" required>
             <mat-option *ngFor="let opt of data.providers" [(value)]="opt.value">
               {{opt.description}}
             </mat-option>

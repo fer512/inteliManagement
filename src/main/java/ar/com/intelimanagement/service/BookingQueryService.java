@@ -19,6 +19,7 @@ import ar.com.intelimanagement.service.dto.BookingCriteria;
 
 import ar.com.intelimanagement.service.dto.BookingDTO;
 import ar.com.intelimanagement.service.dto.BookingFullDTO;
+import ar.com.intelimanagement.service.dto.BookingMinDTO;
 import ar.com.intelimanagement.service.mapper.BookingMapper;
 
 /**
@@ -68,6 +69,20 @@ public class BookingQueryService extends QueryService<Booking> {
             .map(bookingMapper::toFullDto);
     }
 
+    /**
+     * Return a {@link Page} of {@link BookingDTO} which matches the criteria from the database
+     * @param criteria The object which holds all the filters, which the entities should match.
+     * @param page The page, which should be returned.
+     * @return the matching entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<BookingMinDTO> findMinByCriteria(BookingCriteria criteria, Pageable page) {
+        log.debug("find by criteria : {}, page: {}", criteria, page);
+        final Specification<Booking> specification = createSpecification(criteria);
+        return bookingRepository.findAll(specification, page)
+            .map(bookingMapper::toMinDto);
+    }
+    
     /**
      * Function to convert BookingCriteria to a {@link Specification}
      */

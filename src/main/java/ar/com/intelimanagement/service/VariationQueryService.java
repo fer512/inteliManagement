@@ -17,6 +17,7 @@ import ar.com.intelimanagement.service.dto.VariationCriteria;
 
 import ar.com.intelimanagement.service.dto.VariationDTO;
 import ar.com.intelimanagement.service.dto.VariationFullDTO;
+import ar.com.intelimanagement.service.dto.VariationListDTO;
 import ar.com.intelimanagement.service.mapper.VariationMapper;
 
 /**
@@ -59,11 +60,11 @@ public class VariationQueryService extends QueryService<Variation> {
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public Page<VariationFullDTO> findByCriteria(VariationCriteria criteria, Pageable page) {
+    public Page<VariationListDTO> findByCriteria(VariationCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Variation> specification = createSpecification(criteria);
         return variationRepository.findAll(specification, page)
-            .map(variationMapper::toFullDto);
+            .map(variationMapper::toDtoPending);
     }
 
     /**

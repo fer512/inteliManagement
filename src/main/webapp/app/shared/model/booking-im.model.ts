@@ -19,8 +19,6 @@ export class BookingIm implements IBookingIm {
     constructor(
         public id?: number,
         public idTransaction?: string,
-        public idReserveLocatorJuniper?: string,
-        public idReserveLocatorExternal?: string,
         public detail?: string,
         public paymentType?: string,
         public paymentCreditCard?: number,

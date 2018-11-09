@@ -7,6 +7,7 @@ import ar.com.intelimanagement.web.rest.util.HeaderUtil;
 import ar.com.intelimanagement.web.rest.util.PaginationUtil;
 import ar.com.intelimanagement.service.dto.BookingDTO;
 import ar.com.intelimanagement.service.dto.BookingFullDTO;
+import ar.com.intelimanagement.service.dto.BookingMinDTO;
 import ar.com.intelimanagement.service.dto.BookingCriteria;
 import ar.com.intelimanagement.service.BookingQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -97,9 +98,9 @@ public class BookingResource {
      */
     @GetMapping("/bookings")
     @Timed
-    public ResponseEntity<List<BookingFullDTO>> getAllBookings(BookingCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<BookingMinDTO>> getAllBookings(BookingCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Bookings by criteria: {}", criteria);
-        Page<BookingFullDTO> page = bookingQueryService.findByCriteria(criteria, pageable);
+        Page<BookingMinDTO> page = bookingQueryService.findMinByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/bookings");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

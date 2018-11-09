@@ -1,6 +1,8 @@
 package ar.com.intelimanagement.service.mapper;
 
 import ar.com.intelimanagement.domain.*;
+import ar.com.intelimanagement.service.dto.ProductBookingByVariationDTO;
+import ar.com.intelimanagement.service.dto.ProductBookingDTO;
 import ar.com.intelimanagement.service.dto.ProductByBookingDTO;
 import ar.com.intelimanagement.service.dto.ProductByBookingFullDTO;
 import ar.com.intelimanagement.service.dto.ProductByBookingMiddleDTO;
@@ -28,7 +30,17 @@ public interface ProductByBookingMapper extends EntityMapper<ProductByBookingDTO
     @Mapping(source = "product", target = "reserveLocatorJuniperProduct")
     @Mapping(source = "provider", target = "reserveLocatorJuniperProvider")
     @Mapping(source = "booking", target = "booking")
+    ProductBookingByVariationDTO toDtoByVariation(ProductByBooking productByBooking);
+    
+    
+    @Mapping(source = "product", target = "reserveLocatorJuniperProduct")
+    @Mapping(source = "provider", target = "reserveLocatorJuniperProvider")
+    @Mapping(source = "booking", target = "booking")
     ProductByBookingMiddleDTO toMiddleDto(ProductByBooking productByBooking);
+    
+    @Mapping(source = "product", target = "reserveLocatorJuniperProduct")
+    @Mapping(source = "provider", target = "reserveLocatorJuniperProvider")
+    ProductBookingDTO toProductDto(ProductByBooking productByBooking);
     
     @Mapping(source = "idReserveLocatorJuniperProduct", target = "product")
     @Mapping(source = "idReserveLocatorJuniperProvider", target = "provider")
@@ -39,6 +51,11 @@ public interface ProductByBookingMapper extends EntityMapper<ProductByBookingDTO
     @Mapping(source = "reserveLocatorJuniperProvider", target = "provider")
     @Mapping(source = "booking", target = "booking")
     ProductByBooking toEntity(ProductByBookingFullDTO productByBookingDTO);  
+    
+    @Mapping(source = "reserveLocatorJuniperProduct", target = "product")
+    @Mapping(source = "reserveLocatorJuniperProvider", target = "provider")
+    @Mapping(source = "variations", target = "variations")
+    ProductByBooking toEntity(ProductBookingDTO dto);  
     
     @Mapping(source = "reserveLocatorJuniperProduct", target = "product")
     @Mapping(source = "reserveLocatorJuniperProvider", target = "provider")

@@ -43,7 +43,7 @@
                   <h3 *ngIf="">Productos asociados</h3>
                   <mat-card class="ubmat-fl ubmat-card -sm ubmat-bg-gray-8" *ngFor="let opt of booking.products">
                     <mat-card-content>
-                      <h3> {{opt.idReserveLocatorJuniperProduct}} : {{opt.idReserveLocatorJuniperProvider}}</h3>
+                      <h3> {{opt.reserveLocatorJuniperProduct.name}} : {{opt.reserveLocatorJuniperProvider.name}}</h3>
                       <h4>Juniper N°: {{opt.idReserveLocatorJuniper}} </h4>
                       <h4>External N°: {{opt.idReserveLocatorExternal}} </h4>
                     </mat-card-content>

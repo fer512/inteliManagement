@@ -8,6 +8,8 @@ import ar.com.intelimanagement.repository.ProductByBookingRepository;
 import ar.com.intelimanagement.service.dto.BookingDTO;
 import ar.com.intelimanagement.service.dto.BookingFullDTO;
 import ar.com.intelimanagement.service.mapper.BookingMapper;
+import ar.com.intelimanagement.service.mapper.ProductByBookingMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,11 +35,14 @@ public class BookingServiceImpl implements BookingService {
     private final ProductByBookingRepository productByBookingRepository;
     
     private final BookingMapper bookingMapper;
+    
+    private final ProductByBookingMapper productByBookingMapper;
 
-    public BookingServiceImpl(BookingRepository bookingRepository,  ProductByBookingRepository productByBookingRepository, BookingMapper bookingMapper) {
+    public BookingServiceImpl(BookingRepository bookingRepository,  ProductByBookingRepository productByBookingRepository, BookingMapper bookingMapper,ProductByBookingMapper productByBookingMapper) {
         this.bookingRepository = bookingRepository;
         this.bookingMapper = bookingMapper;
         this.productByBookingRepository = productByBookingRepository;
+        this.productByBookingMapper = productByBookingMapper;
     }
 
     /**

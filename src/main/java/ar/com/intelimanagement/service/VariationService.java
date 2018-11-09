@@ -9,6 +9,7 @@ import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
 import ar.com.intelimanagement.repository.VariationRepository;
 import ar.com.intelimanagement.service.dto.VariationDTO;
 import ar.com.intelimanagement.service.dto.VariationFullDTO;
+import ar.com.intelimanagement.service.dto.VariationListDTO;
 import ar.com.intelimanagement.service.mapper.VariationMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -154,12 +155,12 @@ public class VariationService {
     }
     
     @Transactional(readOnly = true)
-    public Page<VariationFullDTO> getPending(Pageable pageable) {
+    public Page<VariationListDTO> getPending(Pageable pageable) {
     	log.debug("Request to get pending Variations");
     	User u = this.userService.findById(this.userService.getUserWithAuthorities().get().getId());
     	u.getTeam();
     	Page<Variation> p =  variationRepository.getPending(pageable,u);
-    	return p.map(variationMapper::toFullDto);
+    	return p.map(variationMapper::toDtoPending);
     }
 
 	public Variation findById(Long id) {
