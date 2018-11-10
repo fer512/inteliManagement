@@ -4,6 +4,6 @@ Parece que la reserva n° {{data}} aún no fue creada.
 <p>haz Click en "Crear Reserva" para continuar.</p>
 </div>
 <div mat-dialog-actions>
+  <button mat-button (click)="onConfirm()" color="primary" cdkFocusInitial>Crear Reserva</button>
   <button mat-button (click)="onNoClick()">Cancelar</button>
-  <button mat-button (click)="onConfirm()" cdkFocusInitial>Crear Reserva</button>
 </div>

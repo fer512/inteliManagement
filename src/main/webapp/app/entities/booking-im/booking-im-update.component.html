@@ -37,6 +37,7 @@
 
         <!-- Productos asociados -->
         <section class="loss-section">
+          <h3 *ngIf="booking.products && booking.products.length >= 1">Productos asociados</h3>
           <table class="ubmat-table">
               <tr>
                 <td colspan="3">

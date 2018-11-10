@@ -6,9 +6,8 @@
 <nav class="nav-find" *ngIf="activeLink == 'Home'">
         <mat-form-field class="ubmat-input -md">
                 <input matInput type="text" placeholder="Identificador Onepocket Juniper" [(ngModel)]="search">
-                <mat-icon class="ubmat-icon-md" matSuffix>search</mat-icon>
         </mat-form-field>
         <div class="button-find">
-                <button mat-raised-button color="primary" (click)="onSearch()">Buscar</button>
+                <button mat-raised-button color="primary" (click)="onSearch()"><mat-icon class="ubmat-icon-md">search</mat-icon> Buscar</button>
         </div>
 </nav>

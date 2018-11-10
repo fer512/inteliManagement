@@ -30,23 +30,24 @@
                                     </td>
                                 </tr>
                             </table>
-                            <hr class="ubmat-divider -lg">
                              <!-- end booking detail -->                   
-                        <mat-tab-group class="ubmat-tab-detail-group">
+                        <mat-tab-group class="ubmat-tab-detail-group ubmat-mt-lg">
                             <mat-tab *ngFor="let tab of booking.products">
-                                
                                     <ng-template mat-tab-label class="ubmat-tab-detail">
-                                            <div class="ubmat-tab-detail-title"><mat-icon class="ubmat-icon-sm">hotel</mat-icon> Hotel</div>
-                                            <div class="ubmat-tab-detail-comment">Locador Juniper N° 506077</div>
+                                            <div class="ubmat-tab-detail-title">
+                                                <mat-icon class="ubmat-icon-sm">{{tab.reserveLocatorJuniperProduct.code === 'HOTEL' ? 'hotel' : 'flight'}}</mat-icon> 
+                                                {{tab.reserveLocatorJuniperProduct.name}}
+                                            </div>
+                                            <div class="ubmat-tab-detail-comment">Locador Juniper N° {{tab.idReserveLocatorJuniper}}</div>
                                     </ng-template>
                                     <ng-template matTabContent>
                                         <div class="ubmat-p-lg">
-                                            <h1 class="ubmat-mb-xsm"><!--{{tab.productId}}--> <mat-icon class="ubmat-fl ubmat-mr-sm">hotel</mat-icon> Hotel</h1>
-                                            <p class="ubmat-mt-xsm ubmat-tc-gray-4">Locador Juniper N° 506077 <!--{{tab.idReserveLocatorJuniper}}--></p>
+                                            <h1 class="ubmat-mb-xsm"><!--{{tab.productId}}--> <mat-icon class="ubmat-fl ubmat-mr-sm">{{tab.reserveLocatorJuniperProduct.code === 'HOTEL' ? 'hotel' : 'flight'}}</mat-icon> {{tab.reserveLocatorJuniperProduct.name}}</h1>
+                                            <p class="ubmat-mt-xsm ubmat-tc-gray-4">Locador Juniper N°: {{tab.idReserveLocatorJuniper}}, Proveedor: {{tab.reserveLocatorJuniperProvider.name}}</p>
                                               <!--beging content-->
-                                              <mat-card class="ubmat-card" *ngFor="let variation of variations">
+                                              <mat-card class="ubmat-card ubmat-bg-gray-8" *ngFor="let variation of variations">
                                                   <mat-card-header>
-                                                    <mat-card-title><b>{{variation.code}}</b> ~ {{variation.product}} / {{variation.provider}}</mat-card-title>
+                                                    <mat-card-title><b>{{variation.code}}</b></mat-card-title>
                                                     <mat-card-subtitle>
                                                        <div>Creado por: {{variation.creation_user}} ~ {{variation.creation_date}}</div> 
                                                        <div>Autorizado: {{variation.approval_user}} ~ {{variation.approval_date}}</div> 
