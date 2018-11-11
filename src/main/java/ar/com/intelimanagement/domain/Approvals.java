@@ -27,6 +27,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
+import ar.com.intelimanagement.domain.enumeration.ErrorEnum;
 
 /**
  * A Approvals.
@@ -131,10 +132,10 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 
 	public Boolean approved(User user) throws Exception{
 		if(this.getHistory().stream().anyMatch(h-> h.getApprovals().getCreationUser().getId().equals(user.getId())))
-			throw new Exception("error.cant.approve.user.creation");
+			throw new Exception(ErrorEnum.USER_CREATION.toString());
 
 		if(this.getHistory().stream().anyMatch(h-> h.getUser().getId().equals(user.getId()) && ApprovalsStatusType.APPOVED.equals(h.getStatus())))
-			throw new Exception("error.cant.approve.user.approve");
+			throw new Exception(ErrorEnum.USER_APPROVE.toString());
 		
 		return false;
 	}
@@ -148,14 +149,14 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 		if(ApprovalsStatusType.CREATE.equals(this.getStatus()) || ApprovalsStatusType.PENDING.equals(this.getStatus())) {
 			return true;
 		}
-		throw new Exception("error.cant.approve.status.invalid");
+		throw new Exception(ErrorEnum.STATUS_INVALID.toString());
 	}
 	
 	public Approvals approve(User user) throws Exception {
 		if(this.validStatus() && this.validDate() && !this.approved(user)) {
 			return this.approveOK(user);
 		}
-		throw new Exception("error.cant.approve");
+		throw new Exception(ErrorEnum.CANT_APPROVE.toString());
 	}
 
 	public Approvals rejected(User user) throws Exception {

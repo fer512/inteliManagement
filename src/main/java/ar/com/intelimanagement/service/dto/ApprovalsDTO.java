@@ -1,7 +1,8 @@
 package ar.com.intelimanagement.service.dto;
 
-import java.time.Instant;
 import java.io.Serializable;
+import java.time.Instant;
+import java.util.List;
 import java.util.Objects;
 import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
 
@@ -17,6 +18,8 @@ public class ApprovalsDTO implements Serializable {
     private Instant endDate;
 
     private ApprovalsStatusType status;
+    
+    private List<ApprovalHistoryDTO> history;
     
     public Long getId() {
         return id;
@@ -80,5 +83,13 @@ public class ApprovalsDTO implements Serializable {
             ", status='" + getStatus() + "'" +
             "}";
     }
+
+	public List<ApprovalHistoryDTO> getHistory() {
+		return history;
+	}
+
+	public void setHistory(List<ApprovalHistoryDTO> history) {
+		this.history = history;
+	}
 
 }
