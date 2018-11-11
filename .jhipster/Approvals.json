@@ -12,7 +12,7 @@
         {
             "fieldName": "status",
             "fieldType": "ApprovalsStatusType",
-            "fieldValues": "APPOVED,REJECTED,PENDING"
+            "fieldValues": "APPROVED,REJECTED,PENDING"
         }
     ],
     "relationships": [],

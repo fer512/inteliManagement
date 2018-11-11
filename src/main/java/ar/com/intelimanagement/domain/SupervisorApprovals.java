@@ -32,20 +32,20 @@ public class SupervisorApprovals extends Approvals implements Serializable {
 		
 		if(supervisor == null) {
 			ApprovalHistory history = new ApprovalHistory();
-			history.setStatus(ApprovalsStatusType.APPOVED);
+			history.setStatus(ApprovalsStatusType.APPROVED);
 			history.setUser(user);
 			this.getHistory().add(history);
-			this.setStatus(ApprovalsStatusType.APPOVED);
+			this.setStatus(ApprovalsStatusType.APPROVED);
 			return this;
 		}
 		
 		if(user.getId().equals(supervisor.getId())){
 			ApprovalHistory history = new ApprovalHistory();
-			history.setStatus(ApprovalsStatusType.APPOVED);
+			history.setStatus(ApprovalsStatusType.APPROVED);
 			history.setUser(user);
 			this.getHistory().add(history);
 			if(this.approveLevel.equals(this.getHistory().size())) {
-				this.setStatus(ApprovalsStatusType.APPOVED);
+				this.setStatus(ApprovalsStatusType.APPROVED);
 			}
 			return this;
 		}

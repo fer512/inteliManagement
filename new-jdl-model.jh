@@ -58,7 +58,7 @@ entity Notification{
 }
 
 enum ApprovalsStatusType {
-    APPOVED, REJECTED, PENDING
+    APPROVED, REJECTED, PENDING
 }
 
 enum PhoneType {

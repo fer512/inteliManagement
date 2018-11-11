@@ -108,7 +108,7 @@ public class NotificationServiceImpl implements NotificationService {
 		case CREATE:
 			userNotifications =  this.createNotificarionWhenCreate(variation);
 			break;
-		case APPOVED:
+		case APPROVED:
 		case REJECTED:
 			userNotifications.add(createNotification(variation.getApprovals().getCreationUser(),variation));
 			//send notificacion al creador y a los q participaron de la aprobacion

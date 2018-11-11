@@ -49,11 +49,11 @@
                                                 <mat-card class="ubmat-card ubmat-bg-white" *ngFor="let variation of tab.variations">
                                                   <mat-card-header>
                                                         <div mat-card-avatar>
-                                                            <mat-icon class="ubmat-icon-xlg ubmat-tc-green-4" *ngIf="variation.approvals.status == 'APPOVED'">verified_user</mat-icon>
+                                                            <mat-icon class="ubmat-icon-xlg ubmat-tc-green-4" *ngIf="variation.approvals.status == 'APPROVED'">verified_user</mat-icon>
                                                             <mat-icon class="ubmat-icon-xlg ubmat-tc-yellow-4" *ngIf="variation.approvals.status == 'CREATE'">watch_later</mat-icon>
                                                         </div>                                                      
-                                                        <mat-card-title [ngClass]="{'ubmat-tc-green-4': variation.approvals.status == 'APPOVED'}">
-                                                            <b *ngIf="variation.approvals.status == 'APPOVED'">Variación Aprobada</b>
+                                                        <mat-card-title [ngClass]="{'ubmat-tc-green-4': variation.approvals.status == 'APPROVED'}">
+                                                            <b *ngIf="variation.approvals.status == 'APPROVED'">Variación Aprobada</b>
                                                             <b *ngIf="variation.approvals.status == 'CREATE'">Variación Pendiente</b>
                                                         </mat-card-title>
                                                         <mat-card-subtitle>
@@ -61,7 +61,7 @@
                                                         </mat-card-subtitle>
                                                     </mat-card-header>
                                                     <mat-card-content>
-                                                        <mat-divider [ngClass]="{'ubmat-bg-green-4': variation.approvals.status == 'APPOVED', 'ubmat-bg-yellow-4': variation.approvals.status == 'CREATE'}"></mat-divider>
+                                                        <mat-divider [ngClass]="{'ubmat-bg-green-4': variation.approvals.status == 'APPROVED', 'ubmat-bg-yellow-4': variation.approvals.status == 'CREATE'}"></mat-divider>
                                                         <div class="ubmat-pt-md">
                                                             <div>Motivo: {{variation.reason}}</div>
                                                             <div>Creado por: {{variation.creationUser.firstName }} {{variation.creationUser.lastName}} ~ {{variation.creationDate | date:'medium'}}</div> 

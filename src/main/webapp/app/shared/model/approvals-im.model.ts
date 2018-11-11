@@ -1,7 +1,7 @@
 import { Moment } from 'moment';
 
 export const enum ApprovalsStatusType {
-    APPOVED = 'APPOVED',
+    APPROVED = 'APPROVED',
     REJECTED = 'REJECTED',
     PENDING = 'PENDING'
 }

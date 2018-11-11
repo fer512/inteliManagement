@@ -196,7 +196,7 @@ public class Notification implements Serializable {
 			return NotificationType.VARIATION_PENDING;
 		case PENDING:
 			return NotificationType.VARIATION_PENDING;
-		case APPOVED:
+		case APPROVED:
 			return NotificationType.VARIATION_APPROVED;
 		case REJECTED:
 			return NotificationType.VARIATION_REJECTED;

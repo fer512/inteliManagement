@@ -134,7 +134,7 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 		if(this.getHistory().stream().anyMatch(h-> h.getApprovals().getCreationUser().getId().equals(user.getId())))
 			throw new Exception(ErrorEnum.USER_CREATION.toString());
 
-		if(this.getHistory().stream().anyMatch(h-> h.getUser().getId().equals(user.getId()) && ApprovalsStatusType.APPOVED.equals(h.getStatus())))
+		if(this.getHistory().stream().anyMatch(h-> h.getUser().getId().equals(user.getId()) && ApprovalsStatusType.APPROVED.equals(h.getStatus())))
 			throw new Exception(ErrorEnum.USER_APPROVE.toString());
 		
 		return false;
@@ -187,11 +187,11 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 
 	private Approvals approveAny(User user) {
 		ApprovalHistory history = new ApprovalHistory();
-		history.setStatus(ApprovalsStatusType.APPOVED);
+		history.setStatus(ApprovalsStatusType.APPROVED);
 		history.setUser(user);
 		history.setApprovals(this);
 		this.getHistory().add(history);
-		this.setStatus(ApprovalsStatusType.APPOVED);
+		this.setStatus(ApprovalsStatusType.APPROVED);
 		return this;
 	}
 	
