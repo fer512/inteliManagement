@@ -20,10 +20,11 @@ export class VariationResolve implements Resolve<IVariation> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const id = route.params['id'] ? route.params['id'] : null;
+        const id_product = route.params['id_product'] ? route.params['id_product'] : null;
         if (id) {
             return this.service.find(id).pipe(map((variation: HttpResponse<Variation>) => variation.body));
         }
-        return of(new Variation());
+        return of(new Variation(id_product));
     }
 }
 
@@ -67,7 +68,7 @@ export const variationRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'variation/new',
+        path: 'variation/:id_product/new',
         component: VariationUpdateComponent,
         resolve: {
             variation: VariationResolve

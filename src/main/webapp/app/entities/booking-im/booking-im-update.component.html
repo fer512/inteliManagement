@@ -6,7 +6,7 @@
         <!-- reservation data -->
         <section class="loss-section">
           <h3>Datos de la reserva</h3>
-          <table class="ubmat-table">
+          <table class="ubmat-table -xlg">
             <tr>
               <td>
               <!-- reservation ids -->
@@ -38,12 +38,12 @@
         <!-- Productos asociados -->
         <section class="loss-section">
           <h3 *ngIf="booking.products && booking.products.length >= 1">Productos asociados</h3>
-          <table class="ubmat-table">
+          <table class="ubmat-table -xlg">
               <tr>
                 <td colspan="3">
                     <mat-card class="ubmat-card -sm ubmat-m-sm ubmat-p-sm ubmat-bg-gray-8 ubmat-fl" *ngFor="let opt of booking.products">
                       <mat-card-header>
-                          <mat-card-title><b><mat-icon class="ubmat-icon-sm">{{opt.reserveLocatorJuniperProduct.code === 'HOTEL' ? 'hotel' : 'flight'}}</mat-icon>{{opt.reserveLocatorJuniperProduct.name}}</b></mat-card-title>
+                          <mat-card-title><b><mat-icon class="ubmat-icon-sm">{{opt.reserveLocatorJuniperProduct.code === 'HOTEL' ? 'location_city' : 'flight'}}</mat-icon>{{opt.reserveLocatorJuniperProduct.name}}</b></mat-card-title>
                           <mat-card-subtitle class="ubmat-mb-xsm">
                              <div>Proveedor: {{opt.reserveLocatorJuniperProvider.name}}</div> 
                           </mat-card-subtitle>
@@ -62,7 +62,7 @@
 
         <section class="loss-section ubmat-mt-lg">
 
-          <table class="ubmat-table">
+          <table class="ubmat-table -xlg">
             <tr>
               <!-- Información sobre el Pago -->
               <td class="ubmat-vertical-top">

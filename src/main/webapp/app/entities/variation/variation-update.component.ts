@@ -78,7 +78,6 @@ export class VariationUpdateComponent implements OnInit {
         if (this.variation.id !== undefined) {
             this.subscribeToSaveResponse(this.variationService.update(this.variation));
         } else {
-            this.variation.product = 1;
             this.subscribeToSaveResponse(this.variationService.create(this.variation));
         }
     }

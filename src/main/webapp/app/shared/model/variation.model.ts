@@ -28,31 +28,7 @@ export interface IVariation {
 }
 
 export class Variation implements IVariation {
-    constructor(
-        public id?: number,
-        public extra_charge?: number,
-        public new_charge?: number,
-        public new_cost?: number,
-        public new_benefit?: number,
-        public new_external_locator_id?: number,
-        public comments?: string,
-        public creation_date?: Moment,
-        public creation_user?: string,
-        public provider?: string,
-        public product?: number,
-        public area?: string,
-        public campaing?: string,
-        public reason?: string,
-        public recoverable?: boolean,
-        public refund_in_points?: number,
-        public refund_in_cash?: number,
-        public cacel?: boolean,
-        public relationship_user_variationLogin?: string,
-        public relationship_user_variationId?: number,
-        public relationship_provider_variations?: IProviderIm[],
-        public relationship_product_variations?: IProductIm[]
-    ) {
-        this.recoverable = this.recoverable || false;
-        this.cacel = this.cacel || false;
+    constructor(public product?: number) {
+        this.product = product;
     }
 }

@@ -80,6 +80,7 @@ export class BookingImDetailComponent implements OnInit {
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ booking }) => {
+            console.log(booking.products);
             this.booking = booking;
         });
     }

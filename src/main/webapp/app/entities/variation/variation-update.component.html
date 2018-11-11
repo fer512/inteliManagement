@@ -1,140 +1,126 @@
 <div class="ubmat-panel">
-        <mat-card>
+        <mat-card class="ubmat-bg-gray-8">
         <mat-card-content>
 <form  name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
     <!-- loss data -->
     <section class="loss-section">
-      <h3>Variaciones de Costos & Ganancias</h3>
-      <table class="ubmat-table">
-          <tr>  
-            <!-- Proveedor -->
-            <td>
-                <!--
-                <mat-form-field class="ubmat-select -md">
-                <mat-select class="ubmat-select -md" name="provider" id="field_provider" [(ngModel)]="variation.provider" placeholder="Proveedor" required>
-                  <mat-option *ngFor="let opt of providers" [(value)]="opt.value">
-                    {{opt.description}}
-                  </mat-option>
-                </mat-select>
-                </mat-form-field>
-            -->
-              </td> 
-            <!-- Producto -->
-            <td>
-            <!--
-              <mat-form-field class="ubmat-select -md">
-                <mat-select class="ubmat-select -md" name="product" id="field_product" [(ngModel)]="variation.product" placeholder="Producto" required>
-                  <mat-option *ngFor="let opt of products" [(value)]="opt.value">
-                    {{opt.description}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field
-            -->
-            </td>
-            <td><!--empty--></td>
-          </tr>            
-          <tr>
-              <!-- Area de Origen -->
-              <td>
-                <mat-form-field class="ubmat-select -md">
-                <mat-select name="area" id="field_area" [(ngModel)]="variation.area" placeholder="Area responsable" required>
-                  <mat-option *ngFor="let opt of areas" [(value)]="opt.value">
-                    {{opt.description}}
-                  </mat-option>
-                </mat-select>
-                </mat-form-field>
-              </td> 
-              <!-- Campaña -->
-              <td>
-                <mat-form-field class="ubmat-select -md">
-                <mat-select name="campaing" id="field_campaing" [(ngModel)]="variation.campaing" placeholder="Campaña responsable" required>
-                  <mat-option *ngFor="let opt of campaing" [(value)]="opt.value">
-                    {{opt.description}}
-                  </mat-option>
-                </mat-select>
-                </mat-form-field>
+                            <!-- booking detail -->
+                            <h3 class="ubmat-mb-sm">Reserva Numero <b>#</b></h3> 
+                            <p class="ubmat-tc-gray-4">Ultima actualización, hace 2 semanas el 20-09-2018 a las 18:07:35</p>
+      <table class="ubmat-table -xlg">
+            <tr>
+             <!-- Fila 1 -->
+              <td class="ubmat-vertical-top">
+                <mat-card class="ubmat-card -md ubmat-bg-white">
+                  <mat-card-content>
+                    <h3>Variaciones de Costos y/o Ganancias</h3>
+                    <!-- Area de Origen -->
+                    <div>
+                        <mat-form-field class="ubmat-select -md">
+                        <mat-select name="area" id="field_area" [(ngModel)]="variation.area" placeholder="Area responsable" required>
+                          <mat-option *ngFor="let opt of areas" [(value)]="opt.value">
+                            {{opt.description}}
+                          </mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                    </div> 
+                     <!-- Campaña -->
+                    <div>
+                        <mat-form-field class="ubmat-select -md">
+                        <mat-select name="campaing" id="field_campaing" [(ngModel)]="variation.campaing" placeholder="Campaña responsable" required>
+                          <mat-option *ngFor="let opt of campaing" [(value)]="opt.value">
+                            {{opt.description}}
+                          </mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <!-- Motivo de la perdida -->
+                    <div>
+                        <mat-form-field class="ubmat-select -md">
+                        <mat-select  name="reason" id="field_reason" [(ngModel)]="variation.reason" placeholder="Motivo de la perdida" required>
+                          <mat-option *ngFor="let opt of losstypes" [(value)]="opt.value">
+                            {{opt.description}}
+                          </mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <!-- Recuperable -->
+                    <div>
+                        <mat-slide-toggle name="recoverable" id="field_recoverable" [(ngModel)]="variation.recoverable"> Recuperable</mat-slide-toggle>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+                <mat-card class="ubmat-card -md ubmat-bg-white">
+                    <mat-card-content>
+                    <h3>Detalle</h3>
+                    <!-- Area de Origen -->
+                    <div>
+                        <mat-form-field class="ubmat-textarea">
+                          <textarea matInput name="comments" id="field_comments"
+                          [(ngModel)]="variation.comments" placeholder="Comentarios"></textarea>
+                        </mat-form-field>
+                    </div>
+                </mat-card-content>
+            </mat-card>                    
               </td>
-              <!-- Motivo de la perdida -->
-              <td>
-                <mat-form-field class="ubmat-select -md">
-                <mat-select  name="reason" id="field_reason" [(ngModel)]="variation.reason" placeholder="Motivo de la perdida" required>
-                  <mat-option *ngFor="let opt of losstypes" [(value)]="opt.value">
-                    {{opt.description}}
-                  </mat-option>
-                </mat-select>
-                </mat-form-field>
+              <!-- Fila 2 -->
+              <td class="ubmat-vertical-top">
+                <mat-card class="ubmat-card -md ubmat-bg-white">
+                    <mat-card-content>
+                        <h3>Devoluciones</h3>
+                        <!-- Dev Efectivo -->
+                        <div>
+                            <mat-form-field  class="ubmat-input -md">
+                                <input matInput type="text" name="refund_in_cash" id="field_refund_in_cash" [(ngModel)]="variation.refund_in_cash" placeholder="Devolución en Efectivo" value="">
+                                <span matPrefix>USD&nbsp;</span>
+                            </mat-form-field>
+                        </div>                         
+                        <!-- Dev Puntos -->
+                        <div>
+                            <mat-form-field  class="ubmat-input -md">
+                              <input matInput type="number" name="refund_in_points" id="field_refund_in_points" [(ngModel)]="variation.refund_in_points" placeholder="Devolución en Puntos" value="">
+                              <span matPrefix>PTS&nbsp;</span>
+                            </mat-form-field>
+                        </div>                  
+                    </mat-card-content>
+                </mat-card>
+
+                <mat-card class="ubmat-card -md ubmat-bg-white">
+                    <mat-card-content>
+                        <h3>Cobro Extra</h3>
+                        <!-- Cobro Extra -->
+                        <div>
+                            <mat-form-field  class="ubmat-input -md">
+                                <input matInput type="text" name="extra_charge" id="field_extra_charge" [(ngModel)]="variation.extra_charge" placeholder="Cobro Extra" value="">
+                                <span matPrefix>USD&nbsp;</span>
+                            </mat-form-field>
+                        </div> 
+                        <!-- Nuevo Costo -->
+                        <div>
+                            <mat-form-field class="ubmat-input -md">
+                                    <input matInput name="new_cost" id="field_new_cost"
+                                    [(ngModel)]="variation.new_cost" placeholder="Nuevo Costo" type="number" value="">
+                                    <span matPrefix>USD&nbsp;</span>
+                            </mat-form-field>
+                        </div>
+                        <!-- Nuevo Localizador Ext -->
+                        <div>
+                            <mat-form-field  class="ubmat-input -md">
+                                <input matInput type="text" name="new_external_locator_id" id="field_new_external_locator_id" [(ngModel)]="variation.new_external_locator_id" placeholder="Nuevo Id Localizador Externo" value="">
+                            </mat-form-field>
+                        </div>                           
+                        <!-- Nuevo Beneficio -->
+                        <div>
+                            <mat-form-field  class="ubmat-input -md">
+                                <input matInput type="text" name="new_benefit" id="field_new_benefit" [(ngModel)]="variation.new_benefit" placeholder="Nuevo Beneficio" value="">
+                            </mat-form-field>
+                        </div>
+                    </mat-card-content>
+                </mat-card>                
               </td>
             </tr>
-            <tr>
-              <!-- Recuperable -->
-              <td colspan="3">
-                <mat-slide-toggle name="recoverable" id="field_recoverable"
-                [(ngModel)]="variation.recoverable"> Recuperable</mat-slide-toggle>
-              </td>   
-            </tr>          
-        <tr>
-          <!-- Dev Puntos -->
-          <td>
-            <mat-form-field  class="ubmat-input -md">
-              <input matInput type="number" name="refund_in_points" id="field_refund_in_points"
-              [(ngModel)]="variation.refund_in_points" placeholder="Devolución en Puntos" value="">
-              <span matPrefix>PTS&nbsp;</span>
-            </mat-form-field>
-          </td> 
-          <!-- Dev Efectivo -->
-          <td>
-            <mat-form-field  class="ubmat-input -md">
-              <input matInput type="text" name="refund_in_cash" id="field_refund_in_cash"
-              [(ngModel)]="variation.refund_in_cash" placeholder="Devolución en Efectivo" value="">
-            </mat-form-field>
-          </td>
-          <!-- Cobro Extra -->
-          <td>
-            <mat-form-field  class="ubmat-input -md">
-              <input matInput type="text" name="extra_charge" id="field_extra_charge"
-              [(ngModel)]="variation.extra_charge" placeholder="Cobro Extra" value="">
-            </mat-form-field>
-          </td>
-        </tr>  
-        <tr>
-          <!-- Nuevo Costo -->
-          <td>
-            <mat-form-field class="ubmat-input -md">
-              <input matInput name="new_cost" id="field_new_cost"
-              [(ngModel)]="variation.new_cost" placeholder="Nuevo Costo" type="number" value="">
-              <span matPrefix>USD&nbsp;</span>
-            </mat-form-field>
-          </td> 
-          <!-- Nuevo Beneficio -->
-          <td>
-            <mat-form-field  class="ubmat-input -md">
-              <input matInput type="text" name="new_benefit" id="field_new_benefit"
-              [(ngModel)]="variation.new_benefit" placeholder="Nuevo Beneficio" value="">
-            </mat-form-field>
-          </td>
-          <!-- Nuevo Localizador Ext -->
-          <td>
-            <mat-form-field  class="ubmat-input -md">
-              <input matInput type="text" name="new_external_locator_id" id="field_new_external_locator_id"
-              [(ngModel)]="variation.new_external_locator_id" placeholder="Nuevo Id Localizador Externo" value="">
-            </mat-form-field>
-          </td>
-        </tr>                
-      </table>
-    </section>
-      
-    <section class="loss-section">
-      <table class="ubmat-table">
-        <tr>
-          <td>
-            <mat-form-field class="ubmat-textarea">
-              <textarea matInput name="comments" id="field_comments"
-              [(ngModel)]="variation.comments" placeholder="Comentarios"></textarea>
-            </mat-form-field>
-          </td>
-        </tr> 
-      </table>
-    </section>        
+          </table>
+    </section>       
     <button mat-raised-button color="primary" type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving">
         <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
     </button>   

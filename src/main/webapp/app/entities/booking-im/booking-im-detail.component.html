@@ -1,5 +1,5 @@
 <div class="ubmat-panel">
-        <mat-card>
+        <mat-card class="ubmat-bg-gray-8">
             <mat-card-content>
                 <section class="loss-section">    
                             <!-- booking detail -->
@@ -10,7 +10,7 @@
                                     <mat-chip>Total Beneficio: 0.00</mat-chip>
                                     <mat-chip>Total Pago a proveedores: 0.00</mat-chip>
                             </mat-chip-list>   
-                            <table class ="ubmat-table ubmat-mt-md">
+                            <table class ="ubmat-table -md ubmat-mt-md">
                                 <tr>
                                     <td>
                                         <table>
@@ -35,40 +35,52 @@
                             <mat-tab *ngFor="let tab of booking.products">
                                     <ng-template mat-tab-label class="ubmat-tab-detail">
                                             <div class="ubmat-tab-detail-title">
-                                                <mat-icon class="ubmat-icon-sm">{{tab.reserveLocatorJuniperProduct.code === 'HOTEL' ? 'hotel' : 'flight'}}</mat-icon> 
+                                                <mat-icon class="ubmat-icon-sm">{{tab.reserveLocatorJuniperProduct.code === 'HOTEL' ? 'location_city' : 'flight'}}</mat-icon> 
                                                 {{tab.reserveLocatorJuniperProduct.name}}
                                             </div>
                                             <div class="ubmat-tab-detail-comment">Locador Juniper N° {{tab.idReserveLocatorJuniper}}</div>
                                     </ng-template>
                                     <ng-template matTabContent>
                                         <div class="ubmat-p-lg">
-                                            <h1 class="ubmat-mb-xsm"><!--{{tab.productId}}--> <mat-icon class="ubmat-fl ubmat-mr-sm">{{tab.reserveLocatorJuniperProduct.code === 'HOTEL' ? 'hotel' : 'flight'}}</mat-icon> {{tab.reserveLocatorJuniperProduct.name}}</h1>
+                                            <h1 class="ubmat-mb-xsm"><!--{{tab.productId}}--> <mat-icon class="ubmat-fl ubmat-mr-sm">{{tab.reserveLocatorJuniperProduct.code === 'HOTEL' ? 'location_city' : 'flight'}}</mat-icon> {{tab.reserveLocatorJuniperProduct.name}}</h1>
                                             <p class="ubmat-mt-xsm ubmat-tc-gray-4">Locador Juniper N°: {{tab.idReserveLocatorJuniper}}, Proveedor: {{tab.reserveLocatorJuniperProvider.name}}</p>
                                               <!--beging content-->
-                                              <mat-card class="ubmat-card ubmat-bg-gray-8" *ngFor="let variation of variations">
+                                              <button mat-button color="primary"  [routerLink]="['/variation/',tab.id,'new' ]">+ Agregar una variación</button>            
+                                                <mat-card class="ubmat-card ubmat-bg-white" *ngFor="let variation of tab.variations">
                                                   <mat-card-header>
-                                                    <mat-card-title><b>{{variation.code}}</b></mat-card-title>
-                                                    <mat-card-subtitle>
-                                                       <div>Creado por: {{variation.creation_user}} ~ {{variation.creation_date}}</div> 
-                                                       <div>Autorizado: {{variation.approval_user}} ~ {{variation.approval_date}}</div> 
-                                                    </mat-card-subtitle>
-                                                  </mat-card-header>
-                                                  <mat-card-content>
+                                                        <div mat-card-avatar>
+                                                            <mat-icon class="ubmat-icon-xlg ubmat-tc-green-4" *ngIf="variation.approvals.status == 'APPOVED'">verified_user</mat-icon>
+                                                            <mat-icon class="ubmat-icon-xlg ubmat-tc-yellow-4" *ngIf="variation.approvals.status == 'CREATE'">watch_later</mat-icon>
+                                                        </div>                                                      
+                                                        <mat-card-title [ngClass]="{'ubmat-tc-green-4': variation.approvals.status == 'APPOVED'}">
+                                                            <b *ngIf="variation.approvals.status == 'APPOVED'">Variación Aprobada</b>
+                                                            <b *ngIf="variation.approvals.status == 'CREATE'">Variación Pendiente</b>
+                                                        </mat-card-title>
+                                                        <mat-card-subtitle>
+                                                            variación número: {{variation.id}}
+                                                        </mat-card-subtitle>
+                                                    </mat-card-header>
+                                                    <mat-card-content>
+                                                        <mat-divider [ngClass]="{'ubmat-bg-green-4': variation.approvals.status == 'APPOVED', 'ubmat-bg-yellow-4': variation.approvals.status == 'CREATE'}"></mat-divider>
+                                                        <div class="ubmat-pt-md">
+                                                            <div>Motivo: {{variation.reason}}</div>
+                                                            <div>Creado por: {{variation.creationUser.firstName }} {{variation.creationUser.lastName}} ~ {{variation.creationDate | date:'medium'}}</div> 
+                                                            <div>Autorizado: {{variation.approval_user}} ~ {{variation.approvals.stastDate | date:'medium'}}</div> 
                                                             <table>
                                                                 <tr><td>Cargo</td><td>~ usd</td><td>{{variation.new_charge}}</td></tr>
                                                                 <tr><td>Costo</td><td>~ usd</td><td>{{variation.new_cost}}</td></tr>
                                                                 <tr><td>Beneficio</td><td>~ usd</td><td>{{variation.new_benefit}}</td></tr>
                                                             </table> 
-                                                    <h4><b>Descripción</b></h4>         
-                                                    <p>{{variation.comments}}</p>
-                                                  </mat-card-content>
-                                              </mat-card>
+                                                            <h4><b>Descripción</b></h4>         
+                                                            <p>{{variation.comments}}</p>
+                                                        </div>
+                                                    </mat-card-content>
+                                                </mat-card>
                                               <!--end content--> 
                                         </div>      
                                     </ng-template>                                               
                             </mat-tab>
                         </mat-tab-group>
-                        <button mat-button color="primary"  [routerLink]="['/variation', 'new' ]">+ Agregar una variación</button>            
                 </section>
             </mat-card-content>
             </mat-card>

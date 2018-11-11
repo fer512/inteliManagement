@@ -186,7 +186,7 @@ body {
 }
 
 .ubmat-bg-gray-8 {
-    background: #f5f5f5;
+    background: #f9f9f9;
 }
 
 .ubmat-bg-gray-7 {
@@ -225,6 +225,24 @@ body {
     background: #000;
 }
 
+/* ubmat-CSS Background Colors Yellow */
+
+.ubmat-bg-yellow-1 {
+    background: #fcf7c5;
+}
+
+.ubmat-bg-yellow-2 {
+    background: #fff68f;
+}
+
+.ubmat-bg-yellow-3 {
+    background: #fff157;
+}
+
+.ubmat-bg-yellow-4 {
+    background: #fae829;
+}
+
 /* ubmat-CSS Colors Yellow */
 
 .ubmat-tc-yellow-1 {
@@ -241,6 +259,24 @@ body {
 
 .ubmat-tc-yellow-4 {
     color: #fae829;
+}
+
+/* ubmat-CSS Background Colors Green */
+
+.ubmat-bg-green-1 {
+    background: #5dcf7b;
+}
+
+.ubmat-bg-green-2 {
+    background: #39c15c;
+}
+
+.ubmat-bg-green-3 {
+    background: #00b02e;
+}
+
+.ubmat-bg-green-4 {
+    background: #029729;
 }
 
 /* ubmat-CSS Colors Green */
@@ -494,13 +530,13 @@ body {
 .ubmat-tab-detail-title {
     font-weight: bold;
     font-size: 14px;
-    padding-bottom: 5px;
     padding-top: 7.5px;
+    margin-top: 2px;
 }
 
 .ubmat-tab-detail-comment {
     font-size: 12px;
-    padding-bottom: 7.5px;
+    padding-bottom: 15px;
     color: #aaa;
 }
 
@@ -564,16 +600,28 @@ body {
 
 /* ubmat-CSS Panel */
 .ubmat-panel {
-    background-color: #fff;
+    background-color: #f5f5f5;
     padding: 0px;
     box-shadow: 5px -2px -2px #eee;
-    margin: 15px 35px;
+    margin: 15px 75px;
 }
 
 /* ubmat-CSS Table */
 
-.ubmat-table {
+.ubmat-table.-xlg {
     width: 100%;
+}
+
+.ubmat-table.-lg {
+    width: 75%;
+}
+
+.ubmat-table.-md {
+    width: 50%;
+}
+
+.ubmat-table.-sm {
+    width: 25%;
 }
 
 .ubmat-table td {
