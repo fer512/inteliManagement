@@ -69,19 +69,19 @@ export class VariationService {
 
     private convertDateFromClient(variation: IVariation): IVariation {
         const copy: IVariation = Object.assign({}, variation, {
-            creation_date: variation.creation_date != null && variation.creation_date.isValid() ? variation.creation_date.toJSON() : null
+            creation_date: variation.creationDate != null && variation.creationDate.isValid() ? variation.creationDate.toJSON() : null
         });
         return copy;
     }
 
     private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.creation_date = res.body.creation_date != null ? moment(res.body.creation_date) : null;
+        res.body.creationDate = res.body.creationDate != null ? moment(res.body.creationDate) : null;
         return res;
     }
 
     private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
         res.body.forEach((variation: IVariation) => {
-            variation.creation_date = variation.creation_date != null ? moment(variation.creation_date) : null;
+            variation.creationDate = variation.creationDate != null ? moment(variation.creationDate) : null;
         });
         return res;
     }

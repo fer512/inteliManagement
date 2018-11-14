@@ -74,7 +74,7 @@ export class VariationUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.variation.creation_date = moment(this.creation_date, DATE_TIME_FORMAT);
+        this.variation.creationDate = moment(this.creation_date, DATE_TIME_FORMAT);
         if (this.variation.id !== undefined) {
             this.subscribeToSaveResponse(this.variationService.update(this.variation));
         } else {
@@ -108,6 +108,6 @@ export class VariationUpdateComponent implements OnInit {
 
     set variation(variation: IVariation) {
         this._variation = variation;
-        this.creation_date = moment(variation.creation_date).format(DATE_TIME_FORMAT);
+        this.creation_date = moment(variation.creationDate).format(DATE_TIME_FORMAT);
     }
 }
