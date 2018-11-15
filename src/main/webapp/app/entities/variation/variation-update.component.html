@@ -71,14 +71,14 @@
                         <!-- Dev Efectivo -->
                         <div>
                             <mat-form-field  class="ubmat-input -md">
-                                <input matInput type="text" name="refund_in_cash" id="field_refund_in_cash" [(ngModel)]="variation.refund_in_cash" placeholder="Devolución en Efectivo" value="">
+                                <input matInput type="text" name="refund_in_cash" id="field_refund_in_cash" [(ngModel)]="variation.refundInCash" placeholder="Devolución en Efectivo" value="">
                                 <span matPrefix>USD&nbsp;</span>
                             </mat-form-field>
                         </div>                         
                         <!-- Dev Puntos -->
                         <div>
                             <mat-form-field  class="ubmat-input -md">
-                              <input matInput type="number" name="refund_in_points" id="field_refund_in_points" [(ngModel)]="variation.refund_in_points" placeholder="Devolución en Puntos" value="">
+                              <input matInput type="number" name="refund_in_points" id="field_refund_in_points" [(ngModel)]="variation.refundInPoints" placeholder="Devolución en Puntos" value="">
                               <span matPrefix>PTS&nbsp;</span>
                             </mat-form-field>
                         </div>                  
@@ -91,7 +91,7 @@
                         <!-- Cobro Extra -->
                         <div>
                             <mat-form-field  class="ubmat-input -md">
-                                <input matInput type="text" name="extra_charge" id="field_extra_charge" [(ngModel)]="variation.extra_charge" placeholder="Cobro Extra" value="">
+                                <input matInput type="text" name="extra_charge" id="field_extra_charge" [(ngModel)]="variation.extraCharge" placeholder="Cobro Extra" value="">
                                 <span matPrefix>USD&nbsp;</span>
                             </mat-form-field>
                         </div> 
@@ -99,20 +99,20 @@
                         <div>
                             <mat-form-field class="ubmat-input -md">
                                     <input matInput name="new_cost" id="field_new_cost"
-                                    [(ngModel)]="variation.new_cost" placeholder="Nuevo Costo" type="number" value="">
+                                    [(ngModel)]="variation.newCost" placeholder="Nuevo Costo" type="number" value="">
                                     <span matPrefix>USD&nbsp;</span>
                             </mat-form-field>
                         </div>
                         <!-- Nuevo Localizador Ext -->
                         <div>
                             <mat-form-field  class="ubmat-input -md">
-                                <input matInput type="text" name="new_external_locator_id" id="field_new_external_locator_id" [(ngModel)]="variation.new_external_locator_id" placeholder="Nuevo Id Localizador Externo" value="">
+                                <input matInput type="text" name="new_external_locator_id" id="field_new_external_locator_id" [(ngModel)]="variation.newExternalLocatorId" placeholder="Nuevo Id Localizador Externo" value="">
                             </mat-form-field>
                         </div>                           
                         <!-- Nuevo Beneficio -->
                         <div>
                             <mat-form-field  class="ubmat-input -md">
-                                <input matInput type="text" name="new_benefit" id="field_new_benefit" [(ngModel)]="variation.new_benefit" placeholder="Nuevo Beneficio" value="">
+                                <input matInput type="text" name="new_benefit" id="field_new_benefit" [(ngModel)]="variation.newBenefit" placeholder="Nuevo Beneficio" value="">
                             </mat-form-field>
                         </div>
                     </mat-card-content>
