@@ -51,7 +51,7 @@ export class NotificationImComponent implements OnInit, OnDestroy {
             last: 0
         };
         this.predicate = 'id';
-        this.reverse = true;
+        this.reverse = false;
     }
 
     loadAll() {
@@ -111,10 +111,12 @@ export class NotificationImComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         for (let i = 0; i < data.length; i++) {
-            let j: any = JSON.stringify(data[i].detail);
+            const strJson: any = JSON.stringify(data[i].detail);
             this.notifications.push(data[i]);
             this.listNotifications.push(this.createRow(data[i]));
         }
+        /* .sort() => b-a (desc) | a-b (asc) */
+        /* this.listNotifications.sort((a: any, b: any) => b.referenceId - a.referenceId); */
     }
 
     createRow(n: INotificationIm): ListNotif {

@@ -30,9 +30,9 @@
                                     </td>
                                 </tr>
                             </table>
-                             <!-- end booking detail -->                   
-                        <mat-tab-group class="ubmat-tab-detail-group ubmat-mt-lg">
-                            <mat-tab *ngFor="let tab of booking.products">
+                             <!-- end booking detail -->            
+                        <mat-tab-group dynamicHeight [selectedIndex]="selectedIndex" (selectedIndexChange)="selectedIndex = $event" class="ubmat-tab-detail-group ubmat-mt-lg">
+                            <mat-tab *ngFor="let tab of booking.products; let index = index">
                                     <ng-template mat-tab-label class="ubmat-tab-detail">
                                             <div class="ubmat-tab-detail-title">
                                                 <mat-icon class="ubmat-icon-sm">{{tab.reserveLocatorJuniperProduct.code === 'HOTEL' ? 'location_city' : 'flight'}}</mat-icon> 
@@ -50,22 +50,32 @@
                                                   <mat-card-header>
                                                         <div mat-card-avatar>
                                                             <mat-icon class="ubmat-icon-xlg ubmat-tc-green-4" *ngIf="variation.approvals.status == 'APPROVED'">verified_user</mat-icon>
-                                                            <mat-icon class="ubmat-icon-xlg ubmat-tc-yellow-4" *ngIf="variation.approvals.status == 'CREATE'">watch_later</mat-icon>
+                                                            <mat-icon class="ubmat-icon-xlg ubmat-tc-blue-4" *ngIf="variation.approvals.status == 'CREATE'">watch_later</mat-icon>
+                                                            <mat-icon class="ubmat-icon-xlg ubmat-tc-red-4" *ngIf="variation.approvals.status == 'REJECTED'">not_interested</mat-icon>
+                                                            <mat-icon class="ubmat-icon-xlg ubmat-tc-red-4" *ngIf="variation.approvals.status == 'CANCELED'">cancel</mat-icon>
                                                         </div>                                                      
                                                         <mat-card-title [ngClass]="{'ubmat-tc-green-4': variation.approvals.status == 'APPROVED'}">
                                                             <b *ngIf="variation.approvals.status == 'APPROVED'">Variación Aprobada</b>
                                                             <b *ngIf="variation.approvals.status == 'CREATE'">Variación Pendiente</b>
+                                                            <b *ngIf="variation.approvals.status == 'REJECTED'">Variación Rechazada</b>
+                                                            <b *ngIf="variation.approvals.status == 'CANCELED'">Variación Cancelada</b>
                                                         </mat-card-title>
                                                         <mat-card-subtitle>
                                                             variación número: {{variation.id}}
                                                         </mat-card-subtitle>
                                                     </mat-card-header>
                                                     <mat-card-content>
-                                                        <mat-divider [ngClass]="{'ubmat-bg-green-4': variation.approvals.status == 'APPROVED', 'ubmat-bg-yellow-4': variation.approvals.status == 'CREATE'}"></mat-divider>
+                                                        <mat-divider            
+                                                        [ngClass]="{
+                                                            'ubmat-bg-green-2': variation.approvals.status == 'APPROVED', 
+                                                            'ubmat-bg-blue-2': variation.approvals.status == 'CREATE', 
+                                                            'ubmat-bg-red-2': variation.approvals.status == 'REJECTED'
+                                                        }">
+                                                        </mat-divider>
                                                         <div class="ubmat-pt-md">
                                                             <div>Motivo: {{variation.reason}}</div>
                                                             <div>Creado por: {{variation.creationUser.firstName }} {{variation.creationUser.lastName}} ~ {{variation.creationDate | date:'medium'}}</div> 
-                                                            <div>Autorizado: {{variation.approval_user}} ~ {{variation.approvals.stastDate | date:'medium'}}</div> 
+                                                            <div>Autorizado: {{variation.approvals.stastDate | date:'medium'}}</div>
                                                             <table>
                                                                 <tr><td>Cargo</td><td>~ usd</td><td>{{variation.new_charge}}</td></tr>
                                                                 <tr><td>Costo</td><td>~ usd</td><td>{{variation.new_cost}}</td></tr>
@@ -73,6 +83,17 @@
                                                             </table> 
                                                             <h4><b>Descripción</b></h4>         
                                                             <p>{{variation.comments}}</p>
+                                                                <ul *ngIf="variation.approvals && variation.approvals.history.length > 0">
+                                                                    <li *ngFor="let history of variation.approvals.history">
+                                                                            <mat-icon *ngIf="history.status == 'CREATE'"  class="ubmat-icon-sm">home</mat-icon>
+                                                                            <mat-icon *ngIf="history.status == 'APPROVED'" class="ubmat-icon-sm ubmat-tc-green-4">exposure_plus_1</mat-icon> 
+                                                                            <mat-icon *ngIf="history.status == 'REJECTED'" class="ubmat-icon-sm ubmat-tc-red-4">exposure_neg_1</mat-icon>
+                                                                            
+                                                                            <span *ngIf="history.status == 'CREATE'"> variación creada por {{history.user.firstName}} {{history.user.lastName}}</span>
+                                                                            <span *ngIf="history.status == 'APPROVED'" > {{history.user.firstName}} {{history.user.lastName}} dio su aprobación </span> 
+                                                                            <span *ngIf="history.status == 'REJECTED'"> {{history.user.firstName}} {{history.user.lastName}} rechazó el pedido</span>
+                                                                    </li>
+                                                                </ul>
                                                         </div>
                                                     </mat-card-content>
                                                 </mat-card>

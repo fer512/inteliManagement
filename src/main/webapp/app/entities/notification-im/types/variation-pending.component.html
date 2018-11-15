@@ -1,13 +1,8 @@
-<div class="ubmat-notification">
-  <div class="-header">  
-    <p class="-title">
-      #<em>{{notification.referenceId}}</em> Solicitud de Aprobación
-    </p>
-  </div>
-  <div class="-content">
-    <p>Se requiere tú aprobación para validar un nuevo registro en la reserva n° <b>xxxxxxxx</b>.</p>
-  </div>
-  <div class="-footer">
-    <p>Enviado por: {{notification.name}} ~ {{notification.date | date:'dd-MM-yyyy HH:mm:ss'}}</p>
-  </div>  
-</div>
+<mat-list-option class="ubmat-notification">
+    <img matListAvatar src="../../../../../../../webpack/logo-jhipster.png" alt="">
+    <h3  matLine class="-header -title"> #{{notification.referenceId}} Solicitúd de Aprobación</h3>
+    <div matLine>
+      <span class="-content">Se requiere tú aprobación para validar un nuevo registro en la reserva n° <b>xxxxxxxx</b>.</span>
+      <span class="-footer">Enviado por: {{notification.name}} ~ {{notification.date | date:'dd-MM-yyyy HH:mm:ss'}}</span>
+    </div>
+</mat-list-option>

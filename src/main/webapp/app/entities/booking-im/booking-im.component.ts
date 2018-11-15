@@ -30,7 +30,7 @@ export class BookingImComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
-    displayedColumns: string[] = ['id', 'idTransaction', 'idReserveLocatorJuniper', 'idReserveLocatorExternal'];
+    displayedColumns: string[] = ['id', 'idTransaction', 'paymentType', 'idReserveLocatorJuniper', 'idReserveLocatorExternal'];
 
     constructor(
         private bookingService: BookingImService,

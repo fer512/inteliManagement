@@ -1,6 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 /* Default theme from angular material */
-
+/* ubmat-CORE */
+ol,
+ul,
+li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 body {
     margin: 0;
     padding: 0;
@@ -25,30 +32,36 @@ body {
 /* ubmat-notification */
 
 .ubmat-notification {
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
-    display: block;
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    margin: 5px 0;
-    padding: 20px 30px 5px 30px;
+    height: 85px !important;
 }
 
-.ubmat-notification.-header {
-    margin: 0;
+.-header {
+    display: block !important;
 }
 
-.ubmat-notification > .-header > .-title {
-    display: inline;
-    font-weight: bold;
+.-header.-title {
+    font-size: 14px !important;
+    font-weight: bold !important;
 }
 
-.ubmat-notification > .-content {
-    margin: 0;
+.-content {
+    margin: 7.5px 0 5px 0 !important;
+    font-size: 13px !important;
+    display: block !important;
 }
 
-.ubmat-notification > .-footer {
-    margin: 0;
-    color: #888;
+.-footer {
+    margin: 0 !important;
+    color: #888 !important;
+    font-size: 12px !important;
+    display: block !important;
+}
+
+.ubmat-tooltip {
+    background: #444;
+    color: #fff;
     font-size: 12px;
+    font-weight: bold;
 }
 
 /* ubmat-CSS vertical-align */
@@ -228,91 +241,145 @@ body {
 /* ubmat-CSS Background Colors Yellow */
 
 .ubmat-bg-yellow-1 {
-    background: #fcf7c5;
+    background: #fcf7c6;
 }
 
 .ubmat-bg-yellow-2 {
-    background: #fff68f;
+    background: #fff68e;
 }
 
 .ubmat-bg-yellow-3 {
-    background: #fff157;
+    background: #fff158;
 }
 
 .ubmat-bg-yellow-4 {
-    background: #fae829;
+    background: #fae830;
 }
 
 /* ubmat-CSS Colors Yellow */
 
 .ubmat-tc-yellow-1 {
-    color: #fcf7c5;
+    color: #fcf7c6;
 }
 
 .ubmat-tc-yellow-2 {
-    color: #fff68f;
+    color: #fff68e;
 }
 
 .ubmat-tc-yellow-3 {
-    color: #fff157;
+    color: #fff158;
 }
 
 .ubmat-tc-yellow-4 {
-    color: #fae829;
+    color: #fae830;
 }
 
 /* ubmat-CSS Background Colors Green */
 
 .ubmat-bg-green-1 {
-    background: #5dcf7b;
+    background: #5dcf7c;
 }
 
 .ubmat-bg-green-2 {
-    background: #39c15c;
+    background: #39c15d;
 }
 
 .ubmat-bg-green-3 {
-    background: #00b02e;
+    background: #00b02f;
 }
 
 .ubmat-bg-green-4 {
-    background: #029729;
+    background: #029730;
 }
 
 /* ubmat-CSS Colors Green */
 
 .ubmat-tc-green-1 {
-    color: #5dcf7b;
+    color: #5dcf7c;
 }
 
 .ubmat-tc-green-2 {
-    color: #39c15c;
+    color: #39c15d;
 }
 
 .ubmat-tc-green-3 {
-    color: #00b02e;
+    color: #00b02f;
 }
 
 .ubmat-tc-green-4 {
-    color: #029729;
+    color: #029730;
+}
+
+/* ubmat-CSS Background Colors Blue */
+
+.ubmat-bg-blue-1 {
+    background: #5c8fe1;
+}
+
+.ubmat-bg-blue-2 {
+    background: #3d73e2;
+}
+
+.ubmat-bg-blue-3 {
+    background: #0050d1;
+}
+
+.ubmat-bg-blue-4 {
+    background: #003fa4;
+}
+
+/* ubmat-CSS Colors Blue */
+
+.ubmat-tc-blue-1 {
+    color: #5c8fe1;
+}
+
+.ubmat-tc-blue-2 {
+    color: #3d73e2;
+}
+
+.ubmat-tc-blue-3 {
+    color: #0050d1;
+}
+
+.ubmat-tc-blue-4 {
+    color: #003fa4;
+}
+
+/* ubmat-CSS Background Colors Red */
+
+.ubmat-bg-red-1 {
+    background: #f96f5e;
+}
+
+.ubmat-bg-red-2 {
+    background: #f7432d;
+}
+
+.ubmat-bg-red-3 {
+    background: #eb1b01;
+}
+
+.ubmat-bg-red-4 {
+    background: #db1c01;
 }
 
 /* ubmat-CSS Colors Red */
 
 .ubmat-tc-red-1 {
-    color: #f96f5d;
+    color: #f96f5e;
 }
 
 .ubmat-tc-red-2 {
-    color: #f7432c;
+    color: #f7432d;
 }
 
 .ubmat-tc-red-3 {
-    color: #eb1b00;
+    color: #eb1b01;
 }
 
 .ubmat-tc-red-4 {
-    color: #db1c00;
+    color: #db1c01;
 }
 
 /* ubmat-CSS Margin & Padding */
@@ -549,6 +616,10 @@ body {
     > .mat-tab-label-content {
     display: inline-block;
     text-align: left;
+}
+
+.ubmat-tab-detail-group > .mat-tab-body-wrapper > .mat-tab-body {
+    min-height: 500px !important;
 }
 
 /* ubmat-CSS Card */

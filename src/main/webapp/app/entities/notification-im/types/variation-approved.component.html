@@ -1,13 +1,8 @@
-<div class="ubmat-notification">
-  <div class="-header">  
-    <p class="-title">
-      #<em>{{notification.referenceId}}</em> Registro de variación Aprobado
-    </p>
-  </div>
-  <div class="-content">
-    <p>Tu registro de variación creado para la reserva n° xxxxxxxx fue aprobado por <b>{{notification.name}}</b>.</p>
-  </div>
-  <div class="-footer">
-    <p>Enviado por: {{notification.name}} ~ {{notification.date | date:'dd-MM-yyyy HH:mm:ss'}}</p>
-  </div>  
-</div>
+<mat-list-option class="ubmat-notification">
+    <img matListAvatar src="../../../../../../../webpack/logo-jhipster.png" alt="">
+    <h3  matLine class="-header -title"> #{{notification.referenceId}} Registro Aprobado</h3>
+    <div matLine>
+      <span class="-content">Tu registro de variación creado para la reserva n° xxxxxxxx fue aprobado por <b>{{notification.name}}</b>.</span>
+      <span class="-footer">Enviado por: {{notification.name}} ~ {{notification.date | date:'dd-MM-yyyy HH:mm:ss'}}</span>
+    </div>
+</mat-list-option>

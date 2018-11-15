@@ -63,6 +63,18 @@ export const bookingRoute: Routes = [
                 canActivate: [UserRouteAccessService]
             },
             {
+                path: ':id/view/:jid',
+                component: BookingImDetailComponent,
+                resolve: {
+                    booking: BookingImResolve
+                },
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'inteliManagementApp.booking.home.title'
+                },
+                canActivate: [UserRouteAccessService]
+            },
+            {
                 path: 'new',
                 component: BookingImUpdateComponent,
                 resolve: {

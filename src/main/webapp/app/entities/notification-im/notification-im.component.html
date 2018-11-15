@@ -3,13 +3,20 @@
           <mat-card-content>
             <section class="loss-section">
                 <h3>Mis Notificaciones</h3>
-                <div *ngIf="listNotifications && listNotifications.length">
-                    <div *ngFor="let notification of listNotifications" [ngSwitch]="notification.type">
+                <div class="ubmat-align-r">
+                    <button mat-icon-button matTooltip="Marcar como leído" matTooltipClass="ubmat-tooltip">
+                        <mat-icon>drafts</mat-icon>
+                    </button>
+                </div>
+                
+                <mat-selection-list *ngIf="listNotifications && listNotifications.length">
+                    <!-- | orderBy:-referenceId -->
+                    <div class="ubmat-notification" *ngFor="let notification of listNotifications" [ngSwitch]="notification.type">
                         <jhi-variation-approved *ngSwitchCase="'VARIATION_APPROVED'" [notification]="notification"></jhi-variation-approved>
                         <jhi-variation-pending  *ngSwitchCase="'VARIATION_PENDING'" [notification]="notification"></jhi-variation-pending>
                         <jhi-variation-rejected *ngSwitchCase="'VARIATION_REJECTED'" [notification]="notification"></jhi-variation-rejected>
                     </div>
-                </div>
+                </mat-selection-list>
                 <div class="ubmat-tc-gray-4" *ngIf="!listNotifications.length">Genial!, ya puedes descansar, no tienes notifiaciones pendientes.</div>
             </section>
           </mat-card-content>
