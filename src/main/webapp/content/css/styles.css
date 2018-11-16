@@ -8,6 +8,11 @@ li {
     padding: 0;
     margin: 0;
 }
+
+.ubmat-non-boxshadow {
+    box-shadow: none !important;
+}
+
 body {
     margin: 0;
     padding: 0;

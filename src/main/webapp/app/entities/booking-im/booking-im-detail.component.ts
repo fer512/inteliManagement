@@ -1,29 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { JhiAlertService } from 'ng-jhipster';
 import { IBookingIm } from 'app/shared/model/booking-im.model';
-
-export interface ListVariations {
-    id: string;
-    code: string;
-    extra_charge: number;
-    new_charge: number;
-    new_cost: number;
-    new_benefit: number;
-    new_external_locator_id: number;
-    comments: string;
-    creation_date: string;
-    creation_user: string;
-    approval_user: string;
-    approval_date: string;
-    provider: string;
-    product: string;
-    campaing: string;
-    reason: string;
-    recoverable: number;
-    refund_in_points: number;
-    refund_in_cash: number;
-}
+import { VariationService } from 'app/entities/variation/variation.service';
 
 @Component({
     selector: 'jhi-booking-im-detail',
@@ -31,14 +10,16 @@ export interface ListVariations {
 })
 export class BookingImDetailComponent implements OnInit {
     booking: IBookingIm;
-    variations: ListVariations[] = [];
     selectedIndex: number = 0;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private variationService: VariationService,
+        private jhiAlertService: JhiAlertService
+    ) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ booking }) => {
-            console.log(booking);
             this.booking = booking;
             /** find index to object load by route param jid (JuniperId) and set active tab */
             let refJidActiveTab = null;
@@ -46,10 +27,32 @@ export class BookingImDetailComponent implements OnInit {
                 refJidActiveTab = params['jid'];
             });
             if (refJidActiveTab) {
-                const idx = this.booking.products.findIndex(x => x.idReserveLocatorJuniper == refJidActiveTab);
+                const idx = this.booking.products.findIndex(x => x.idReserveLocatorJuniper === refJidActiveTab);
                 this.selectedIndex = idx;
             }
         });
+    }
+
+    approve(id: number) {
+        this.variationService.approve(id).subscribe(
+            data => {
+                this.jhiAlertService.success('ok', null, null);
+            },
+            error => {
+                this.jhiAlertService.error(error.error.detail, null, null);
+            }
+        );
+    }
+
+    rejected(id: number) {
+        this.variationService.rejected(id).subscribe(
+            data => {
+                this.jhiAlertService.success('ok', null, null);
+            },
+            error => {
+                this.jhiAlertService.error(error.error.detail, null, null);
+            }
+        );
     }
 
     previousState() {
