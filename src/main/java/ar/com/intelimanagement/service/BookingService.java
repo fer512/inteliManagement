@@ -2,10 +2,12 @@ package ar.com.intelimanagement.service;
 
 import ar.com.intelimanagement.service.dto.BookingDTO;
 import ar.com.intelimanagement.service.dto.BookingFullDTO;
+import ar.com.intelimanagement.service.dto.BookingMinDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -46,4 +48,6 @@ public interface BookingService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+	List<BookingMinDTO> find(String value);
 }

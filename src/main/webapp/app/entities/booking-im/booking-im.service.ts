@@ -46,4 +46,8 @@ export class BookingImService {
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
+
+    search(data: string): Observable<HttpResponse<any>> {
+        return this.http.post<any>(this.resourceUrl + '/search', data, { observe: 'response' });
+    }
 }

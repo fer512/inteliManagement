@@ -11,7 +11,7 @@ import { VariationService } from 'app/entities/variation/variation.service';
 export class BookingImDetailComponent implements OnInit {
     booking: IBookingIm;
     selectedIndex: number = 0;
-
+    panelOpenState;
     constructor(
         private activatedRoute: ActivatedRoute,
         private variationService: VariationService,

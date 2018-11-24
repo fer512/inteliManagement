@@ -55,9 +55,8 @@ export class SearchComponent implements OnInit {
     }
 
     onSearch() {
-        let criteria = { idReserveLocatorJuniper: { equals: this.search } };
         this.bookingService
-            .findByCriteria(criteria)
+            .search(this.search)
             .subscribe(
                 (res: HttpResponse<IBookingIm[]>) => this.onSaveSuccess(res.body),
                 (res: HttpErrorResponse) => this.onSaveError(res.message)
@@ -69,7 +68,7 @@ export class SearchComponent implements OnInit {
     }
 
     private onSaveSuccess(list: IBookingIm[]) {
-        if (list != null && list.length == 1) {
+        if (list != null && list.length >= 1) {
             this.view(list[0].id);
         } else {
             this.openDialog(this.search);

@@ -121,6 +121,14 @@ public class BookingResource {
     }
 
     
+
+    @PostMapping("/bookings/search")
+    @Timed
+    public ResponseEntity<List<BookingMinDTO>> search(@RequestBody String value) {
+        List<BookingMinDTO> l = bookingService.find(value);
+        return new ResponseEntity<>(l, HeaderUtil.createAlert(ENTITY_NAME,value), HttpStatus.OK);
+    }
+    
     /**
      * GET  /bookings/:id : get the "id" booking.
      *

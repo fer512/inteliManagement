@@ -1,26 +1,28 @@
 package ar.com.intelimanagement.service.impl;
 
-import ar.com.intelimanagement.service.BookingService;
-import ar.com.intelimanagement.domain.Booking;
-import ar.com.intelimanagement.domain.ProductByBooking;
-import ar.com.intelimanagement.repository.BookingRepository;
-import ar.com.intelimanagement.repository.ProductByBookingRepository;
-import ar.com.intelimanagement.service.dto.BookingDTO;
-import ar.com.intelimanagement.service.dto.BookingFullDTO;
-import ar.com.intelimanagement.service.mapper.BookingMapper;
-import ar.com.intelimanagement.service.mapper.ProductByBookingMapper;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import ar.com.intelimanagement.domain.Booking;
+import ar.com.intelimanagement.domain.ProductByBooking;
+import ar.com.intelimanagement.repository.BookingCustomRepository;
+import ar.com.intelimanagement.repository.BookingRepository;
+import ar.com.intelimanagement.repository.ProductByBookingRepository;
+import ar.com.intelimanagement.service.BookingService;
+import ar.com.intelimanagement.service.dto.BookingDTO;
+import ar.com.intelimanagement.service.dto.BookingFullDTO;
+import ar.com.intelimanagement.service.dto.BookingMinDTO;
+import ar.com.intelimanagement.service.mapper.BookingMapper;
+import ar.com.intelimanagement.service.mapper.ProductByBookingMapper;
 /**
  * Service Implementation for managing Booking.
  */
@@ -38,11 +40,14 @@ public class BookingServiceImpl implements BookingService {
     
     private final ProductByBookingMapper productByBookingMapper;
 
-    public BookingServiceImpl(BookingRepository bookingRepository,  ProductByBookingRepository productByBookingRepository, BookingMapper bookingMapper,ProductByBookingMapper productByBookingMapper) {
+	private BookingCustomRepository bookingCustomRepository;
+
+    public BookingServiceImpl(BookingRepository bookingRepository,  ProductByBookingRepository productByBookingRepository, BookingMapper bookingMapper,ProductByBookingMapper productByBookingMapper,BookingCustomRepository bookingCustomRepository) {
         this.bookingRepository = bookingRepository;
         this.bookingMapper = bookingMapper;
         this.productByBookingRepository = productByBookingRepository;
         this.productByBookingMapper = productByBookingMapper;
+        this.bookingCustomRepository = bookingCustomRepository;
     }
 
     /**
@@ -108,5 +113,15 @@ public class BookingServiceImpl implements BookingService {
 
 	public ProductByBookingRepository getProductByBookingRepository() {
 		return productByBookingRepository;
+	}
+
+	@Override
+	public List<BookingMinDTO> find(String value) {
+		List<Booking> l =  this.bookingCustomRepository.find(value);
+		List<BookingMinDTO> result =  new ArrayList<>();
+		for (Booking booking : l) {
+			result.add(this.bookingMapper.toMinDto(booking));
+		}
+		return result;
 	}
 }
