@@ -32,6 +32,7 @@ import ar.com.intelimanagement.service.ApprovalsService;
 import ar.com.intelimanagement.service.NotificationService;
 import ar.com.intelimanagement.service.VariationQueryService;
 import ar.com.intelimanagement.service.VariationService;
+import ar.com.intelimanagement.service.dto.CanApproveRejectedDTO;
 import ar.com.intelimanagement.service.dto.VariationCriteria;
 import ar.com.intelimanagement.service.dto.VariationDTO;
 import ar.com.intelimanagement.service.dto.VariationFullDTO;
@@ -196,6 +197,18 @@ public class VariationResource {
     }
     
 
+    @PostMapping("/canApproveRejected")
+    @Timed
+    public ResponseEntity<CanApproveRejectedDTO> canApprove(@RequestBody Long id) throws Exception {
+        log.debug("REST request to approve : {}", id);
+        if (id == null) {
+            throw new BadRequestAlertException("approve - id is null", ENTITY_NAME, "id is null");
+        }
+        Variation variation = variationService.findById(id);
+        CanApproveRejectedDTO can = approvalsService.canApproveRejected(variation.getApprovals());
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Approve", id.toString())).body(can);
+    }
+    
     @PostMapping("/rejected")
     @Timed
     public ResponseEntity<Boolean> rejected(@RequestBody Long id) throws Exception {

@@ -7,6 +7,7 @@ import ar.com.intelimanagement.domain.Approvals;
 import ar.com.intelimanagement.domain.User;
 import ar.com.intelimanagement.repository.ApprovalsRepository;
 import ar.com.intelimanagement.service.dto.ApprovalsDTO;
+import ar.com.intelimanagement.service.dto.CanApproveRejectedDTO;
 import ar.com.intelimanagement.service.dto.UserDTO;
 import ar.com.intelimanagement.service.mapper.ApprovalsMapper;
 import org.slf4j.Logger;
@@ -112,6 +113,18 @@ public class ApprovalsServiceImpl implements ApprovalsService {
 		return approvals.get().approve(currentUser.get());
 	}
 
+	@Override
+	@Transactional
+	public CanApproveRejectedDTO canApproveRejected(Approvals approval) {
+		CanApproveRejectedDTO dto = new CanApproveRejectedDTO();
+		Optional<User> currentUser = this.userService.getUserWithAuthorities();
+		Boolean a = approval.canApprove(currentUser.get());
+		Boolean r = approval.canRejected(currentUser.get());
+		dto.setApprove(a);
+		dto.setRejected(r);
+		return dto;
+	}
+	
 	@Override
 	@Transactional
 	public Approvals rejected(Long id) throws Exception {

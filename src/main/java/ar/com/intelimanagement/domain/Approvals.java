@@ -166,6 +166,13 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 		throw new Exception("error.cant.rejected");
 	}
 	
+	public Boolean canRejected(User user){
+		try {
+			return this.validStatus() && this.validDate() && !this.approved(user) && this.canRejectedOK(user);
+		}catch(Exception e) {
+			return false;
+		}
+	}
 	
 	private Approvals rejectedOK(User user) {
 		return this.rejectedAny(user);
@@ -208,5 +215,20 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 	public boolean pointOfNoReturn() {
 		return false;
 	}
+
+	public Boolean canApprove(User user) {
+		try {
+			return this.validStatus() && this.validDate() && !this.approved(user) && this.canApproveOK(user);
+		}catch(Exception e) {
+			return false;
+		}
+	}
+
+	private Boolean canApproveOK(User user) {
+		return true;
+	}
 	
+	private Boolean canRejectedOK(User user) {
+		return true;
+	}
 }

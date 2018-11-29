@@ -11,7 +11,7 @@ import { IVariation } from 'app/shared/model/variation.model';
 
 type EntityResponseType = HttpResponse<IVariation>;
 type EntityArrayResponseType = HttpResponse<IVariation[]>;
-
+type EntityResponseTypeApproveRejected = HttpResponse<{ approve: boolean; rejected: boolean }>;
 @Injectable({ providedIn: 'root' })
 export class VariationService {
     private resourceUrl = SERVER_API_URL + 'api/variations';
@@ -19,6 +19,7 @@ export class VariationService {
     private urlPending = SERVER_API_URL + 'api/pending-variations';
     private urlApprove = SERVER_API_URL + 'api/approve';
     private urlRejected = SERVER_API_URL + 'api/rejected';
+    private urlApproveRejected = SERVER_API_URL + 'api/canApproveRejected';
     constructor(private http: HttpClient) {}
 
     create(variation: IVariation): Observable<EntityResponseType> {
@@ -65,6 +66,12 @@ export class VariationService {
 
     rejected(id: number): Observable<EntityResponseType> {
         return this.http.post<IVariation>(this.urlRejected, id, { observe: 'response' }).pipe(map((res: EntityResponseType) => res));
+    }
+
+    canApproveRejected(id: number): Observable<EntityResponseTypeApproveRejected> {
+        return this.http
+            .post<{ approve: boolean; rejected: boolean }>(this.urlApproveRejected, id, { observe: 'response' })
+            .pipe(map((res: EntityResponseTypeApproveRejected) => res));
     }
 
     private convertDateFromClient(variation: IVariation): IVariation {

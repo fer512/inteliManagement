@@ -3,6 +3,7 @@ package ar.com.intelimanagement.service;
 import ar.com.intelimanagement.domain.Approvals;
 import ar.com.intelimanagement.domain.SupervisorApprovals;
 import ar.com.intelimanagement.service.dto.ApprovalsDTO;
+import ar.com.intelimanagement.service.dto.CanApproveRejectedDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -51,4 +52,6 @@ public interface ApprovalsService {
 	Approvals save(Approvals approvals);
 
 	Approvals rejected(Long id) throws Exception;
+
+	CanApproveRejectedDTO canApproveRejected(Approvals approval);
 }
