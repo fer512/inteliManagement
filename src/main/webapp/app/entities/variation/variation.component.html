@@ -25,7 +25,7 @@
                     
                     <ng-container matColumnDef="area">
                         <th mat-header-cell *matHeaderCellDef> Area </th>
-                        <td mat-cell *matCellDef="let element"> {{element.area}} </td>
+                        <td mat-cell *matCellDef="let element"> {{'inteliManagementApp.variation.'+element.area | translate }} </td>
                     </ng-container>    
 
                     <ng-container matColumnDef="campaing">
@@ -57,7 +57,9 @@
                     </div> 
                 </div>
                 
-                <div class="ubmat-tc-gray-4" *ngIf=" variations != null && !variations.length">Aún no haz creado ningun registro.</div>
+                <div class="ubmat-tc-gray-4 ubmat-m-lg ubmat-align-c" *ngIf=" variations != null && !variations.length">
+                    <h3>Aún no haz creado ningun registro.</h3>
+                </div>
                <!--
                 <mat-card class="example-card" *ngFor="let variation of variations ;trackBy: trackId">
                     <mat-card-header class="notif-header">

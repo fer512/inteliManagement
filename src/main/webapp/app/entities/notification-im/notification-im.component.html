@@ -3,12 +3,7 @@
           <mat-card-content>
             <section class="loss-section">
                 <h3>Mis Notificaciones</h3>
-                <div class="ubmat-align-r">
-                    <button mat-icon-button matTooltip="Marcar como leído" matTooltipClass="ubmat-tooltip">
-                        <mat-icon>drafts</mat-icon>
-                    </button>
-                </div>
-                
+               
                 <mat-selection-list *ngIf="listNotifications && listNotifications.length">
                     <!-- | orderBy:-referenceId -->
                     <div class="ubmat-notification" *ngFor="let notification of listNotifications" [ngSwitch]="notification.type">
@@ -17,7 +12,9 @@
                         <jhi-variation-rejected *ngSwitchCase="'VARIATION_REJECTED'" [notification]="notification"></jhi-variation-rejected>
                     </div>
                 </mat-selection-list>
-                <div class="ubmat-tc-gray-4" *ngIf="!listNotifications.length">Genial!, ya puedes descansar, no tienes notifiaciones pendientes.</div>
+                <div class="ubmat-tc-gray-4 ubmat-m-lg ubmat-align-c" *ngIf="!listNotifications.length">
+                    <h3>Genial!, ya puedes descansar, no tienes notifiaciones pendientes.</h3>
+                </div>
             </section>
           </mat-card-content>
         </mat-card>

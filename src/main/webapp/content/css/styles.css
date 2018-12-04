@@ -38,6 +38,7 @@ body {
 
 .ubmat-notification {
     height: 85px !important;
+    border-bottom: 0.5px solid #ccc;
 }
 
 .-header {

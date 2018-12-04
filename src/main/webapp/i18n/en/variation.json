@@ -35,7 +35,8 @@
             "cacel": "Cacel",
             "relationship_user_variation": "Relationship User Variation",
             "relationship_provider_variation": "Relationship Provider Variation",
-            "relationship_product_variation": "Relationship Product Variation"
+            "relationship_product_variation": "Relationship Product Variation",
+            "CUSTOMER_SERVICE": "Customer Service"
         }
     }
 }

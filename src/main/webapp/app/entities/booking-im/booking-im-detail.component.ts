@@ -20,7 +20,33 @@ export class BookingImDetailComponent implements OnInit {
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ booking }) => {
+            booking.products.forEach(p => {
+                p['TotExtraCharge'] = 0;
+                p['TotNewCharge'] = 0;
+                p['TotNewCost'] = 0;
+                p['TotNewBenefit'] = 0;
+                p['TotRefundInCash'] = 0;
+                p['TotRefundInPoints'] = 0;
+
+                p.variations.forEach(v => {
+                    if (v.approvals.status == 'APPROVED') {
+                        p['TotExtraCharge'] = p['TotExtraCharge'] + v.extraCharge;
+                        p['TotNewCharge'] = p['TotNewCharge'] + v.newCharge;
+                        p['TotNewCost'] = p['TotNewCost'] + v.newCost;
+                        p['TotNewBenefit'] = p['TotNewBenefit'] + v.newBenefit;
+                        p['TotRefundInCash'] = p['TotRefundInCash'] + v.refundInCash;
+                        p['TotRefundInPoints'] = p['TotRefundInPoints'] + v.refundInPoints;
+                    }
+                    this.variationService.canApproveRejected(v.id).subscribe(response => {
+                        v['privilege'] = response.body;
+                    });
+                });
+            });
+
+            console.log(booking);
+
             this.booking = booking;
+
             /** find index to object load by route param jid (JuniperId) and set active tab */
             let refJidActiveTab = null;
             this.activatedRoute.params.subscribe(params => {

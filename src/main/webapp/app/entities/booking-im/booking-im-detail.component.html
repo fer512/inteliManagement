@@ -6,10 +6,11 @@
                             <h3 class="ubmat-mb-sm">Reserva Numero <b>#{{booking.idTransaction}}</b></h3> 
                             <p class="ubmat-tc-gray-4">Ultima actualización, hace 2 semanas el 20-09-2018 a las 18:07:35</p>                                  
                             <mat-chip-list>
-                                    <mat-chip color="primary" selected>Total Ingresos: 0.00</mat-chip>
-                                    <mat-chip>Total Beneficio: 0.00</mat-chip>
-                                    <mat-chip>Total Pago a proveedores: 0.00</mat-chip>
-                            </mat-chip-list>   
+                                    <mat-chip color="primary" selected>Total Ingresos: {{booking.paymentCreditCard+booking.paymentPointsInUSD}}</mat-chip>
+                                    <mat-chip>Total Beneficio: {{booking.benefitInReservation}}</mat-chip>
+                                    <mat-chip>Total Pago a proveedores: {{booking.juniperReservationCost}}</mat-chip>
+                                    <mat-chip color="accent" selected>Utilidad: {{(booking.paymentCreditCard + booking.paymentPointsInUSD) - (booking.juniperSalePrice - booking.juniperReservationCost)}}</mat-chip>
+                                </mat-chip-list>   
                             <table class ="ubmat-table -md ubmat-mt-md">
                                 <tr>
                                     <td>
@@ -32,7 +33,8 @@
                             </table>
                              <!-- end booking detail -->            
                         <mat-tab-group dynamicHeight [selectedIndex]="selectedIndex" (selectedIndexChange)="selectedIndex = $event" class="ubmat-tab-detail-group ubmat-mt-lg">
-                            <mat-tab *ngFor="let tab of booking.products; let index = index">
+                            <mat-tab *ngFor="let tab of booking.products; index as b; trackBy: b">
+                                
                                     <ng-template mat-tab-label class="ubmat-tab-detail">
                                             <div class="ubmat-tab-detail-title">
                                                 <mat-icon class="ubmat-icon-sm">{{tab.reserveLocatorJuniperProduct.code === 'HOTEL' ? 'location_city' : 'flight'}}</mat-icon> 
@@ -45,8 +47,24 @@
                                             <h1 class="ubmat-mb-xsm"><!--{{tab.productId}}--> <mat-icon class="ubmat-fl ubmat-mr-sm">{{tab.reserveLocatorJuniperProduct.code === 'HOTEL' ? 'location_city' : 'flight'}}</mat-icon> {{tab.reserveLocatorJuniperProduct.name}}</h1>
                                             <p class="ubmat-mt-xsm ubmat-tc-gray-4">Locador Juniper N°: {{tab.idReserveLocatorJuniper}}, Proveedor: {{tab.reserveLocatorJuniperProvider.name}}</p>
                                               <!--beging content-->
+
+
+                                              
+                                              <p *ngIf="!tab.variations.length">Aún no se creó ningún registro de variación en esta reserva.</p>
+                                              
+                                                <mat-chip-list>
+                                                    <mat-chip color="primary" selected> Cobro Extra ~ usd: {{tab.TotExtraCharge}}</mat-chip>
+                                                    <mat-chip color="primary" selected> Nuevos Cargo ~ usd: {{tab.TotNewCharge}}</mat-chip>
+                                                    <mat-chip color="primary" selected> Nuevos Costo ~ usd: {{tab.TotNewCost}}</mat-chip>
+                                                    <mat-chip color="primary" selected> Nuevos Beneficio ~ usd: {{tab.TotNewBenefit}}</mat-chip>
+                                                    <mat-chip color="accent" selected> Devolución ~ usd: {{tab.TotRefundInCash}}</mat-chip>
+                                                    <mat-chip color="accent" selected> Devolución ~ pts: {{tab.TotRefundInPoints}}</mat-chip>
+                                                </mat-chip-list> 
+                                                <hr>  
+                                              
+                                              
                                               <button mat-button color="primary"  [routerLink]="['/variation/',tab.id,'new' ]">+ Agregar una variación</button>            
-                                                <mat-card class="ubmat-card ubmat-bg-white" *ngFor="let variation of tab.variations">
+                                                <mat-card class="ubmat-card ubmat-bg-white" *ngFor="let variation of tab.variations; index as v; trackBy: v">
                                                   <mat-card-header>
                                                         <div mat-card-avatar>
                                                             <mat-icon class="ubmat-icon-xlg ubmat-tc-green-4" *ngIf="variation.approvals.status == 'APPROVED'">verified_user</mat-icon>
@@ -76,26 +94,55 @@
                                                             <div>Motivo: {{variation.reason}}</div>
                                                             <div>Creado por: {{variation.creationUser.firstName }} {{variation.creationUser.lastName}} ~ {{variation.creationDate | date:'medium'}}</div> 
                                                             <div>Autorizado: {{variation.approvals.stastDate | date:'medium'}}</div>
-                                                            <table>
-                                                                <tr><td>Cargo</td><td>~ usd</td><td>{{variation.new_charge}}</td></tr>
-                                                                <tr><td>Costo</td><td>~ usd</td><td>{{variation.new_cost}}</td></tr>
-                                                                <tr><td>Beneficio</td><td>~ usd</td><td>{{variation.new_benefit}}</td></tr>
-                                                            </table>                                                                   
+                                                            <table class="ubmat-mt-md">                                                                    
+                                                                <tr *ngIf="variation.extraCharge">
+                                                                    <td><b>Cargo Extra</b></td>
+                                                                    <td class="ubmat-tc-gray-4">~ usd:</td>
+                                                                    <td>{{variation.extraCharge | number}}</td>
+                                                                </tr>                                                                    
+                                                                <tr *ngIf="variation.newCharge">
+                                                                    <td><b>Nuevo Cargo</b></td>
+                                                                    <td class="ubmat-tc-gray-4">~ usd:</td>
+                                                                    <td>{{variation.newCharge | number}}</td>
+                                                                </tr>
+                                                                <tr *ngIf="variation.newCost">
+                                                                    <td><b>Nuevo Costo</b></td>
+                                                                    <td class="ubmat-tc-gray-4">~ usd:</td>
+                                                                    <td>{{variation.newCost | number}}</td>
+                                                                </tr>
+                                                                <tr *ngIf="variation.newBenefit">
+                                                                    <td><b>Beneficio</b></td>
+                                                                    <td class="ubmat-tc-gray-4">~ usd:</td>
+                                                                    <td>{{variation.newBenefit | number}}</td>
+                                                                </tr>
+                                                                <tr *ngIf="variation.refundInCash">
+                                                                    <td><b>Devolución en Efectivo</b></td>
+                                                                    <td class="ubmat-tc-gray-4">~ usd:</td>
+                                                                    <td>{{variation.refundInCash | number }}</td>
+                                                                </tr>
+                                                                <tr *ngIf="variation.refundInPoints">
+                                                                    <td><b>Devolución de Puntos</b></td>
+                                                                    <td class="ubmat-tc-gray-4">~ pts:</td>
+                                                                    <td>{{variation.refundInPoints | number}}</td>
+                                                                </tr>
+                                                            </table>     
+                                                            <h4 *ngIf="newExternalLocatorId" class="ubmat-tc-red-4">nuevo Locador Externo <b>{{variation.newExternalLocatorId}}</b></h4>                                                              
                                                         </div>
                                                         <mat-accordion class="ubmat-mb-md">
-                                                                <mat-expansion-panel class="ubmat-non-boxshadow" [disabled]="variation.comments && variation.comments.length < 6" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                                                <mat-expansion-panel class="ubmat-non-boxshadow" [disabled]="!variation.comments || variation.comments.length < 100" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                                                                     <mat-expansion-panel-header>
                                                                         <mat-panel-title style="flex-grow:unset;">
-                                                                            <span class="ubmat-tc-black"><b>Descripción</b></span>
+                                                                            <span class="ubmat-tc-black"><b>Descripción:</b></span>
                                                                         </mat-panel-title>
                                                                         <mat-panel-description matTooltip="click para ver la descripción completa..."  [matTooltipDisabled]="variation.comments && variation.comments.length < 6"  matTooltipClass="ubmat-tooltip">
-                                                                            {{ variation.comments | slice:0:5 }}...
+                                                                             {{ variation.comments ? '~ '+variation.comments+'...' : 'Sin Descripción' | slice:0:100 }}
                                                                         </mat-panel-description>
                                                                     </mat-expansion-panel-header>
                                                                     <ng-template class="ubmat-pb-no" matExpansionPanelContent>
-                                                                        <p class="ubmat-m-no ubmat-tc-gray-4">{{variation.comments}}</p>
+                                                                        <p class="ubmat-m-no ubmat-tc-gray-1">{{variation.comments}}</p>
                                                                     </ng-template>
-                                                                </mat-expansion-panel>                                                           
+                                                                </mat-expansion-panel>
+                                                                <!--                                                        
                                                                 <mat-expansion-panel class="ubmat-non-boxshadow" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                                                                  <mat-expansion-panel-header>
                                                                    <mat-panel-title>
@@ -114,12 +161,14 @@
                                                                     </li>
                                                                 </ul>
                                                                </mat-expansion-panel>
+                                                               -->
                                                         </mat-accordion>
-                                                        <mat-list *ngIf="variation.approvals.status == 'CREATE'">
-                                                            <mat-divider></mat-divider>
+                                                        <mat-list>
+                                                            <mat-divider></mat-divider>                                                           
                                                             <mat-list-item class="ubmat-mt-xsm">
-                                                                <button class="ubmat-mr-xsm" mat-raised-button color="primary" (click)="approve(variation.id)">Aprobar</button>
-                                                                <button mat-raised-button color="accent" (click)="rejected(variation.id)">Rechazar</button>        
+                                                                <button *ngIf="variation.privilege && variation.privilege.approve === true ? true : false" class="ubmat-mr-xsm" mat-raised-button color="primary" (click)="approve(variation.id)">Aprobar</button>
+                                                                <button *ngIf="variation.privilege && variation.privilege.rejected === true ? true : false" class="ubmat-mr-xsm" mat-raised-button color="accent" (click)="rejected(variation.id)">Rechazar</button> 
+                                                                <button mat-raised-button color="warn" (click)="recover(variation.id)" *ngIf="variation.recoverable"><i class="material-icons">priority_high</i> Recuperar</button>                                                               
                                                             </mat-list-item>
                                                         </mat-list>
                                                     </mat-card-content>

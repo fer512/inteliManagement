@@ -18,7 +18,7 @@
             },
             "extra_charge": "Extra Charge",
             "new_charge": "New Charge",
-            "new_cost": "New Cost",
+            "new_cost": "Nuevo Costo",
             "new_benefit": "New Benefit",
             "new_external_locator_id": "New External Locator Id",
             "comments": "Comments",
@@ -35,7 +35,11 @@
             "cacel": "Cacel",
             "relationship_user_variation": "Relationship User Variation",
             "relationship_provider_variation": "Relationship Provider Variation",
-            "relationship_product_variation": "Relationship Product Variation"
+            "relationship_product_variation": "Relationship Product Variation",
+            "CUSTOMER_SERVICE": "Customer Service",
+            "POST_SALE": "Post Venta",
+            "MARKETING": "Marketing",
+            "SALES": "Ventas"
         }
     }
 }
