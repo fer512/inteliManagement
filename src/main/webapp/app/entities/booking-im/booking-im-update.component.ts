@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
-import { IBookingIm } from 'app/shared/model/booking-im.model';
+import { IBookingIm, BookingIm } from 'app/shared/model/booking-im.model';
 import { BookingImService } from './booking-im.service';
 import { ICompanyIm } from 'app/shared/model/company-im.model';
 import { CompanyImService } from 'app/entities/company-im';
@@ -34,7 +34,7 @@ export interface DialogData {
 export class BookingImUpdateComponent implements OnInit {
     emailFormControl = new FormControl('', [Validators.required, Validators.email]);
 
-    private _booking: IBookingIm;
+    private _booking: IBookingIm = new BookingIm();
     isSaving: boolean;
     companies: ICompanyIm[];
 
@@ -62,7 +62,9 @@ export class BookingImUpdateComponent implements OnInit {
         this.isSaving = false;
 
         this.activatedRoute.data.subscribe(({ booking }) => {
-            this.booking = booking;
+            if (booking != null && booking.id != null && booking.id != undefined) {
+                this.booking = booking;
+            }
         });
 
         this.companyService.query().subscribe(
@@ -73,10 +75,8 @@ export class BookingImUpdateComponent implements OnInit {
         );
 
         this.bookingService.newBookingId.subscribe(data => {
-            if (data != null) {
-                this.booking.idTransaction = data;
-                this.bookingService.addNewBookingId(null);
-            }
+            this.booking = new BookingIm();
+            this.booking.idTransaction = data;
         });
 
         this.productService.query().subscribe(

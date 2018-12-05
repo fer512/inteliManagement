@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
 import { IProviderIm } from 'app/shared/model//provider-im.model';
 import { IProductIm } from 'app/shared/model//product-im.model';
+import { IApprovalsIm } from 'app/shared/model/approvals-im.model';
 
 export interface IVariation {
     id?: number;
@@ -21,6 +22,7 @@ export interface IVariation {
     refundInPoints?: number;
     refundInCash?: number;
     cacel?: boolean;
+    approvals?: IApprovalsIm;
 }
 
 export class Variation implements IVariation {

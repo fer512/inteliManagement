@@ -1,5 +1,6 @@
 import { IProductIm } from 'app/shared/model/product-im.model';
 import { IProviderIm } from 'app/shared/model/provider-im.model';
+import { IVariation } from 'app/shared/model/variation.model';
 
 export interface IProductByBooking {
     id?: number;
@@ -8,6 +9,7 @@ export interface IProductByBooking {
     reserveLocatorJuniperProvider?: IProviderIm;
     idReserveLocatorJuniper?: string;
     idReserveLocatorExternal?: string;
+    variations?: IVariation[];
 }
 
 export class ProductByBooking implements IProductByBooking {
@@ -17,6 +19,7 @@ export class ProductByBooking implements IProductByBooking {
         public reserveLocatorJuniperProduct?: IProductIm,
         public reserveLocatorJuniperProvider?: IProviderIm,
         public idReserveLocatorJuniper?: string,
-        public idReserveLocatorExternal?: string
+        public idReserveLocatorExternal?: string,
+        public variations?: IVariation[]
     ) {}
 }

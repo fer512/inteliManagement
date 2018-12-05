@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { JhiAlertService } from 'ng-jhipster';
 import { IBookingIm } from 'app/shared/model/booking-im.model';
 import { VariationService } from 'app/entities/variation/variation.service';
+import { BookingImService } from 'app/entities/booking-im/booking-im.service';
 
 @Component({
     selector: 'jhi-booking-im-detail',
@@ -15,39 +16,14 @@ export class BookingImDetailComponent implements OnInit {
     constructor(
         private activatedRoute: ActivatedRoute,
         private variationService: VariationService,
-        private jhiAlertService: JhiAlertService
+        private jhiAlertService: JhiAlertService,
+        private bookingService: BookingImService
     ) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ booking }) => {
-            booking.products.forEach(p => {
-                p['TotExtraCharge'] = 0;
-                p['TotNewCharge'] = 0;
-                p['TotNewCost'] = 0;
-                p['TotNewBenefit'] = 0;
-                p['TotRefundInCash'] = 0;
-                p['TotRefundInPoints'] = 0;
-
-                p.variations.forEach(v => {
-                    if (v.approvals.status == 'APPROVED') {
-                        p['TotExtraCharge'] = p['TotExtraCharge'] + v.extraCharge;
-                        p['TotNewCharge'] = p['TotNewCharge'] + v.newCharge;
-                        p['TotNewCost'] = p['TotNewCost'] + v.newCost;
-                        p['TotNewBenefit'] = p['TotNewBenefit'] + v.newBenefit;
-                        p['TotRefundInCash'] = p['TotRefundInCash'] + v.refundInCash;
-                        p['TotRefundInPoints'] = p['TotRefundInPoints'] + v.refundInPoints;
-                    }
-                    this.variationService.canApproveRejected(v.id).subscribe(response => {
-                        v['privilege'] = response.body;
-                    });
-                });
-            });
-
-            console.log(booking);
-
             this.booking = booking;
-
-            /** find index to object load by route param jid (JuniperId) and set active tab */
+            this.buildValues();
             let refJidActiveTab = null;
             this.activatedRoute.params.subscribe(params => {
                 refJidActiveTab = params['jid'];
@@ -59,10 +35,39 @@ export class BookingImDetailComponent implements OnInit {
         });
     }
 
+    buildValues() {
+        this.booking.products.forEach(p => {
+            p['TotExtraCharge'] = 0;
+            p['TotNewCharge'] = 0;
+            p['TotNewCost'] = 0;
+            p['TotNewBenefit'] = 0;
+            p['TotRefundInCash'] = 0;
+            p['TotRefundInPoints'] = 0;
+            p.variations.forEach(v => {
+                if (v.approvals.status == 'APPROVED') {
+                    p['TotExtraCharge'] = p['TotExtraCharge'] + v.extraCharge;
+                    p['TotNewCharge'] = p['TotNewCharge'] + v.newCharge;
+                    p['TotNewCost'] = p['TotNewCost'] + v.newCost;
+                    p['TotNewBenefit'] = p['TotNewBenefit'] + v.newBenefit;
+                    p['TotRefundInCash'] = p['TotRefundInCash'] + v.refundInCash;
+                    p['TotRefundInPoints'] = p['TotRefundInPoints'] + v.refundInPoints;
+                }
+                this.variationService.canApproveRejected(v.id).subscribe(response => {
+                    v['privilege'] = response.body;
+                });
+            });
+        });
+    }
+
     approve(id: number) {
         this.variationService.approve(id).subscribe(
             data => {
                 this.jhiAlertService.success('ok', null, null);
+                this.bookingService.find(this.booking.id).subscribe(response => {
+                    console.log(response.body);
+                    this.booking = response.body;
+                    this.buildValues();
+                });
             },
             error => {
                 this.jhiAlertService.error(error.error.detail, null, null);
