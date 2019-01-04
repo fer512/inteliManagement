@@ -59,6 +59,8 @@ export class BookingImDetailComponent implements OnInit {
         });
     }
 
+    recover(data: any) {}
+
     approve(id: number) {
         this.variationService.approve(id).subscribe(
             data => {

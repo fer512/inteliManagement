@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
 
@@ -54,10 +55,10 @@ public class SupervisorApprovals extends Approvals implements Serializable {
 		return null;
 	}
 	
-	
 	private Boolean canApproveOK(User user) {
 		User userCurrentLevel = this.getUserCurrentLevel();
 		User supervisor = userCurrentLevel.getSupervisor();	
+		System.out.println("Supervisor: " + supervisor == null ? " nulo " : supervisor.getId() + " User: "+ user.getId());
 		return supervisor == null || user.getId().equals(supervisor.getId());
 	}
 	

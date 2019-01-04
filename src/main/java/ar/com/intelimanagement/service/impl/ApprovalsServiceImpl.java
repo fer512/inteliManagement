@@ -10,6 +10,8 @@ import ar.com.intelimanagement.service.dto.ApprovalsDTO;
 import ar.com.intelimanagement.service.dto.CanApproveRejectedDTO;
 import ar.com.intelimanagement.service.dto.UserDTO;
 import ar.com.intelimanagement.service.mapper.ApprovalsMapper;
+
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -115,11 +117,11 @@ public class ApprovalsServiceImpl implements ApprovalsService {
 
 	@Override
 	@Transactional
-	public CanApproveRejectedDTO canApproveRejected(Approvals approval) {
+	public CanApproveRejectedDTO canApproveRejected(Approvals approvals) {
 		CanApproveRejectedDTO dto = new CanApproveRejectedDTO();
 		Optional<User> currentUser = this.userService.getUserWithAuthorities();
-		Boolean a = approval.canApprove(currentUser.get());
-		Boolean r = approval.canRejected(currentUser.get());
+		Boolean a = approvals.canApprove(currentUser.get());
+		Boolean r = approvals.canRejected(currentUser.get());
 		dto.setApprove(a);
 		dto.setRejected(r);
 		return dto;

@@ -33,7 +33,7 @@
                             </table>
                              <!-- end booking detail -->            
                         <mat-tab-group dynamicHeight [selectedIndex]="selectedIndex" (selectedIndexChange)="selectedIndex = $event" class="ubmat-tab-detail-group ubmat-mt-lg">
-                            <mat-tab *ngFor="let tab of booking.products; index as b; trackBy: b">
+                            <mat-tab *ngFor="let tab of booking.products">
                                 
                                     <ng-template mat-tab-label class="ubmat-tab-detail">
                                             <div class="ubmat-tab-detail-title">
@@ -64,7 +64,7 @@
                                               
                                               
                                               <button mat-button color="primary"  [routerLink]="['/variation/',tab.id,'new' ]">+ Agregar una variación</button>            
-                                                <mat-card class="ubmat-card ubmat-bg-white" *ngFor="let variation of tab.variations; index as v; trackBy: v">
+                                                <mat-card class="ubmat-card ubmat-bg-white" *ngFor="let variation of tab.variations">
                                                   <mat-card-header>
                                                         <div mat-card-avatar>
                                                             <mat-icon class="ubmat-icon-xlg ubmat-tc-green-4" *ngIf="variation.approvals.status == 'APPROVED'">verified_user</mat-icon>
@@ -126,7 +126,7 @@
                                                                     <td>{{variation.refundInPoints | number}}</td>
                                                                 </tr>
                                                             </table>     
-                                                            <h4 *ngIf="newExternalLocatorId" class="ubmat-tc-red-4">nuevo Locador Externo <b>{{variation.newExternalLocatorId}}</b></h4>                                                              
+                                                            <h4 *ngIf="variation.newExternalLocatorId" class="ubmat-tc-red-4">nuevo Locador Externo <b>{{variation.newExternalLocatorId}}</b></h4>                                                              
                                                         </div>
                                                         <mat-accordion class="ubmat-mb-md">
                                                                 <mat-expansion-panel class="ubmat-non-boxshadow" [disabled]="!variation.comments || variation.comments.length < 100" (opened)="panelOpenState = true" (closed)="panelOpenState = false">

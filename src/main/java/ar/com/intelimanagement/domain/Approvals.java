@@ -12,6 +12,7 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,8 +24,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.jpa.provider.HibernateUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.intelimanagement.domain.enumeration.ApprovalsStatusType;
 import ar.com.intelimanagement.domain.enumeration.ErrorEnum;
@@ -61,7 +65,7 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
     @JoinColumn(name = "creation_user")
     private User creationUser;
     
-    @OneToMany(mappedBy="approvals",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="approvals",cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<ApprovalHistory> history;
     
@@ -131,10 +135,12 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 	}
 
 	public Boolean approved(User user) throws Exception{
-		if(this.getHistory().stream().anyMatch(h-> h.getApprovals().getCreationUser().getId().equals(user.getId())))
+		Boolean isCreation = this.getHistory().stream().anyMatch(h-> h.getApprovals().getCreationUser().getId().equals(user.getId()));
+		if(isCreation)
 			throw new Exception(ErrorEnum.USER_CREATION.toString());
 
-		if(this.getHistory().stream().anyMatch(h-> h.getUser().getId().equals(user.getId()) && ApprovalsStatusType.APPROVED.equals(h.getStatus())))
+		Boolean isApproved = this.getHistory().stream().anyMatch(h-> h.getUser().getId().equals(user.getId()) && ApprovalsStatusType.APPROVED.equals(h.getStatus()));
+		if(isApproved)
 			throw new Exception(ErrorEnum.USER_APPROVE.toString());
 		
 		return false;
@@ -142,11 +148,16 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 	
 	public Boolean validDate() throws Exception{
 		Instant now = Instant.now();
-		return ((this.getStastDate() == null || now.isAfter(this.getStastDate())) && (this.getEndDate() == null || now.isBefore(this.getEndDate())));
+		Boolean isAfter = this.getStastDate() != null ? now.isAfter(this.getStastDate()) : null;
+		Boolean isBefore = this.getEndDate() != null ? now.isBefore(this.getEndDate()) : null;
+		return ((isAfter == null || isAfter) && (isBefore == null || isBefore));
 	}
 	
 	public Boolean validStatus() throws Exception{
-		if(ApprovalsStatusType.CREATE.equals(this.getStatus()) || ApprovalsStatusType.PENDING.equals(this.getStatus())) {
+		ApprovalsStatusType currentStatus = this.getStatus();
+		System.out.println("Estado actual: " + currentStatus.name());
+		if(ApprovalsStatusType.CREATE.equals(currentStatus) || ApprovalsStatusType.PENDING.equals(currentStatus)) {
+			System.out.println("Estado actual: " + currentStatus.name() + " - Es Valido");
 			return true;
 		}
 		throw new Exception(ErrorEnum.STATUS_INVALID.toString());
@@ -170,6 +181,7 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 		try {
 			return this.validStatus() && this.validDate() && !this.approved(user) && this.canRejectedOK(user);
 		}catch(Exception e) {
+			System.out.println(e.getMessage());
 			return false;
 		}
 	}
@@ -215,11 +227,12 @@ public class Approvals extends AbstractAuditingEntity implements Serializable {
 	public boolean pointOfNoReturn() {
 		return false;
 	}
-
+	
 	public Boolean canApprove(User user) {
 		try {
 			return this.validStatus() && this.validDate() && !this.approved(user) && this.canApproveOK(user);
 		}catch(Exception e) {
+			System.out.println(e.getMessage());
 			return false;
 		}
 	}
